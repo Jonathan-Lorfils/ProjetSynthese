@@ -11,6 +11,10 @@ public class UserService {
 
     public UserRepository userRepository;
 
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
     public Optional<User> registerUser(User user){
         try{
             return Optional.of(userRepository.save(user));
