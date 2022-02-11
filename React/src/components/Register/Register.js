@@ -74,7 +74,7 @@ const Register = () => {
                                             <input type="text" id="walletAddress" className="form-control form-control-lg" {...register("walletAddress", { required: true })} />
                                         </div>
                                         <div className="d-flex justify-content-center">
-                                            <button type="submit" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">S'inscrire</button>
+                                            <button type="submit" className="btn btn-primary btn-block btn-lg">S'inscrire</button>
                                         </div>
                                         <p className="text-center text-muted mt-5 mb-0">Vous avez deja un compte ? <a href="/" className="fw-bold text-body"><u>Connectez-vous</u></a></p>
                                     </form>
