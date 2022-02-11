@@ -52,7 +52,7 @@ const Login = () => {
                         <input className="form-control" type="password" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />
                       </div>
                       <div className="text-center pt-1 mb-5 pb-1">
-                        <button className="btn btn-primary btn-block mb-3" type="submit">Connection</button>
+                        <button className="btn btn-primary btn-block mb-3" type="submit">Connexion</button>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2 px-md-2">Pas de compte ?</p>
