@@ -56,7 +56,7 @@ const Login = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2 px-md-2">Pas de compte ?</p>
-                        <a href="/register" className="fw-bold text-body"><button type="button" className="btn btn-outline-danger">S'inscrire</button></a>
+                        <a href="/register" className="fw-bold text-body"><button type="button" className="btn btn-outline-primary">S'inscrire</button></a>
                       </div>
                     </form>
                   </div>
