@@ -1,27 +1,36 @@
 import React, { useState } from "react";
 import './style.css'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const [user, setUser] = useState({firstName:"", lastName:"", phoneNumber:"", email:"", walletAddress:"", password: ""})
+    let history = useNavigate();
 
-    const addMonitor = async (monitor) => {
-        const result = await fetch('http://localhost:8888/monitors/register',
+    const registerUser = async (userJSON) => {
+        const result = await fetch('http://localhost:2022/user/register',
           {
             method: 'POST',
             headers: {
               'Content-type': 'application/json'
             },
-            body: JSON.stringify(monitor)
+            body: JSON.stringify(userJSON)
           })
         return await result.json()
     }
 
 
     function onSubmit(data) {
-        console.log(data)
+        registerUser(data)
+            .then((data) => data.email !== undefined ? registration() : alert("echec de l'inscription"))
+    }
+
+    function registration(){
+        // save dans le navigateur
+        alert("Inscription reussi")
+        history("/");
     }
 
     return (
@@ -47,8 +56,8 @@ const Register = () => {
                                             <input type="text" id="lastName" className="form-control form-control-lg" {...register("lastName", { required: true, max: 46 })} />
                                         </div>
                                         <div className="form-outline mb-4">
-                                            <label className="form-label" for="phoneNumber">Telephone (514-000-0000)</label>
-                                            <input type="tel" id="phoneNumber" className="form-control form-control-lg"  {...register("phoneNumber", { required: true, max: 10 })} />
+                                            <label className="form-label" for="phoneNumber">Telephone</label>
+                                            <input type="text" id="phoneNumber" className="form-control form-control-lg"  {...register("phoneNumber", { required: true, min: 10 })} />
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="email">Adresse courriel</label>

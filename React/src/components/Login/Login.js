@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
 import './style.css'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
+  let history = useNavigate();
 
   const userLogin = async (email, password) => { 
     const res = await fetch(`http://localhost:2022/user/${email}/${password}`)
@@ -18,7 +20,7 @@ const Login = () => {
   }
 
   function signIn (){
-
+    history("/dashboard")
   }
 
   return (
@@ -37,7 +39,7 @@ const Login = () => {
                 <div className="col-lg-6">
                   <div className="card-body p-md-5 mx-md-4">
                     <div className="text-center">
-                      <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                      <h4 className="mt-1 mb-5 pb-1">SafeNFT</h4>
                     </div>
                     <form onSubmit={handleSubmit((data) => {
                       onSubmit(data);
@@ -47,7 +49,7 @@ const Login = () => {
                         <input className="form-control" type="email" placeholder="Adresse courriel" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
                       </div>
                       <div className="form-group mb-4">
-                        <input className="form-control" type="text" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />
+                        <input className="form-control" type="password" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />
                       </div>
                       <div className="text-center pt-1 mb-5 pb-1">
                         <button className="btn btn-primary btn-block gradient-custom-2 mb-3" type="submit">Connection</button>
