@@ -8,13 +8,13 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   let history = useNavigate();
 
-  const userLogin = async (email, password) => { 
-    const res = await fetch(`http://localhost:2022/user/${email}/${password}`)
+  const customerLogin = async (username, password) => { 
+    const res = await fetch(`http://localhost:2022/customer/${username}/${password}`)
     return await res.json()
   }
 
   function onSubmit(data) {
-    userLogin(data.email,data.password)
+    customerLogin(data.username,data.password)
       .then((data) => data.email != null ? signIn() : console.log(data))
       //.then((data) => data.email != null ? signIn() : alert("Echec de la connexion"))
   }
@@ -46,7 +46,7 @@ const Login = () => {
                     })}>
                       <p>Se connecter</p>
                       <div className="form-group mb-4">
-                        <input className="form-control" type="email" placeholder="Adresse courriel" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
+                        <input className="form-control" type="text" placeholder="Nom d'utilisateur" {...register("username", { required: true})} />
                       </div>
                       <div className="form-group mb-4">
                         <input className="form-control" type="password" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />

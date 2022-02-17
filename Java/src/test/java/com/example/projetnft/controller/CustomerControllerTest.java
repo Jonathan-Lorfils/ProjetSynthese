@@ -1,7 +1,7 @@
 package com.example.projetnft.controller;
 
-import com.example.projetnft.model.User;
-import com.example.projetnft.service.UserService;
+import com.example.projetnft.model.Customer;
+import com.example.projetnft.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,21 +20,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest(UserController.class)
-public class UserControllerTest {
+@WebMvcTest(CustomerController.class)
+public class CustomerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService userService;
+    private CustomerService customerService;
 
-    private User user;
+    private Customer customer;
 
     @BeforeEach
     void setup(){
-        user = User.builder()
+        customer = Customer.builder()
                 .id(1)
+                .username("toto")
                 .email("test@gmail.com")
                 .firstName("Jojo")
                 .lastName("Lolo")
@@ -48,27 +49,27 @@ public class UserControllerTest {
 
     @Test
     public void registerUserTest() throws Exception {
-        when(userService.registerUser(user)).thenReturn(Optional.of(user));
+        when(customerService.registerUser(customer)).thenReturn(Optional.of(customer));
 
-        MvcResult result = mockMvc.perform(post("/user/register")
+        MvcResult result = mockMvc.perform(post("/customer/register")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(new ObjectMapper().writeValueAsString(user))).andReturn();
+                    .content(new ObjectMapper().writeValueAsString(customer))).andReturn();
 
-        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        assertThat(actualUser).isEqualTo(user);
+        assertThat(actualUser).isEqualTo(customer);
     }
 
     @Test
     public void loginUserTest() throws Exception {
-        when(userService.userLogin(user.getEmail(),user.getPassword())).thenReturn(Optional.of(user));
+        when(customerService.userLogin(customer.getUsername(), customer.getPassword())).thenReturn(Optional.of(customer));
 
-        MvcResult result = mockMvc.perform(get("/user/{email}/{password}", user.getEmail(), user.getPassword())
+        MvcResult result = mockMvc.perform(get("/customer/{username}/{password}", customer.getUsername(), customer.getPassword())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualUser).isEqualTo(user);
+        assertThat(actualUser).isEqualTo(customer);
     }
 }

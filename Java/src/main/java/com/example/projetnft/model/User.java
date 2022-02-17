@@ -1,42 +1,22 @@
 package com.example.projetnft.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import lombok.Data;
+
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 @Data
-@Entity
-@NoArgsConstructor
-public class User {
+@MappedSuperclass
+public class User implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
-    private String walletAddress;
-    private double solde = 0;
+
+    private String username;
     private String password;
-    private boolean sellerCertification = false;
-
-    @Builder
-    public User(int id, String firstName, String lastName, String phone, String email, String walletAddress, double solde, String password, boolean sellerCertification) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phone;
-        this.email = email;
-        this.walletAddress = walletAddress;
-        this.solde = solde;
-        this.password = password;
-        this.sellerCertification = sellerCertification;
-    }
-
-
 }

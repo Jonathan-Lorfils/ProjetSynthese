@@ -18,5 +18,5 @@ public class Nft {
     private boolean certified;
 
     @OneToOne
-    private User owner;
+    private Customer owner;
 }

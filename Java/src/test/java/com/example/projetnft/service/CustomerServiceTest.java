@@ -1,8 +1,7 @@
 package com.example.projetnft.service;
 
-import com.example.projetnft.model.User;
-import com.example.projetnft.repository.UserRepository;
-import org.aspectj.lang.annotation.Before;
+import com.example.projetnft.model.Customer;
+import com.example.projetnft.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,20 +15,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+public class CustomerServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @InjectMocks
-    private UserService userService;
+    private CustomerService customerService;
 
-    private User user;
-    private User userRegistred;
+    private Customer customer;
+    private Customer customerRegistred;
 
     @BeforeEach
     void setup(){
-        user = User.builder()
+        customer = Customer.builder()
                 .id(1)
                 .email("test@gmail.com")
                 .firstName("Jojo")
@@ -41,7 +40,7 @@ public class UserServiceTest {
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
 
-        userRegistred = User.builder()
+        customerRegistred = Customer.builder()
                 .id(1)
                 .email("test@gmail.com")
                 .firstName("Jojo")
@@ -56,15 +55,15 @@ public class UserServiceTest {
 
     @Test
     public void testRegisterUser(){
-        when(userRepository.save(user)).thenReturn(userRegistred);
-        Optional<User> actualUser = userService.registerUser(user);
-        assertThat(actualUser.get()).isEqualTo(userRegistred);
+        when(customerRepository.save(customer)).thenReturn(customerRegistred);
+        Optional<Customer> actualUser = customerService.registerUser(customer);
+        assertThat(actualUser.get()).isEqualTo(customerRegistred);
     }
 
     @Test
     public void testLoginUser(){
-        when(userRepository.findByEmailAndPassword(user.getEmail(),user.getPassword())).thenReturn(user);
-        Optional<User> actualUser = userService.userLogin(user.getEmail(),user.getPassword());
-        assertThat(actualUser.get()).isEqualTo(user);
+        when(customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword())).thenReturn(customer);
+        Optional<Customer> actualUser = customerService.userLogin(customer.getUsername(), customer.getPassword());
+        assertThat(actualUser.get()).isEqualTo(customer);
     }
 }

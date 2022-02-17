@@ -10,7 +10,7 @@ const Register = () => {
     let history = useNavigate();
 
     const registerUser = async (userJSON) => {
-        const result = await fetch('http://localhost:2022/user/register',
+        const result = await fetch('http://localhost:2022/customer/register',
           {
             method: 'POST',
             headers: {
@@ -62,12 +62,14 @@ const Register = () => {
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="email">Adresse courriel</label>
                                             <input type="email" id="email" className="form-control form-control-lg" {...register("email", { required: true, max: 62 })} />
-
+                                        </div>
+                                        <div className="form-outline mb-4">
+                                            <label className="form-label" for="password">Nom d'utilisateur</label>
+                                            <input type="password" id="password" className="form-control form-control-lg" {...register("username", { required: true, max : 65 })} />
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="password">Mot de passe</label>
                                             <input type="password" id="password" className="form-control form-control-lg" {...register("password", { required: true })} />
-
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="walletAddress">Adresse du porte-monnaie (ETH)</label>
