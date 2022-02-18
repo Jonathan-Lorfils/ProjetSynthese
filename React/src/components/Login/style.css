@@ -1,9 +1,6 @@
 .gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #3c33d2;
-  
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(90deg, rgba(60,51,210,1) 0%, rgba(183,179,238,1) 58%, rgba(255,255,255,1) 92%);
+
+    background: linear-gradient(to right, #ee5a6f, #f29263)
   }
   
   @media (min-width: 768px) {
@@ -18,3 +15,4 @@
       border-bottom-right-radius: .3rem;
     }
   }
+

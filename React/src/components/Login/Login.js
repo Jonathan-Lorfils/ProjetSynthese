@@ -15,12 +15,12 @@ const Login = () => {
 
   function onSubmit(data) {
     customerLogin(data.username,data.password)
-      .then((data) => data.email != null ? signIn() : console.log(data))
-      //.then((data) => data.email != null ? signIn() : alert("Echec de la connexion"))
+      .then((data) => data.email != null ? signIn(data) : alert("Erreur de login"))
   }
 
-  function signIn (){
-    history("/dashboard")
+  function signIn (data){
+    sessionStorage.setItem('user',JSON.stringify(data))
+    history("/profile")
   }
 
   return (
@@ -52,11 +52,11 @@ const Login = () => {
                         <input className="form-control" type="password" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />
                       </div>
                       <div className="text-center pt-1 mb-5 pb-1">
-                        <button className="btn btn-primary btn-block mb-3" type="submit">Connexion</button>
+                        <button className="btn btn-danger btn-block mb-3" type="submit">Connexion</button>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2 px-md-2">Pas de compte ?</p>
-                        <a href="/register" className="fw-bold text-body"><button type="button" className="btn btn-outline-primary">S'inscrire</button></a>
+                        <a href="/register" className="fw-bold text-body"><button type="button" className="btn btn-outline-danger">S'inscrire</button></a>
                       </div>
                     </form>
                   </div>
