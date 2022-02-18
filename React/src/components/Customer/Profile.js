@@ -5,12 +5,7 @@ import logo from '.././../LazyLion.jpg'
 
 const Profile = () => {
 
-  const [userInfo, setUserInfo] = useState()
-
-  useEffect(() => {
-    setUserInfo(JSON.parse(sessionStorage.user))
-  }, [])
-
+  const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
 
   return (
     <div>
@@ -29,7 +24,7 @@ const Profile = () => {
                       <p>Vendeur certifié <i class="fa-solid fa-circle-check"></i></p>
                       <br />
                       <h6>Solde disponible : {userInfo.solde} ETH</h6>
-                      <p>Ajouter des fonds</p>
+                      <p><a href="/" className="fw-bold text-white"><u>Ajouter des fonds</u></a></p>
                     </div>
                   </div>
                 </div>
