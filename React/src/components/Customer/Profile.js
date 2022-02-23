@@ -24,7 +24,8 @@ const Profile = () => {
                       <p>Vendeur certifié <i class="fa-solid fa-circle-check"></i></p>
                       <br />
                       <h6>Solde disponible : {userInfo.solde} ETH</h6>
-                      <p><a href="/" className="fw-bold text-white"><u>Ajouter des fonds</u></a></p>
+                      <p><a href="/addfunds" className="fw-bold text-white"><u>Ajouter des fonds</u></a></p>
+                      <p><a href="/withdrawfunds" className="fw-bold text-white"><u>Retirer des fonds</u></a></p>
                     </div>
                   </div>
                 </div>
@@ -33,8 +34,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   )
 }
