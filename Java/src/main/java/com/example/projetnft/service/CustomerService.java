@@ -30,4 +30,15 @@ public class CustomerService {
             return Optional.empty();
         }
     }
+
+    public Optional<Customer> addfunds(Double fundToAdd, String phoneNumber){
+        try {
+            Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
+            customer.setSolde(customer.getSolde() + fundToAdd);
+            customerRepository.save(customer);
+            return Optional.of(customer);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
 }

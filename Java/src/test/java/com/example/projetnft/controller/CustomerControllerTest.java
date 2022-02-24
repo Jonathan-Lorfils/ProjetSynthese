@@ -31,6 +31,8 @@ public class CustomerControllerTest {
 
     private Customer customer;
 
+    private Customer newSoldeCustomer;
+
     @BeforeEach
     void setup(){
         customer = Customer.builder()
@@ -42,9 +44,23 @@ public class CustomerControllerTest {
                 .password("12345")
                 .phone("5141234321")
                 .sellerCertification(true)
-                .solde(32.004)
+                .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
+
+        newSoldeCustomer = Customer.builder()
+                .id(1)
+                .username("toto")
+                .email("test@gmail.com")
+                .firstName("Jojo")
+                .lastName("Lolo")
+                .password("12345")
+                .phone("5141234321")
+                .sellerCertification(true)
+                .solde(33.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .build();
+
     }
 
     @Test
@@ -55,9 +71,9 @@ public class CustomerControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsString(customer))).andReturn();
 
-        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        assertThat(actualUser).isEqualTo(customer);
+        assertThat(actualCustomer).isEqualTo(customer);
     }
 
     @Test
@@ -68,8 +84,21 @@ public class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        var actualUser = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualUser).isEqualTo(customer);
+        assertThat(actualCustomer).isEqualTo(customer);
+    }
+
+    @Test
+    public void addFundTest() throws Exception {
+        when(customerService.addfunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
+
+        MvcResult result = mockMvc.perform(get("/customer/addfunds/{fundToAdd}/{phoneNumber}", 1.0, customer.getPhoneNumber())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualCustomer.getSolde()).isEqualTo(33.0);
     }
 }

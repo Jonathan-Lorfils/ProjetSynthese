@@ -36,7 +36,7 @@ public class CustomerServiceTest {
                 .password("12345")
                 .phone("5141234321")
                 .sellerCertification(true)
-                .solde(32.004)
+                .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
 
@@ -48,7 +48,7 @@ public class CustomerServiceTest {
                 .password("12345")
                 .phone("5141234321")
                 .sellerCertification(true)
-                .solde(32.004)
+                .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
     }
@@ -65,5 +65,12 @@ public class CustomerServiceTest {
         when(customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword())).thenReturn(customer);
         Optional<Customer> actualUser = customerService.userLogin(customer.getUsername(), customer.getPassword());
         assertThat(actualUser.get()).isEqualTo(customer);
+    }
+
+    @Test
+    public void testAddFunds(){
+        when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
+        Optional<Customer> actualCustomer = customerService.addfunds(1.0, customer.getPhoneNumber());
+        assertThat(actualCustomer.get()).isEqualTo(customer);
     }
 }

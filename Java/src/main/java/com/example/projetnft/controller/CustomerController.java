@@ -28,4 +28,11 @@ public class CustomerController {
                 .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
+
+    @GetMapping("addfunds/{fundToAdd}/{phoneNumber}")
+    public ResponseEntity<Customer> addfunds(@PathVariable Double fundToAdd, @PathVariable String phoneNumber){
+        return customerService.addfunds(fundToAdd, phoneNumber)
+                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
+    }
 }

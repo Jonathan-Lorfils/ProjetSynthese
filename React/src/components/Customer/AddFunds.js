@@ -1,32 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 const AddFunds = () => {
+    const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
     const { register, handleSubmit, formState: { errors } } = useForm()
     let history = useNavigate();
 
-    const addfunds = async (userJSON) => {
-        const result = await fetch('http://localhost:2022/customer/register',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(userJSON)
-            })
-        return await result.json()
+    const addfunds = async (fundToAdd) => { 
+        const res = await fetch(`http://localhost:2022/customer/addfunds/${fundToAdd}/${userInfo.phoneNumber}`)
+        return await res.json()
     }
 
     function onSubmit(data) {
-        addfunds(data)
-            .then((data) => data.email !== undefined ? sucess() : alert("echec de l'ajout"))
+        addfunds(data.fundToAdd)
+            .then((data) => data !== data.email ? sucess(data) : alert("echec de l'ajout"))
     }
 
-    function sucess() {
+    function sucess(data) {
         // save dans le navigateur
-        alert("Inscription reussi")
-        history("/");
+        console.log(data)
+        sessionStorage.setItem('user', JSON.stringify(data))
+        alert("Ajout reussi")
+        history("/profile");
     }
 
 
@@ -50,7 +46,7 @@ const AddFunds = () => {
                                         <p className="text-center"><u onClick={() => navigator.clipboard.writeText('Lorem5ipsum2dolor8sit9amet1consectetur3adipisicing')}>Copier</u></p>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="walletAddress">Montant</label>
-                                            <input type="number" id="walletAddress" className="form-control form-control-xs" />
+                                            <input type="number" step={0.00000001} id="walletAddress" className="form-control form-control-xs" {...register("fundToAdd", { required: true })} />
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button type="submit" className="btn btn-danger btn-block btn-md">Ajouter</button>
