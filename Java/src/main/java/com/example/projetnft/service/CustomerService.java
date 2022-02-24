@@ -31,10 +31,21 @@ public class CustomerService {
         }
     }
 
-    public Optional<Customer> addfunds(Double fundToAdd, String phoneNumber){
+    public Optional<Customer> addFunds(Double fundToAdd, String phoneNumber){
         try {
             Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
             customer.setSolde(customer.getSolde() + fundToAdd);
+            customerRepository.save(customer);
+            return Optional.of(customer);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Customer> withdrawFunds(Double fundToRemove, String phoneNumber){ // verification solde negatif cote front end
+        try {
+            Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
+            customer.setSolde(customer.getSolde() - fundToRemove);
             customerRepository.save(customer);
             return Optional.of(customer);
         } catch (Exception exception) {

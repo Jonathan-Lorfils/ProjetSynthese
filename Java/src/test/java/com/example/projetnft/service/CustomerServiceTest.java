@@ -70,7 +70,14 @@ public class CustomerServiceTest {
     @Test
     public void testAddFunds(){
         when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
-        Optional<Customer> actualCustomer = customerService.addfunds(1.0, customer.getPhoneNumber());
+        Optional<Customer> actualCustomer = customerService.addFunds(1.0, customer.getPhoneNumber());
+        assertThat(actualCustomer.get()).isEqualTo(customer);
+    }
+
+    @Test
+    public void testWithdrawFunds(){
+        when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
+        Optional<Customer> actualCustomer = customerService.withdrawFunds(1.0, customer.getPhoneNumber());
         assertThat(actualCustomer.get()).isEqualTo(customer);
     }
 }

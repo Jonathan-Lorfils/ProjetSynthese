@@ -91,9 +91,22 @@ public class CustomerControllerTest {
 
     @Test
     public void addFundTest() throws Exception {
-        when(customerService.addfunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
+        when(customerService.addFunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
 
         MvcResult result = mockMvc.perform(get("/customer/addfunds/{fundToAdd}/{phoneNumber}", 1.0, customer.getPhoneNumber())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualCustomer.getSolde()).isEqualTo(33.0);
+    }
+
+    @Test
+    public void withdrawFundsTest() throws Exception {
+        when(customerService.withdrawFunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
+
+        MvcResult result = mockMvc.perform(get("/customer/withdrawfunds/{fundToRemove}/{phoneNumber}", 1.0, customer.getPhoneNumber())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 

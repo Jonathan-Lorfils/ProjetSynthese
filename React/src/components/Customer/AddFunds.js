@@ -44,9 +44,10 @@ const AddFunds = () => {
                                             <input disabled value="Lorem5ipsum2dolor8sit9amet1consectetur3adipisicing" type="text" id="walletAddress" className="form-control form-control-xs" />
                                         </div>
                                         <p className="text-center"><u onClick={() => navigator.clipboard.writeText('Lorem5ipsum2dolor8sit9amet1consectetur3adipisicing')}>Copier</u></p>
+                                        <p className="text-center"><u>Montant actuel : {userInfo.solde} (ETH)</u></p> 
                                         <div className="form-outline mb-4">
-                                            <label className="form-label" for="walletAddress">Montant</label>
-                                            <input type="number" step={0.00000001} id="walletAddress" className="form-control form-control-xs" {...register("fundToAdd", { required: true })} />
+                                            <label className="form-label" for="walletAddress">Montant (ETH)</label>
+                                            <input type="number" step={0.001} min="0.001" id="walletAddress" className="form-control form-control-xs" {...register("fundToAdd", { required: true })} />
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button type="submit" className="btn btn-danger btn-block btn-md">Ajouter</button>

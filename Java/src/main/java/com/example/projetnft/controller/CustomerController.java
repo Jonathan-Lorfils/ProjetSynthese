@@ -31,7 +31,14 @@ public class CustomerController {
 
     @GetMapping("addfunds/{fundToAdd}/{phoneNumber}")
     public ResponseEntity<Customer> addfunds(@PathVariable Double fundToAdd, @PathVariable String phoneNumber){
-        return customerService.addfunds(fundToAdd, phoneNumber)
+        return customerService.addFunds(fundToAdd, phoneNumber)
+                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
+    }
+
+    @GetMapping("withdrawfunds/{fundToRemove}/{phoneNumber}")
+    public ResponseEntity<Customer> withdrawFunds(@PathVariable Double fundToRemove, @PathVariable String phoneNumber){
+        return customerService.withdrawFunds(fundToRemove, phoneNumber)
                 .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
