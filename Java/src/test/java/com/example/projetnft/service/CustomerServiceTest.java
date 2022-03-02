@@ -35,7 +35,6 @@ public class CustomerServiceTest {
                 .lastName("Lolo")
                 .password("12345")
                 .phone("5141234321")
-                .sellerCertification(true)
                 .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
@@ -47,7 +46,6 @@ public class CustomerServiceTest {
                 .lastName("Lolo")
                 .password("12345")
                 .phone("5141234321")
-                .sellerCertification(true)
                 .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();

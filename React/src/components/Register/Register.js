@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './style.css'
+import './RegisterStyle.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 

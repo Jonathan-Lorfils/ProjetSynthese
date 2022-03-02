@@ -8,10 +8,6 @@
     background: linear-gradient(to right, #ee5a6f, #f29263);
   }
 
-  .btn-primary{
-    background-color: #ee5a6f !important;
-  }
-
 .card {
     border-radius: 15px;
 }
