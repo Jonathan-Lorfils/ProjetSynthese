@@ -23,7 +23,7 @@ public class CustomerService {
         }
     }
 
-    public Optional<Customer> userLogin(String username, String password){
+    public Optional<Customer> customerLogin(String username, String password){
         try {
             return Optional.of(customerRepository.findByUsernameAndPassword(username, password));
         } catch (Exception exception) {

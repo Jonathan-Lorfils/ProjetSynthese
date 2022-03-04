@@ -14,12 +14,23 @@ const Login = () => {
   }
 
   function onSubmit(data) {
+    if(data.username.includes("admin")){
+      console.log("ok")
+      return 
+    }
     customerLogin(data.username,data.password)
-      .then((data) => data.email != null ? signIn(data) : alert("Erreur de login"))
+      .then((data) => data.username != undefined ? signInCustomer(data) : alert("Erreur de login"))
   }
 
-  function signIn (data){
+  function signInCustomer (data){
     sessionStorage.setItem('user',JSON.stringify(data))
+    console.log(data)
+    history("/profile")
+  }
+
+  function signInAdmin (data){
+    sessionStorage.setItem('admin',JSON.stringify(data))
+    console.log(data)
     history("/profile")
   }
 

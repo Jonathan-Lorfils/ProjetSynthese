@@ -77,7 +77,7 @@ public class CustomerControllerTest {
 
     @Test
     public void loginUserTest() throws Exception {
-        when(customerService.userLogin(customer.getUsername(), customer.getPassword())).thenReturn(Optional.of(customer));
+        when(customerService.customerLogin(customer.getUsername(), customer.getPassword())).thenReturn(Optional.of(customer));
 
         MvcResult result = mockMvc.perform(get("/customer/{username}/{password}", customer.getUsername(), customer.getPassword())
                 .contentType(MediaType.APPLICATION_JSON))

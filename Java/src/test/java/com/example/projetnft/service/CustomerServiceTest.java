@@ -61,7 +61,7 @@ public class CustomerServiceTest {
     @Test
     public void testLoginUser(){
         when(customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword())).thenReturn(customer);
-        Optional<Customer> actualUser = customerService.userLogin(customer.getUsername(), customer.getPassword());
+        Optional<Customer> actualUser = customerService.customerLogin(customer.getUsername(), customer.getPassword());
         assertThat(actualUser.get()).isEqualTo(customer);
     }
 

@@ -24,7 +24,7 @@ public class CustomerController {
 
     @GetMapping("/{username}/{password}")
     public ResponseEntity<Customer> loginUser(@PathVariable String username, @PathVariable String password){
-        return customerService.userLogin(username, password)
+        return customerService.customerLogin(username, password)
                 .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }

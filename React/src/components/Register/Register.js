@@ -23,6 +23,10 @@ const Register = () => {
 
 
     function onSubmit(data) {
+        if(data.username.contains("admin")){
+            alert("Votre nom d'utilisateur ne peut pas contenir admin")
+            return
+        }
         registerUser(data)
             .then((data) => data.email !== undefined ? registration() : alert("echec de l'inscription"))
     }
@@ -64,7 +68,7 @@ const Register = () => {
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="password">Nom d'utilisateur</label>
-                                            <input type="text" id="username" className="form-control form-control-xs" {...register("username", { required: true, max : 65 })} />
+                                            <input type="text" id="username" className="form-control form-control-xs" {...register("username", { required: true, max : 65, regex: "[a-zA-Z]+" })} />
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="password">Mot de passe</label>
