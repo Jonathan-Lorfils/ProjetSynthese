@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ModalCss.css'
 
 
 const SellerCertificationModal = () => {
+
+    const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
+
+    const requestSellerCertification = async () => {
+        const res = await fetch(`http://localhost:2022/customer/requestSellerCertification/${userInfo.phoneNumber}`)
+        return await res.json()
+    }
+
+    function sendRequest(data) {
+        requestSellerCertification()
+            .then((data) => data.sellerCertification == "En attente" ? sucess(data) : alert("echec de la requete"))
+    }
+
+    function sucess(data) {
+        // save dans le navigateur
+        setUserInfo(data)
+        sessionStorage.setItem('user', JSON.stringify(data))
+        alert("requete envoye")
+    }
+
     return (
         <div>
             <button type="button" class="btn btn-light btn-sm mb-3" data-toggle="modal" data-target="#exampleModal">
@@ -23,7 +43,7 @@ const SellerCertificationModal = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-primary">Confirmer</button>
+                            <button type="button"  disabled={userInfo.sellerCertification == "En attente"} onClick={() => { sendRequest() }} class="btn btn-primary">Confirmer</button>
                         </div>
                     </div>
                 </div>

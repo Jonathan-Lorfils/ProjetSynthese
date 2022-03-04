@@ -43,6 +43,7 @@ public class CustomerControllerTest {
                 .lastName("Lolo")
                 .password("12345")
                 .phone("5141234321")
+                .sellerCertification("Invalide")
                 .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
@@ -55,10 +56,10 @@ public class CustomerControllerTest {
                 .lastName("Lolo")
                 .password("12345")
                 .phone("5141234321")
+                .sellerCertification("En attente")
                 .solde(33.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
-
     }
 
     @Test
@@ -111,5 +112,18 @@ public class CustomerControllerTest {
         var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualCustomer.getSolde()).isEqualTo(33.0);
+    }
+
+    @Test
+    public void requestSellerCertificationTest() throws Exception {
+        when(customerService.requestSellerCertification(customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
+
+        MvcResult result = mockMvc.perform(get("/customer/requestSellerCertification/{phoneNumber}", customer.getPhoneNumber())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualCustomer.getSellerCertification()).isEqualTo("En attente");
     }
 }

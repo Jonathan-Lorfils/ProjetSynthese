@@ -52,4 +52,15 @@ public class CustomerService {
             return Optional.empty();
         }
     }
+
+    public Optional<Customer> requestSellerCertification(String phoneNumber){ // verification solde negatif cote front end
+        try {
+            Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
+            customer.setSellerCertification("En attente");
+            customerRepository.save(customer);
+            return Optional.of(customer);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
 }

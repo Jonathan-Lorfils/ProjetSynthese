@@ -78,4 +78,11 @@ public class CustomerServiceTest {
         Optional<Customer> actualCustomer = customerService.withdrawFunds(1.0, customer.getPhoneNumber());
         assertThat(actualCustomer.get()).isEqualTo(customer);
     }
+
+    @Test
+    public void testRequestSellerCertification(){
+        when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
+        Optional<Customer> actualCustomer = customerService.requestSellerCertification(customer.getPhoneNumber());
+        assertThat(actualCustomer.get().getSellerCertification()).isEqualTo(customer.getSellerCertification());
+    }
 }
