@@ -38,7 +38,7 @@ const Profile = () => {
   const checkSellerCertification = () => {
     if (sellerCertificationState == "Valide") {
       return sellerCertificationValid()
-    } else if (sellerCertificationInvalid == "En attente") {
+    } else if (sellerCertificationState == "En attente") {
       return sellerCertificationWaiting()
     } else {
       return sellerCertificationInvalid()
