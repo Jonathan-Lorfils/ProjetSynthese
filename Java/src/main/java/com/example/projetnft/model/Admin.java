@@ -1,18 +1,21 @@
 package com.example.projetnft.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Admin {
-    @Id
-    @GeneratedValue
-    private int id;
+@NoArgsConstructor
+public class Admin extends User implements Serializable {
 
-    private String username;
-    private String password;
+    @Builder
+    public Admin(int id, String username, String password) {
+        super.setId(id);
+        super.setUsername(username);
+        super.setPassword(password);
+    }
 }

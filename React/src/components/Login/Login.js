@@ -13,9 +13,15 @@ const Login = () => {
     return await res.json()
   }
 
+  const customerAdmin = async (username, password) => { 
+    const res = await fetch(`http://localhost:2022/admin/${username}/${password}`)
+    return await res.json()
+  }
+
   function onSubmit(data) {
     if(data.username.includes("admin")){
-      console.log("ok")
+      customerAdmin(data.username, data.password)
+        .then((data) => data.username != undefined ? signInAdmin(data) : alert("Erreur de login"))
       return 
     }
     customerLogin(data.username,data.password)
@@ -31,7 +37,7 @@ const Login = () => {
   function signInAdmin (data){
     sessionStorage.setItem('admin',JSON.stringify(data))
     console.log(data)
-    history("/profile")
+    history("/adminSellerCertification")
   }
 
   return (
