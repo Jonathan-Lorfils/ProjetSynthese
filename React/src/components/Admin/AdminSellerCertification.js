@@ -14,54 +14,73 @@ const AdminSellerCertification = () => {
   }, [])
 
   const fetchCustomersList = async () => {
-    const res = await fetch(`http://localhost:8888/admin/getAllCustomersWaitingForCertification/${customer.id}`)
+    const res = await fetch(`http://localhost:8888/customer/getAllCustomersWaitingForCertification`)
     return await res.json()
   }
+
+  const viewCustomerProfile = (customer) => {
+    
+  }
+
+  const acceptRequest = (customer) => {
+    
+}
+
+const declineRequest = (customer) => {
+  
+}
 
 
   return (
     <div>
-         <div>
-            <div className="grad">
-                <AdminNavbar />
-                <div className="p-5">
-                    <table className="table table-hover bg-light shadow-lg" id="no-more-tables">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nom </th>
-                                <th scope="col">Validité </th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {customersList
-                                .filter(filterDocuments)
-                                .map((document) => (
-                                    <tr key={document.idDocument}>
-                                        <td data-title="Nom">{document.documentName}</td>
-                                        <td data-title="Validité">
-                                            <h5>
-                                                <span className={`badge ${!document.isValid && !document.isRefused ? 'badge-warning' :
-                                                    !document.isValid && document.isRefused ? 'badge-danger' : 'badge-success'}`}>
-                                                    {!document.isValid && !document.isRefused ? 'En attente' :
-                                                        !document.isValid && document.isRefused ? 'Refusé' : 'Valide'}
-                                                </span>
-                                            </h5>
-                                        </td>
-                                        <td className="responsiveWidth">
-                                            <button className="btn btn-primary mx-2" onClick={e => { e.preventDefault(); viewDocumentCv(document) }}>
-                                                <span className="hideButtonText">Consulter</span>
-                                                <span className="hideButtonIcon"><i className="fas fa-book-open"></i></span>
-                                            </button>
-                                            {!document.isValid && !document.isRefused ? displayButtons(document) : ""}
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+      <div className="grad">
+        <AdminNavbar />
+        <h2 className="text-center text-light">Offres de stage</h2>
+        <div className="p-5">
+          <table className="table table-hover bg-light shadow-lg" id="no-more-tables">
+            <thead>
+              <tr>
+                <th scope="col">Entreprise</th>
+                <th scope="col">Poste</th>
+                <th scope="col">Salaire</th>
+                <th scope="col">Date d'affichage</th>
+                <th scope="col">Validité</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {customersList
+                .map((customer) => (
+                  <tr key={customer.id}>
+                    <td data-title="Entreprise">{customer.firstName}</td>
+                    <td data-title="Poste">{customer.lastName}</td>
+                    <td data-title="Validité">
+                      <h5>
+                        <span className={`badge ${customer.sellerCertification ? 'badge-success' : customer.sellerCertification === null ? 'badge-warning' : 'badge-danger'}`}>
+                          {customer.sellerCertification === null ? "En attente" : customer.sellerCertification}
+                        </span>
+                      </h5>
+                    </td>
+                    <td className="responsiveWidth">
+                      <button className="btn btn-primary mx-2" onClick={e => { e.preventDefault(); viewCustomerProfile(customer) }}>
+                        <span className="hideButtonText">Consulter</span>
+                        <span className="hideButtonIcon"><i className="fas fa-book-open"></i></span>
+                      </button>
+                      <button className="btn btn-success mx-2" onClick={e => { e.preventDefault(); acceptRequest(customer) }}>
+                        <span className="hideButtonText">Publier</span>
+                        <span className="hideButtonIcon"><i className="fas fa-check"></i></span>
+                      </button>
+                      <button className="btn btn-danger mx-2" onClick={e => { e.preventDefault(); declineRequest(customer) }}>
+                        <span className="hideButtonText">Retirer</span>
+                        <span className="hideButtonIcon"><i className="fas fa-times"></i></span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
   )
 }
