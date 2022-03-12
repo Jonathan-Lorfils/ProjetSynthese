@@ -45,13 +45,6 @@ public class CustomerController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
 
-    @GetMapping("requestSellerCertification/{phoneNumber}")
-    public ResponseEntity<Customer> requestSellerCertification(@PathVariable String phoneNumber){
-        return customerService.requestSellerCertification(phoneNumber)
-                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
-    }
-
     @GetMapping("/getAllCustomersWaitingForCertification")
     public ResponseEntity<List<Customer>> getAllCustomersWaitingForCertification(){
         return customerService.getAllCustomersWaitingForCertification()
@@ -59,7 +52,7 @@ public class CustomerController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("requestSellerCertification/{phoneNumber}/{state}")
+    @GetMapping("setCustomerSellerCertification/{phoneNumber}/{state}")
     public ResponseEntity<Customer> setCustomerSellerCertification(@PathVariable String phoneNumber, @PathVariable String state){
         return customerService.setCustomerSellerCertification(phoneNumber, state)
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))

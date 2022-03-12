@@ -82,13 +82,6 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testRequestSellerCertification(){
-        when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
-        Optional<Customer> actualCustomer = customerService.requestSellerCertification(customer.getPhoneNumber());
-        assertThat(actualCustomer.get().getSellerCertification()).isEqualTo(customer.getSellerCertification());
-    }
-
-    @Test
     public void testGetAllCustomersWaitingForCertification() {
         when(customerRepository.getAllBySellerCertification("En attente")).thenReturn(getListOfCustomers());
         Optional<List<Customer>> actualListOfCustomers = customerService.getAllCustomersWaitingForCertification();

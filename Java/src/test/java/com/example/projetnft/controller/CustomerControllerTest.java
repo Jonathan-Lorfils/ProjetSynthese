@@ -117,19 +117,6 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void requestSellerCertificationTest() throws Exception {
-        when(customerService.requestSellerCertification(customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
-
-        MvcResult result = mockMvc.perform(get("/customer/requestSellerCertification/{phoneNumber}", customer.getPhoneNumber())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
-
-        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualCustomer.getSellerCertification()).isEqualTo("En attente");
-    }
-
-    @Test
     public void setCustomerSellerCertificationTest() throws Exception {
         when(customerService.setCustomerSellerCertification(customer.getPhoneNumber(), "En attente")).thenReturn(Optional.of(newSoldeCustomer));
 

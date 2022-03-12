@@ -54,17 +54,6 @@ public class CustomerService {
         }
     }
 
-    public Optional<Customer> requestSellerCertification(String phoneNumber){
-        try {
-            Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
-            customer.setSellerCertification("En attente");
-            customerRepository.save(customer);
-            return Optional.of(customer);
-        } catch (Exception exception) {
-            return Optional.empty();
-        }
-    }
-
     public Optional<List<Customer>> getAllCustomersWaitingForCertification() {
         return Optional.of(customerRepository.getAllBySellerCertification("En attente"));
     }
