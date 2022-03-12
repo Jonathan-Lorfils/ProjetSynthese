@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -35,7 +37,7 @@ public class CustomerControllerTest {
 
     @BeforeEach
     void setup(){
-        customer = Customer.builder()
+        customer = Customer.customerBuilder()
                 .id(1)
                 .username("toto")
                 .email("test@gmail.com")
@@ -48,7 +50,7 @@ public class CustomerControllerTest {
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
 
-        newSoldeCustomer = Customer.builder()
+        newSoldeCustomer = Customer.customerBuilder()
                 .id(1)
                 .username("toto")
                 .email("test@gmail.com")
@@ -125,5 +127,56 @@ public class CustomerControllerTest {
         var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualCustomer.getSellerCertification()).isEqualTo("En attente");
+    }
+
+    @Test
+    public void getAllCustomersWaitingForCertificationTest() throws Exception {
+        when(customerService.getAllCustomersWaitingForCertification()).thenReturn(Optional.of(getListOfCustomers()));
+
+        MvcResult result = mockMvc.perform(get("/customer/getAllCustomersWaitingForCertification")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actuals = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actuals.size()).isEqualTo(3);
+    }
+
+    private List<Customer> getListOfCustomers(){
+        List<Customer> customerList = new ArrayList<>();
+        customerList.add(Customer.customerBuilder()
+                .id(1)
+                .email("test@gmail.com")
+                .firstName("Jojo")
+                .lastName("Lolo")
+                .password("12345")
+                .phone("5141234321")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        customerList.add(Customer.customerBuilder()
+                .id(2)
+                .email("test@gmail.com")
+                .firstName("Toto")
+                .lastName("Lala")
+                .password("12345")
+                .phone("5141244321")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        customerList.add(Customer.customerBuilder()
+                .id(3)
+                .email("test@gmail.com")
+                .firstName("Tutu")
+                .lastName("Pepe")
+                .password("ejkew")
+                .phone("5149481053")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        return customerList;
     }
 }

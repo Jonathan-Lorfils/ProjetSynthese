@@ -4,6 +4,7 @@ import com.example.projetnft.model.Customer;
 import com.example.projetnft.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,5 +63,9 @@ public class CustomerService {
         } catch (Exception exception) {
             return Optional.empty();
         }
+    }
+
+    public Optional<List<Customer>> getAllCustomersWaitingForCertification() {
+        return Optional.of(customerRepository.getAllBySellerCertification("En attente"));
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/customer")
@@ -32,21 +34,28 @@ public class CustomerController {
     @GetMapping("addfunds/{fundToAdd}/{phoneNumber}")
     public ResponseEntity<Customer> addfunds(@PathVariable Double fundToAdd, @PathVariable String phoneNumber){
         return customerService.addFunds(fundToAdd, phoneNumber)
-                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
 
     @GetMapping("withdrawfunds/{fundToRemove}/{phoneNumber}")
     public ResponseEntity<Customer> withdrawFunds(@PathVariable Double fundToRemove, @PathVariable String phoneNumber){
         return customerService.withdrawFunds(fundToRemove, phoneNumber)
-                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
 
     @GetMapping("requestSellerCertification/{phoneNumber}")
     public ResponseEntity<Customer> requestSellerCertification(@PathVariable String phoneNumber){
         return customerService.requestSellerCertification(phoneNumber)
-                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
+    }
+
+    @GetMapping("/getAllCustomersWaitingForCertification")
+    public ResponseEntity<List<Customer>> getAllCustomersWaitingForCertification(){
+        return customerService.getAllCustomersWaitingForCertification()
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 }

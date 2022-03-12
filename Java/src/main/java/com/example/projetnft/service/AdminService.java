@@ -1,7 +1,6 @@
 package com.example.projetnft.service;
 
 import com.example.projetnft.model.Admin;
-import com.example.projetnft.model.Customer;
 import com.example.projetnft.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +20,5 @@ public class AdminService {
             return Optional.empty();
         }
     }
+
 }

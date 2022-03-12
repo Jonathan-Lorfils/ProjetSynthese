@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +30,7 @@ public class CustomerServiceTest {
 
     @BeforeEach
     void setup(){
-        customer = Customer.builder()
+        customer = Customer.customerBuilder()
                 .id(1)
                 .email("test@gmail.com")
                 .firstName("Jojo")
@@ -39,7 +41,7 @@ public class CustomerServiceTest {
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
 
-        customerRegistred = Customer.builder()
+        customerRegistred = Customer.customerBuilder()
                 .id(1)
                 .email("test@gmail.com")
                 .firstName("Jojo")
@@ -84,5 +86,51 @@ public class CustomerServiceTest {
         when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
         Optional<Customer> actualCustomer = customerService.requestSellerCertification(customer.getPhoneNumber());
         assertThat(actualCustomer.get().getSellerCertification()).isEqualTo(customer.getSellerCertification());
+    }
+
+    @Test
+    public void testGetAllCustomersWaitingForCertification() {
+        when(customerRepository.getAllBySellerCertification("En attente")).thenReturn(getListOfCustomers());
+        Optional<List<Customer>> actualListOfCustomers = customerService.getAllCustomersWaitingForCertification();
+        assertThat(actualListOfCustomers.get().size()).isEqualTo(3);
+        assertThat(actualListOfCustomers.get().get(0).getSellerCertification()).isEqualTo("En attente");
+    }
+
+    private List<Customer> getListOfCustomers(){
+        List<Customer> customerList = new ArrayList<>();
+        customerList.add(Customer.customerBuilder()
+                .id(1)
+                .email("test@gmail.com")
+                .firstName("Jojo")
+                .lastName("Lolo")
+                .password("12345")
+                .phone("5141234321")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        customerList.add(Customer.customerBuilder()
+                .id(2)
+                .email("test@gmail.com")
+                .firstName("Toto")
+                .lastName("Lala")
+                .password("12345")
+                .phone("5141244321")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        customerList.add(Customer.customerBuilder()
+                .id(3)
+                .email("test@gmail.com")
+                .firstName("Tutu")
+                .lastName("Pepe")
+                .password("ejkew")
+                .phone("5149481053")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
+                .sellerCertification("En attente")
+                .build());
+        return customerList;
     }
 }
