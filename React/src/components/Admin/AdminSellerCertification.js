@@ -29,8 +29,8 @@ const AdminSellerCertification = () => {
     )
   }
 
-  const viewCustomerProfile = () => {
-    
+  const viewCustomerProfile = () => { // should
+
   }
 
 
