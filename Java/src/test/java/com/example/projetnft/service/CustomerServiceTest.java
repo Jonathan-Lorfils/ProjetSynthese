@@ -96,6 +96,13 @@ public class CustomerServiceTest {
         assertThat(actualListOfCustomers.get().get(0).getSellerCertification()).isEqualTo("En attente");
     }
 
+    @Test
+    public void testSetCustomerSellerCertification(){
+        when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
+        Optional<Customer> actualCustomer = customerService.setCustomerSellerCertification(customer.getPhoneNumber(), "Valide");
+        assertThat(actualCustomer.get().getSellerCertification()).isEqualTo(customer.getSellerCertification());
+    }
+
     private List<Customer> getListOfCustomers(){
         List<Customer> customerList = new ArrayList<>();
         customerList.add(Customer.customerBuilder()

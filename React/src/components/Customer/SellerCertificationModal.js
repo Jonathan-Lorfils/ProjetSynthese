@@ -5,9 +5,10 @@ import './ModalCss.css'
 const SellerCertificationModal = () => {
 
     const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
+    const waitingState = "En attente";
 
     const requestSellerCertification = async () => {
-        const res = await fetch(`http://localhost:2022/customer/requestSellerCertification/${userInfo.phoneNumber}`)
+        const res = await fetch(`http://localhost:2022/customer/requestSellerCertification/${userInfo.phoneNumber}/${waitingState}`)
         return await res.json()
     }
 

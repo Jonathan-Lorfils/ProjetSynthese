@@ -58,4 +58,11 @@ public class CustomerController {
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping("requestSellerCertification/{phoneNumber}/{state}")
+    public ResponseEntity<Customer> setCustomerSellerCertification(@PathVariable String phoneNumber, @PathVariable String state){
+        return customerService.setCustomerSellerCertification(phoneNumber, state)
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
+    }
 }

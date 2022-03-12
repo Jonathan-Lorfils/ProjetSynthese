@@ -54,7 +54,7 @@ public class CustomerService {
         }
     }
 
-    public Optional<Customer> requestSellerCertification(String phoneNumber){ // verification solde negatif cote front end
+    public Optional<Customer> requestSellerCertification(String phoneNumber){
         try {
             Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
             customer.setSellerCertification("En attente");
@@ -67,5 +67,16 @@ public class CustomerService {
 
     public Optional<List<Customer>> getAllCustomersWaitingForCertification() {
         return Optional.of(customerRepository.getAllBySellerCertification("En attente"));
+    }
+
+    public Optional<Customer> setCustomerSellerCertification(String phoneNumber, String state) {
+        try {
+            Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
+            customer.setSellerCertification(state);
+            customerRepository.save(customer);
+            return Optional.of(customer);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
     }
 }

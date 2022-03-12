@@ -16,6 +16,7 @@ public class Customer extends User implements Serializable {
 
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String phoneNumber;
     @Column(unique = true)
     private String email;

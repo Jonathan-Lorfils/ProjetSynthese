@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 .gradient-custom-2 {
 
     background: linear-gradient(to right, #ee5a6f, #f29263)
