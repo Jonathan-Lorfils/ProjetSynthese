@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
-import './LoginStyle.css'
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -31,7 +30,7 @@ const Login = () => {
   function signInCustomer (data){
     sessionStorage.setItem('user',JSON.stringify(data))
     console.log(data)
-    history("/profile")
+    history("/wallet")
   }
 
   function signInAdmin (data){

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
-import './ProfileStyle.css'
+import './CustomerWalletStyle.css'
 import logo from '.././../LazyLion.jpg'
 import {Link} from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
 
-const Profile = () => {
+const CustomerWallet = () => {
 
   const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
   const [sellerCertificationState, setSellerCertificationState] = useState(userInfo.sellerCertification)
@@ -79,4 +79,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default CustomerWallet
