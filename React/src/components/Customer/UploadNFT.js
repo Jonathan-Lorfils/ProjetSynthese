@@ -13,14 +13,14 @@ const UploadNFT = () => {
   const submitForm = (event) => {
     event.preventDefault()
 
-    if (typeof (uploadFile) !== 'undefined' && typeof (historyState) !== 'undefined' && !_.isEmpty(uploadFileName)) {
+    if (typeof (uploadFile) !== 'undefined' && !_.isEmpty(uploadFileName)) {
       var fileSignature = uploadFileName + ":" + userInfo.id
       var fileSignatureJSON = JSON.stringify(fileSignature)
       const formData = new FormData()
       formData.append("uploadFile", uploadFile, fileSignatureJSON)
 
     axios
-        .post("http://localhost:2022/uploadNFT", formData, {
+        .post("http://localhost:2022/uploadNft", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           },
@@ -32,6 +32,7 @@ const UploadNFT = () => {
           alert("Upload echoue")
         })
     }
+    console.log(uploadFile)
   }
 
     return (
