@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class Nft {
+public class Nft implements Serializable {
 
     @Id
     @GeneratedValue
@@ -39,5 +40,4 @@ public class Nft {
         this.name = name;
         this.owner = owner;
     }
-
 }

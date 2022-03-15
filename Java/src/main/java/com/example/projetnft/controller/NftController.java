@@ -1,5 +1,6 @@
 package com.example.projetnft.controller;
 
+import com.example.projetnft.model.Nft;
 import com.example.projetnft.service.NftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/nft")
 public class NftController {
 
     @Autowired
@@ -21,5 +25,12 @@ public class NftController {
         return nftService.createNft(uploadFile)
                 .map(document1 -> ResponseEntity.status(HttpStatus.OK).body(true))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(false));
+    }
+
+    @GetMapping("/getAllNftsWaitingForCertification")
+    public ResponseEntity<List<Nft>> getAllCustomersWaitingForCertification(){
+        return nftService.getAllNftsWaitingForCertification()
+                .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 }

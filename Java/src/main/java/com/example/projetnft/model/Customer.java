@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 
 @Data
@@ -31,12 +30,10 @@ public class Customer extends User implements Serializable {
         super.setPassword(password);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phone; // unique
-        this.email = email; // mettre unique
+        this.phoneNumber = phone;
+        this.email = email;
         this.walletAddress = walletAddress;
         this.solde = solde;
         this.sellerCertification = sellerCertification;
     }
-
-
 }

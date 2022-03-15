@@ -1,5 +1,6 @@
 package com.example.projetnft.service;
 
+import com.example.projetnft.model.Customer;
 import org.mockito.InjectMocks;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,5 +55,48 @@ public class NftServiceTest {
         when(nftRepository.save(nft)).thenReturn(nft);
         Optional<Nft> actualNft = nftService.createNft(multipartFile);
         assertThat(actualNft.get()).isEqualTo(nft);
+    }
+
+    @Test
+    public void testGetAllCustomersWaitingForCertification() {
+        when(nftRepository.getAllByCertified(false)).thenReturn(getListOfNfts());
+        Optional<List<Nft>> actualListOfNfts = nftService.getAllNftsWaitingForCertification();
+        assertThat(actualListOfNfts.get().size()).isEqualTo(3);
+        assertThat(actualListOfNfts.get().get(0).isCertified()).isEqualTo(false);
+    }
+
+    private List<Nft> getListOfNfts(){
+        List<Nft> nftsList = new ArrayList<>();
+        nftsList.add(Nft.nftBuilder()
+            .id(1)
+            .name("Nft1")
+            .price(0.0)
+            .certified(false)
+            .data("nft1".getBytes(StandardCharsets.UTF_8))
+            .toSell(false)
+            .owner(null)
+            .build());
+
+        nftsList.add(Nft.nftBuilder()
+                .id(2)
+                .name("Nft2")
+                .price(0.0)
+                .certified(false)
+                .data("nft2".getBytes(StandardCharsets.UTF_8))
+                .toSell(false)
+                .owner(null)
+                .build());
+
+        nftsList.add(Nft.nftBuilder()
+                .id(3)
+                .name("Nft3")
+                .price(0.0)
+                .certified(false)
+                .data("nft3".getBytes(StandardCharsets.UTF_8))
+                .toSell(false)
+                .owner(null)
+                .build());
+
+        return nftsList;
     }
 }

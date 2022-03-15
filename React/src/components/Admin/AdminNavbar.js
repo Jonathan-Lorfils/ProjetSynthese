@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const AdminNavbar = () => {
+
+    let history = useNavigate();
+
     return (
         <div>
             <nav className="navbar navbar-expand-md bg-light shadow mb-5">
@@ -14,10 +18,10 @@ const AdminNavbar = () => {
                             <button className="nav-link btn btn-md btn-light mx-1"><i className="fas fa-home fa-lg"></i></button>
                         </li>
                         <li className="nav-item mx-1">
-                            <button className="nav-link btn btn-md btn-light" >Vendeurs</button>
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/adminSellerCertification") }} >Vendeurs</button>
                         </li>
                         <li className="nav-item mx-1">
-                            <button className="nav-link btn btn-md btn-light" >Nouveau</button>
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/adminNftCertification") }} >NFT</button>
                         </li>
                     </ul>
                     <button className="btn btn-danger btn-md my-2 mx-2" >Déconnexion</button>

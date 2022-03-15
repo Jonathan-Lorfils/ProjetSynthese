@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,9 @@ public class NftService {
         } catch (Exception exception){
             return Optional.empty();
         }
+    }
+
+    public Optional<List<Nft>> getAllNftsWaitingForCertification(){
+        return Optional.of(nftRepository.getAllByCertified(false));
     }
 }

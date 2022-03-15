@@ -20,7 +20,7 @@ const UploadNFT = () => {
       formData.append("uploadFile", uploadFile, fileSignatureJSON)
 
     axios
-        .post("http://localhost:2022/uploadNft", formData, {
+        .post("http://localhost:2022/nft/uploadNft", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           },
