@@ -29,7 +29,8 @@ const AdminCertifiedNft = () => {
         const res = await fetch(`http://localhost:2022/nft/deleteNftById/${nft.id}`)
         const data = await res.json()
 
-        setNftsList(nftsList.splice(nftsList.indexOf(nft),1))
+        const newNftsList = nftsList.filter((nft1) => nft1 !== nft)
+        setNftsList(newNftsList)
     }
 
     const fetchCustomersList = async () => {
@@ -45,9 +46,9 @@ const AdminCertifiedNft = () => {
         <div>
             <div className="grad">
                 <AdminNavbar />
-                {nftsList.length != 0 ?
+                {nftsList.length !== 0 ?
                     <div>
-                        <h2 className="text-center">Clients en attente de certification</h2>
+                        <h2 className="text-center">NFT en attente de certification</h2>
                         <div className="p-5">
                             <table className="table table-hover bg-light shadow-lg" id="no-more-tables">
                                 <thead>
@@ -96,7 +97,7 @@ const AdminCertifiedNft = () => {
                             </table>
                         </div>
                     </div>
-                    : <h3 className="text-center mx-1">Aucun clients en attente de certification</h3>}
+                    : <h3 className="text-center mx-1">NFT en attente de certification</h3>}
             </div>
         </div>
     )

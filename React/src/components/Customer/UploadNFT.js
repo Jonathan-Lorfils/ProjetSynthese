@@ -43,7 +43,7 @@ const UploadNFT = () => {
             <form className="container-fluid" onSubmit={submitForm}>
               <h1 className="text-center text-secondary">Téléverser un NFT</h1>
               <div className="form-group">
-                <label htmlFor="fileName" className="text-secondary"><i className="fas fa-file-pdf"></i> Nom du fichier :</label>
+                <label htmlFor="fileName" className="text-secondary">Nom du NFT <i class="fa-solid fa-image"></i></label>
                 <input type='text' className="form-control form-control-lg" id="fileName" name="fileName" onChange={(e) => setUploadFileName(e.target.value)} />
               </div>
               <div className="form-group">

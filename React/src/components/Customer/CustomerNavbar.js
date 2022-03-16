@@ -5,6 +5,11 @@ const CustomerNavbar = () => {
 
     let history = useNavigate();
 
+    const disconnect = () => {
+        sessionStorage.clear()
+        history("/")
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-md bg-light shadow mb-5">
@@ -21,13 +26,10 @@ const CustomerNavbar = () => {
                                 <button className="nav-link btn btn-md btn-light" onClick={e => { history("/wallet") }} >Portefeuille</button>
                         </li>
                         <li className="nav-item mx-1">
-                            <button className="nav-link btn btn-md btn-light" >Profil</button>
-                        </li>
-                        <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/uploadNFT") }} >Upload NFT</button>
                         </li>
                     </ul>
-                    <button className="btn btn-danger btn-md my-2 mx-2" >Déconnexion</button>
+                    <button className="btn btn-danger btn-md my-2 mx-2" onClick={e => { disconnect() }}>Déconnexion</button>
                 </div>
             </nav>
         </div>
