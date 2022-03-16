@@ -22,7 +22,7 @@ const AddFunds = () => {
         console.log(data)
         sessionStorage.setItem('user', JSON.stringify(data))
         alert("Ajout reussi")
-        history("/profile");
+        history("/wallet");
     }
 
 

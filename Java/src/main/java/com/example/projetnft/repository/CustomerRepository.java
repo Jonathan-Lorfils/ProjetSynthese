@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByPhoneNumber(String phoneNumber);
 
     List<Customer> getAllBySellerCertification(String certificationStatus);
+
+    boolean existsByPhoneNumberOrEmail(String phoneNumber, String email);
 }

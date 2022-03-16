@@ -11,28 +11,27 @@ const Register = () => {
 
     const registerUser = async (userJSON) => {
         const result = await fetch('http://localhost:2022/customer/register',
-          {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify(userJSON)
-          })
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userJSON)
+            })
         return await result.json()
     }
 
 
     function onSubmit(data) {
-        if(data.username.contains("admin")){
+        if (data.username.includes("admin")) {
             alert("Votre nom d'utilisateur ne peut pas contenir admin")
             return
         }
         registerUser(data)
-            .then((data) => data.email !== undefined ? registration() : alert("echec de l'inscription"))
+            .then((data1) => data1.email !== undefined ? registration() : alert("echec de l'inscription"))
     }
 
-    function registration(){
-        // save dans le navigateur
+    function registration() {
         alert("Inscription reussi")
         history("/");
     }
@@ -60,7 +59,7 @@ const Register = () => {
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="phoneNumber">Telephone</label>
-                                            <input type="text" id="phoneNumber" className="form-control form-control-xs"  {...register("phoneNumber", { required: true, min: 10 })} />
+                                            <input type="text" id="phoneNumber" className="form-control form-control-xs"  {...register("phoneNumber", { required: true, minLength: 10, maxLength: 10 })} />
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="email">Adresse courriel</label>
@@ -68,7 +67,7 @@ const Register = () => {
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="password">Nom d'utilisateur</label>
-                                            <input type="text" id="username" className="form-control form-control-xs" {...register("username", { required: true, max : 65, regex: "[a-zA-Z]+" })} />
+                                            <input type="text" id="username" className="form-control form-control-xs" {...register("username", { required: true, max: 65, regex: "[a-zA-Z]+" })} />
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="password">Mot de passe</label>

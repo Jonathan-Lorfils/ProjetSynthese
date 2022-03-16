@@ -18,7 +18,10 @@ public class CustomerService {
 
     public Optional<Customer> registerUser(Customer customer){
         try{
-            return Optional.of(customerRepository.save(customer));
+            if(!customerRepository.existsByPhoneNumberOrEmail(customer.getPhoneNumber(), customer.getEmail())){
+                return Optional.of(customerRepository.save(customer));
+            }
+            return Optional.empty();
         } catch (Exception e) {
             return Optional.empty();
         }

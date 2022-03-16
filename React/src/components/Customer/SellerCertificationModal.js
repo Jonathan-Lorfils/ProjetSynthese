@@ -14,7 +14,7 @@ const SellerCertificationModal = () => {
 
     function sendRequest(data) {
         requestSellerCertification()
-            .then((data) => data.sellerCertification == "En attente" ? sucess(data) : alert("echec de la requete"))
+            .then((data) => data.sellerCertification === "En attente" ? sucess(data) : alert("echec de la requete"))
     }
 
     function sucess(data) {

@@ -19,11 +19,9 @@ const WithdrawFunds = () => {
   }
 
   function sucess(data) {
-    // save dans le navigateur
-    console.log(data)
     sessionStorage.setItem('user', JSON.stringify(data))
     alert("retrait reussi")
-    history("/profile");
+    history("/wallet");
   }
 
   return (
