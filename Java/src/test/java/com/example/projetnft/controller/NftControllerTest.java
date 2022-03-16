@@ -1,5 +1,6 @@
 package com.example.projetnft.controller;
 
+import com.example.projetnft.model.Customer;
 import com.example.projetnft.model.Nft;
 import com.example.projetnft.repository.CustomerRepository;
 import com.example.projetnft.repository.NftRepository;
@@ -48,7 +49,7 @@ public class NftControllerTest {
     @BeforeEach
     void setup(){
         nft = Nft.nftBuilder()
-                .certified(false)
+                .certified(true)
                 .toSell(false)
                 .data("test".getBytes(StandardCharsets.UTF_8))
                 .name("test")
@@ -82,6 +83,19 @@ public class NftControllerTest {
         var actuals = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actuals.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void certifiedNftTest() throws Exception {
+        when(nftService.certifiedNft(0)).thenReturn(Optional.of(nft));
+
+        MvcResult result = mockMvc.perform(get("/nft/certifiedNft/{idNft}", 0)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualNft = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Nft.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualNft.isCertified()).isEqualTo(true);
     }
 
     private List<Nft> getListOfNfts(){

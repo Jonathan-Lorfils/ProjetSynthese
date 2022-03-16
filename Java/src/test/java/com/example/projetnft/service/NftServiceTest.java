@@ -40,13 +40,15 @@ public class NftServiceTest {
     @BeforeEach
     void setup(){
         nft = Nft.nftBuilder()
-                .certified(false)
+                .certified(true)
                 .toSell(false)
                 .data("test".getBytes(StandardCharsets.UTF_8))
                 .name("test")
                 .price(0.0)
                 .owner(null)
                 .build();
+
+
     }
 
     @Test
@@ -63,6 +65,13 @@ public class NftServiceTest {
         Optional<List<Nft>> actualListOfNfts = nftService.getAllNftsWaitingForCertification();
         assertThat(actualListOfNfts.get().size()).isEqualTo(3);
         assertThat(actualListOfNfts.get().get(0).isCertified()).isEqualTo(false);
+    }
+
+    @Test
+    public void testCertifiedNft(){
+        when(nftRepository.findById(0)).thenReturn(Optional.of(nft));
+        Optional<Nft> actualNft = nftService.certifiedNft(0);
+        assertThat(actualNft.get().isCertified()).isEqualTo(true);
     }
 
     private List<Nft> getListOfNfts(){

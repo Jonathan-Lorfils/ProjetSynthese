@@ -33,4 +33,11 @@ public class NftController {
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping("certifiedNft/{idNft}")
+    public ResponseEntity<Nft> certifiedNft(@PathVariable Integer idNft){
+        return nftService.certifiedNft(idNft)
+                .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Nft()));
+    }
 }

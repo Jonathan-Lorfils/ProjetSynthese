@@ -36,6 +36,17 @@ public class NftService {
         }
     }
 
+    public Optional<Nft> certifiedNft(Integer nftId){
+        try {
+            Nft nft = nftRepository.findById(nftId).get();
+            nft.setCertified(true);
+            nftRepository.save(nft);
+            return Optional.of(nft);
+        } catch (Exception exception){
+            return Optional.empty();
+        }
+    }
+
     public Optional<List<Nft>> getAllNftsWaitingForCertification(){
         return Optional.of(nftRepository.getAllByCertified(false));
     }
