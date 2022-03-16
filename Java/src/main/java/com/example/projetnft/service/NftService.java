@@ -50,4 +50,13 @@ public class NftService {
     public Optional<List<Nft>> getAllNftsWaitingForCertification(){
         return Optional.of(nftRepository.getAllByCertified(false));
     }
+
+    public Optional<Boolean> deleteNftById(Integer nftId){
+        try {
+            nftRepository.deleteById(nftId);
+            return Optional.of(true);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
 }

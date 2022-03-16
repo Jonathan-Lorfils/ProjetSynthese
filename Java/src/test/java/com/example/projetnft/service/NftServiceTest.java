@@ -47,8 +47,6 @@ public class NftServiceTest {
                 .price(0.0)
                 .owner(null)
                 .build();
-
-
     }
 
     @Test
@@ -72,6 +70,12 @@ public class NftServiceTest {
         when(nftRepository.findById(0)).thenReturn(Optional.of(nft));
         Optional<Nft> actualNft = nftService.certifiedNft(0);
         assertThat(actualNft.get().isCertified()).isEqualTo(true);
+    }
+
+    @Test
+    public void testDeleteNftById(){
+        Optional<Boolean> actualBool = nftService.deleteNftById(0);
+        assertThat(actualBool.get()).isEqualTo(true);
     }
 
     private List<Nft> getListOfNfts(){

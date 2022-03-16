@@ -25,11 +25,12 @@ const AdminCertifiedNft = () => {
         )
     }
 
-    const deleteNft = (nft) => {
+    const deleteNft = async (nft) => { // update le tableau
+        const res = await fetch(`http://localhost:2022/nft/deleteNftById/${nft.id}`)
+        const data = await res.json()
 
+        setNftsList(nftsList.splice(nftsList.indexOf(nft),1))
     }
-
-
 
     const fetchCustomersList = async () => {
         const res = await fetch(`http://localhost:2022/nft/getAllNftsWaitingForCertification`)
@@ -77,7 +78,7 @@ const AdminCertifiedNft = () => {
                                                     </h5>
                                                 </td>
                                                 <td className="responsiveWidth">
-                                                    <AdminDisplayNftModal nft={nft} nftsList={nftsList} />
+                                                    <AdminDisplayNftModal nftProp={nft} />
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-success mx-2" onClick={e => { e.preventDefault(); certifiedNft(nft) }}>

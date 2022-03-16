@@ -40,4 +40,11 @@ public class NftController {
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Nft()));
     }
+
+    @GetMapping("deleteNftById/{idNft}")
+    public ResponseEntity<Boolean> deleteNftById(@PathVariable Integer idNft){
+        return nftService.deleteNftById(idNft)
+                .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(true))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(false));
+    }
 }
