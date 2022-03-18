@@ -27,6 +27,8 @@ public class Nft implements Serializable {
 
     private String name;
 
+    private String metaData;
+
     @OneToOne
     private Customer owner;
 
