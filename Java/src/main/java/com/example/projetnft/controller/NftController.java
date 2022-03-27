@@ -47,4 +47,11 @@ public class NftController {
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(true))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(false));
     }
+
+    @GetMapping("getAllNftByOwner/{idOwner}")
+    public ResponseEntity<List<Nft>> getAllNftByOwner(@PathVariable Integer idOwner){
+        return nftService.getAllNftByOwner(idOwner)
+                .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
 }

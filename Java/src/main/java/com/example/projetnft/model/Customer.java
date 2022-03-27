@@ -24,7 +24,7 @@ public class Customer extends User implements Serializable {
     private String sellerCertification = "Invalide"; // Invalide/ En attente/ Valide
 
     @Builder(builderMethodName = "customerBuilder")
-    public Customer(int id, String password, String username, String firstName, String lastName, String phone, String email, String walletAddress, double solde, String sellerCertification) {
+    public Customer(Integer id, String password, String username, String firstName, String lastName, String phone, String email, String walletAddress, double solde, String sellerCertification) {
         super.setId(id);
         super.setUsername(username);
         super.setPassword(password);

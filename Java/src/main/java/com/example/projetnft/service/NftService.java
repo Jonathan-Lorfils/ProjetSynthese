@@ -1,5 +1,6 @@
 package com.example.projetnft.service;
 
+import com.example.projetnft.model.Customer;
 import com.example.projetnft.model.Nft;
 import com.example.projetnft.repository.CustomerRepository;
 import com.example.projetnft.repository.NftRepository;
@@ -73,5 +74,14 @@ public class NftService {
                 "    }\n" +
                 "  ]");
         return metaDataJSON.toJSONString();
+    }
+
+    public Optional<List<Nft>> getAllNftByOwner(int id){
+        try {
+            Optional<Customer> owner = customerRepository.findById(id);
+            return Optional.of(nftRepository.getAllByOwnerAndCertifiedIsTrue(owner.get()));
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
     }
 }

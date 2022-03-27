@@ -38,6 +38,8 @@ public class NftServiceTest {
 
     private Nft nft;
 
+    private Customer customer;
+
     private MultipartFile multipartFile;
 
     @BeforeEach
@@ -49,6 +51,17 @@ public class NftServiceTest {
                 .name("test")
                 .price(0.0)
                 .owner(null)
+                .build();
+
+        customer = Customer.customerBuilder()
+                .id(1)
+                .email("test@gmail.com")
+                .firstName("Jojo")
+                .lastName("Lolo")
+                .password("12345")
+                .phone("5141234321")
+                .solde(32.0)
+                .walletAddress("ajbdgoge2o8gojn309")
                 .build();
     }
 
@@ -79,6 +92,13 @@ public class NftServiceTest {
     public void testDeleteNftById(){
         Optional<Boolean> actualBool = nftService.deleteNftById(0);
         assertThat(actualBool.get()).isEqualTo(true);
+    }
+
+    @Test
+    public void testGetAllNftsbyOwner() {
+        when(nftRepository.getAllByOwnerAndCertifiedIsTrue(new Customer())).thenReturn(getListOfNfts());
+        Optional<List<Nft>> actualListOfNfts = nftService.getAllNftByOwner(1);
+        assertThat(actualListOfNfts.get().size()).isEqualTo(3);
     }
 
     private List<Nft> getListOfNfts(){

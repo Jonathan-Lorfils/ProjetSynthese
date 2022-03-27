@@ -98,6 +98,19 @@ public class NftControllerTest {
         assertThat(actualNft.isCertified()).isEqualTo(true);
     }
 
+    @Test
+    public void getAllNftsByOwnerTest() throws Exception {
+        when(nftService.getAllNftByOwner(1)).thenReturn(Optional.of(getListOfNfts()));
+
+        MvcResult result = mockMvc.perform(get("/nft/getAllNftByOwner/{idNft}", 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actuals = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actuals.size()).isEqualTo(3);
+    }
+
     private List<Nft> getListOfNfts(){
         List<Nft> nftsList = new ArrayList<>();
         nftsList.add(Nft.nftBuilder()

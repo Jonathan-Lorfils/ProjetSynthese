@@ -14,7 +14,7 @@ public class Nft implements Serializable {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Lob
     private byte[] data;

@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Admin extends User implements Serializable {
 
     @Builder
-    public Admin(int id, String username, String password) {
+    public Admin(Integer id, String username, String password) {
         super.setId(id);
         super.setUsername(username);
         super.setPassword(password);
