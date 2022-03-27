@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [nftsList, setNftsList] = useState([])
   let history = useNavigate();
+
+  useEffect(() => {
+    const getNftsList = async () => {
+      const nftListFromServer = await getCustomerNfts()
+      setNftsList(nftListFromServer)
+    }
+    getNftsList()
+  }, [])
 
   const customerLogin = async (username, password) => { 
     const res = await fetch(`http://localhost:2022/customer/${username}/${password}`)
@@ -15,6 +24,10 @@ const Login = () => {
   const customerAdmin = async (username, password) => { 
     const res = await fetch(`http://localhost:2022/admin/${username}/${password}`)
     return await res.json()
+  }
+
+  const getCustomerNfts = async (idCustomer) => {
+    const res = await fetch(`http://localhost:2022/nft/getAllNftByOwner/${idCustomer}`)
   }
 
   function onSubmit(data) {
