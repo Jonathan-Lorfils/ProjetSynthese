@@ -72,7 +72,7 @@ const AdminCertifiedNft = () => {
                                                                 Invalide
                                                             </span>
                                                             :
-                                                            <span className="badge badge-succes">
+                                                            <span className="badge badge-success">
                                                                 Valide
                                                             </span>
                                                         }
@@ -97,7 +97,7 @@ const AdminCertifiedNft = () => {
                             </table>
                         </div>
                     </div>
-                    : <h3 className="text-center mx-1">NFT en attente de certification</h3>}
+                    : <h3 className="text-center mx-1">Aucun en attente de certification</h3>}
             </div>
         </div>
     )

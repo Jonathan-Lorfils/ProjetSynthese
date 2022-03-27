@@ -29,13 +29,11 @@ const Login = () => {
 
   function signInCustomer (data){
     sessionStorage.setItem('user',JSON.stringify(data))
-    console.log(data)
     history("/wallet")
   }
 
   function signInAdmin (data){
     sessionStorage.setItem('admin',JSON.stringify(data))
-    console.log(data)
     history("/adminSellerCertification")
   }
 
@@ -57,9 +55,7 @@ const Login = () => {
                     <div className="text-center">
                       <h4 className="mt-1 mb-5 pb-1">SafeNFT</h4>
                     </div>
-                    <form onSubmit={handleSubmit((data) => {
-                      onSubmit(data);
-                    })}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <p>Se connecter</p>
                       <div className="form-group mb-4">
                         <input className="form-control" type="text" placeholder="Nom d'utilisateur" {...register("username", { required: true})} />

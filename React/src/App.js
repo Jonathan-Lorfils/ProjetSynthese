@@ -8,6 +8,7 @@ import AdminSellerCertification from './components/Admin/AdminSellerCertificatio
 import UploadNFT from './components/Customer/UploadNFT';
 import CustomerWallet from './components/Customer/CustomerWallet';
 import AdminCertifiedNft from './components/Admin/AdminCertifiedNft';
+import CustomerShop from './components/Customer/CustomerShop';
 
 
 function App() {
@@ -20,8 +21,9 @@ function App() {
         <Route path="/addfunds" element={<AddFunds />} />
         <Route path="/withdrawfunds" element={<WithdrawFunds />} />
         <Route path="/uploadNFT" element={<UploadNFT />} />
-        <Route path="adminSellerCertification" element={<AdminSellerCertification/>} />
-        <Route path="adminNftCertification" element={<AdminCertifiedNft/>} />
+        <Route path="/adminSellerCertification" element={<AdminSellerCertification/>} />
+        <Route path="/adminNftCertification" element={<AdminCertifiedNft/>} />
+        <Route path="/CustomerShop" element={<CustomerShop/>} />
       </Routes>
     </BrowserRouter>
   );

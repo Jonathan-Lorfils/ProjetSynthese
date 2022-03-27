@@ -45,9 +45,7 @@ const Register = () => {
                             <div className="card">
                                 <div className="card-body p-5">
                                     <h4 className="text-uppercase text-center mb-2">Creer un compte</h4>
-                                    <form onSubmit={handleSubmit((data) => {
-                                        onSubmit(data);
-                                    })}>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="firstName">Prenom</label>
                                             <input type="text" id="firstName" className="form-control form-control-xs"  {...register("firstName", { required: true, max: 46 })} />

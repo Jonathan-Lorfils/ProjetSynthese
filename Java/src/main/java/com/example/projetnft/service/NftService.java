@@ -72,7 +72,6 @@ public class NftService {
                 "      image: ' " + fileName + " ',\n" +
                 "    }\n" +
                 "  ]");
-
         return metaDataJSON.toJSONString();
     }
 }
