@@ -4,6 +4,7 @@ import './CustomerWalletStyle.css'
 import logo from '.././../LazyLion.jpg'
 import { Link } from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
+import Swal from 'sweetalert2'
 
 const CustomerWallet = () => {
 
@@ -22,6 +23,46 @@ const CustomerWallet = () => {
   const fetchCustomersNftsList = async (idOwner) => {
     const res = await fetch(`http://localhost:2022/nft/getAllNftByOwner/${idOwner}`)
     return await res.json()
+  }
+
+  const putToSell = async (nft) => {
+    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}`)
+    const data = await res.json()
+
+    if(data.id !== undefined && data.id !== null){
+      setCustomerNftsList(
+        customerNftsList.map(
+          (nft1) => nft1.id == nft.id ? { ...nft1, toSell: data.toSell} : nft1
+        )
+      )
+  
+      puToSellSuccess()
+    } else {
+      puToSellFail()
+    }
+  }
+
+  const puToSellSuccess = () => {
+    Swal.fire({
+      toast: true,
+      position: 'top',
+      icon: 'success',
+      title: 'NFT mise en vente',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
+
+  const puToSellFail = () => {
+    Swal.fire({
+      title: "Une erreur est survenue \n de la mise en vente du NFT",
+      icon: 'error',
+      position: 'top',
+      toast: true,
+      timer: 2000,
+      showConfirmButton: false,
+      width: '400px',
+    })
   }
 
   const sellerCertificationValid = () => {
@@ -115,7 +156,7 @@ const CustomerWallet = () => {
                         <p class="card-text">Ce Nft vous appartient</p>
                       </div>
                       <div class="card-body">
-                        <a href="#" class="card-link">Mettre en vente</a>
+                        <button class="btn btn-primary card-link" onClick={e => { putToSell(nft) }}>Mettre en vente</button>
                         <a href="#" class="card-link">Retirer</a>
                       </div>
                     </div>
