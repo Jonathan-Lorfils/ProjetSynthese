@@ -1,14 +1,11 @@
 package com.example.projetnft.controller;
 
-import com.example.projetnft.model.Customer;
 import com.example.projetnft.model.Nft;
 import com.example.projetnft.repository.CustomerRepository;
-import com.example.projetnft.repository.NftRepository;
 import com.example.projetnft.service.NftService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -112,10 +109,10 @@ public class NftControllerTest {
     }
 
     @Test
-    public void getAllCertifiedNftsTest() throws Exception {
-        when(nftService.getAllCertifiedNfts()).thenReturn(Optional.of(getListOfNfts()));
+    public void getAllCertifiedNftsToSellTest() throws Exception {
+        when(nftService.getAllCertifiedNftsToSell()).thenReturn(Optional.of(getListOfNfts()));
 
-        MvcResult result = mockMvc.perform(get("/nft/getAllCertifiedNfts")
+        MvcResult result = mockMvc.perform(get("/nft/getAllCertifiedNftsToSell")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 

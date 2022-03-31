@@ -83,9 +83,9 @@ public class NftService {
         }
     }
 
-    public Optional<List<Nft>> getAllCertifiedNfts(){
+    public Optional<List<Nft>> getAllCertifiedNftsToSell(){
         try {
-            return Optional.of(nftRepository.getAllByCertifiedIsTrue());
+            return Optional.of(nftRepository.getAllByCertifiedIsTrueAndToSellIsTrue());
         } catch (Exception exception) {
             return Optional.empty();
         }

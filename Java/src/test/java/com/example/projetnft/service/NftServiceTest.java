@@ -1,8 +1,6 @@
 package com.example.projetnft.service;
 
 import com.example.projetnft.model.Customer;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.mockito.InjectMocks;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,9 +100,9 @@ public class NftServiceTest {
     }
 
     @Test
-    public void testGetAllCertifiedNfts() {
-        when(nftRepository.getAllByCertifiedIsTrue()).thenReturn(getListOfNfts());
-        Optional<List<Nft>> actualListOfNfts = nftService.getAllCertifiedNfts();
+    public void testGetAllCertifiedNftsToSell() {
+        when(nftRepository.getAllByCertifiedIsTrueAndToSellIsTrue()).thenReturn(getListOfNfts());
+        Optional<List<Nft>> actualListOfNfts = nftService.getAllCertifiedNftsToSell();
         assertThat(actualListOfNfts.get().size()).isEqualTo(3);
     }
 
