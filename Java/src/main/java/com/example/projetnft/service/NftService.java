@@ -90,4 +90,15 @@ public class NftService {
             return Optional.empty();
         }
     }
+
+    public Optional<Nft> setNftToSell(Integer nftId) {
+        try {
+            Nft nft = nftRepository.findById(nftId).get();
+            nft.setToSell(true);
+            nftRepository.save(nft);
+            return Optional.of(nft);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
 }

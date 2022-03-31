@@ -47,7 +47,7 @@ public class NftControllerTest {
     void setup(){
         nft = Nft.nftBuilder()
                 .certified(true)
-                .toSell(false)
+                .toSell(true)
                 .data("test".getBytes(StandardCharsets.UTF_8))
                 .name("test")
                 .price(0.0)
@@ -120,6 +120,20 @@ public class NftControllerTest {
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actuals.size()).isEqualTo(3);
     }
+
+    @Test
+    public void setNftToSellTest() throws Exception {
+        when(nftService.setNftToSell(0)).thenReturn(Optional.of(nft));
+
+        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}", 0)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualNft = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Nft.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualNft.isToSell()).isEqualTo(true);
+    }
+
 
     private List<Nft> getListOfNfts(){
         List<Nft> nftsList = new ArrayList<>();
