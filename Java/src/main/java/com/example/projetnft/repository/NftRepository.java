@@ -13,4 +13,6 @@ public interface NftRepository extends JpaRepository<Nft, Integer> {
     List<Nft> getAllByCertified(Boolean certificationState);
 
     List<Nft> getAllByOwnerAndCertifiedIsTrue(Customer owner);
+
+    List<Nft> getAllByCertifiedIsTrue();
 }

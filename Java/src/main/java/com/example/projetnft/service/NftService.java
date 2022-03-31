@@ -4,13 +4,11 @@ import com.example.projetnft.model.Customer;
 import com.example.projetnft.model.Nft;
 import com.example.projetnft.repository.CustomerRepository;
 import com.example.projetnft.repository.NftRepository;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,6 +78,14 @@ public class NftService {
         try {
             Optional<Customer> owner = customerRepository.findById(id);
             return Optional.of(nftRepository.getAllByOwnerAndCertifiedIsTrue(owner.get()));
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<List<Nft>> getAllCertifiedNfts(){
+        try {
+            return Optional.of(nftRepository.getAllByCertifiedIsTrue());
         } catch (Exception exception) {
             return Optional.empty();
         }

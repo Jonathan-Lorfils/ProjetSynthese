@@ -95,9 +95,17 @@ public class NftServiceTest {
     }
 
     @Test
-    public void testGetAllNftsbyOwner() {
-        when(nftRepository.getAllByOwnerAndCertifiedIsTrue(new Customer())).thenReturn(getListOfNfts());
+    public void testGetAllNftsByOwner() {
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+        when(nftRepository.getAllByOwnerAndCertifiedIsTrue(customer)).thenReturn(getListOfNfts());
         Optional<List<Nft>> actualListOfNfts = nftService.getAllNftByOwner(1);
+        assertThat(actualListOfNfts.get().size()).isEqualTo(3);
+    }
+
+    @Test
+    public void testGetAllCertifiedNfts() {
+        when(nftRepository.getAllByCertifiedIsTrue()).thenReturn(getListOfNfts());
+        Optional<List<Nft>> actualListOfNfts = nftService.getAllCertifiedNfts();
         assertThat(actualListOfNfts.get().size()).isEqualTo(3);
     }
 

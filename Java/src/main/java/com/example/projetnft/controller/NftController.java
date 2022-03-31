@@ -54,4 +54,11 @@ public class NftController {
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping("getAllCertifiedNfts")
+    public ResponseEntity<List<Nft>> getAllCertifiedNfts(){
+        return nftService.getAllCertifiedNfts()
+                .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
 }

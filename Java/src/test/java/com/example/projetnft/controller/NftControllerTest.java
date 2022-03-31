@@ -111,6 +111,19 @@ public class NftControllerTest {
         assertThat(actuals.size()).isEqualTo(3);
     }
 
+    @Test
+    public void getAllCertifiedNftsTest() throws Exception {
+        when(nftService.getAllCertifiedNfts()).thenReturn(Optional.of(getListOfNfts()));
+
+        MvcResult result = mockMvc.perform(get("/nft/getAllCertifiedNfts")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actuals = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actuals.size()).isEqualTo(3);
+    }
+
     private List<Nft> getListOfNfts(){
         List<Nft> nftsList = new ArrayList<>();
         nftsList.add(Nft.nftBuilder()
