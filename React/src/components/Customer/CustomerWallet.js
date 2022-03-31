@@ -2,13 +2,27 @@ import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
 import './CustomerWalletStyle.css'
 import logo from '.././../LazyLion.jpg'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
 
 const CustomerWallet = () => {
 
   const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
   const [sellerCertificationState, setSellerCertificationState] = useState(userInfo.sellerCertification)
+  const [customerNftsList, setCustomerNftsList] = useState([])
+
+  useEffect(() => {
+    const getCustomersNftsList = async () => {
+      const customerNftsListFromServer = await fetchCustomersNftsList(userInfo.id)
+      setCustomerNftsList(customerNftsListFromServer)
+    }
+    getCustomersNftsList()
+  }, [])
+
+  const fetchCustomersNftsList = async (idOwner) => {
+    const res = await fetch(`http://localhost:2022/nft/getAllNftByOwner/${idOwner}`)
+    return await res.json()
+  }
 
   const sellerCertificationValid = () => {
     return (
@@ -30,7 +44,7 @@ const CustomerWallet = () => {
     return (
       <div>
         <p>Pas de certification de vendeur <i class="fa-solid fa-circle-xmark"></i></p>
-        <SellerCertificationModal/>
+        <SellerCertificationModal />
       </div>
     )
   }
@@ -43,6 +57,26 @@ const CustomerWallet = () => {
     } else {
       return sellerCertificationInvalid()
     }
+  }
+
+  const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
 
   return (
@@ -71,6 +105,22 @@ const CustomerWallet = () => {
                   </div>
                 </div>
               </div>
+              <div className="card-deck">
+                {customerNftsList
+                  .map((nft) => (
+                    <div key={nft.id} class="card shadow" style={{ width: '18rem' }}>
+                      <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">{nft.name}</h5>
+                        <p class="card-text">Ce Nft vous appartient</p>
+                      </div>
+                      <div class="card-body">
+                        <a href="#" class="card-link">Mettre en vente</a>
+                        <a href="#" class="card-link">Retirer</a>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
@@ -78,5 +128,4 @@ const CustomerWallet = () => {
     </div>
   )
 }
-
 export default CustomerWallet

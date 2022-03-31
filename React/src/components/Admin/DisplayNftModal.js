@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const AdminDisplayNftModal = ({ nftProp }) => {
+const DisplayNftModal = ({ nftProp }) => {
 
     useEffect(() => {
         
@@ -65,4 +65,4 @@ const AdminDisplayNftModal = ({ nftProp }) => {
     )
 }
 
-export default AdminDisplayNftModal
+export default DisplayNftModal

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AdminDisplayNftModal from './AdminDisplayNftModal';
+import AdminDisplayNftModal from './DisplayNftModal';
 import AdminNavbar from './AdminNavbar';
 
 const AdminCertifiedNft = () => {
