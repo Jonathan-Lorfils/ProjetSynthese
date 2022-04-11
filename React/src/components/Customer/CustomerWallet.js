@@ -126,7 +126,7 @@ const CustomerWallet = () => {
       <div class="page-content page-container" id="page-content">
         <div class="padding">
           <div class="row d-flex justify-content-center">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-6 col-md-5">
               <div class="card user-card-full">
                 <div class="row m-l-0 m-r-0">
                   <div class="col-sm bg-c-lite-green user-profile border-radius">
@@ -156,7 +156,10 @@ const CustomerWallet = () => {
                         <p class="card-text">Ce Nft vous appartient</p>
                       </div>
                       <div class="card-body">
-                        <button class="btn btn-primary card-link" onClick={e => { putToSell(nft) }}>Mettre en vente</button>
+                        {nft.toSell == false ? 
+                        <button class="btn btn-primary card-link" onClick={e => { putToSell(nft) }}>Mettre en vente</button> :
+                        <button class="btn btn-success card-link" disabled>Deja en vente</button>
+                        }
                         <a href="#" class="card-link">Retirer</a>
                       </div>
                     </div>

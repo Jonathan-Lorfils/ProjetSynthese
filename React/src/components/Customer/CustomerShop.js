@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
+import './CustomerShopCss.css'
 
 const CustomerShop = () => {
 
@@ -38,27 +39,31 @@ const CustomerShop = () => {
     const blob = new Blob(byteArrays, { type: contentType });
     return blob;
   }
-  
+
   return (
     <div className="gradient-custom-2">
-        <CustomerNavbar/>
-        <h1 className="text-center text-light">Arrive bientot</h1>
-        <div className="card-deck">
-                {nftsToSellList
-                  .map((nft) => (
-                    <div key={nft.id} class="card shadow" style={{ width: '18rem' }}>
-                      <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">{nft.name}</h5>
-                        <p class="card-text">Ce Nft vous appartient</p>
-                      </div>
-                      <div class="card-body">
-                        <a href="#" class="card-link">Mettre en vente</a>
-                        <a href="#" class="card-link">Retirer</a>
-                      </div>
-                    </div>
-                  ))}
+      <CustomerNavbar />
+      <h1 className="text-center text-light">Boutique</h1>
+      <div className="container mt-lg-5">
+        <div className="row row-cols-1 row-cols-md-3">
+          {nftsToSellList
+            .map((nft) => (
+              <div className="col mb-4">
+                <div key={nft.id} className="card card shadow mr-4" style={{ width: '18rem', height:'30rem' }}>
+                  <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." /> 
+                  <div className="card-body">
+                    <h6>{nft.name}</h6>
+                    <h5 className="card-title">Prix: {nft.price}</h5>
+                  </div>
+                  <div className="card-body">
+                    <button className="btn btn-primary btn-sm mr-3">Ajouter au panier</button>
+                    <button className="btn btn-danger btn-sm">En savoir plus</button>
+                  </div>
+                </div>
               </div>
+            ))}
+        </div>
+      </div>
     </div>
   )
 }
