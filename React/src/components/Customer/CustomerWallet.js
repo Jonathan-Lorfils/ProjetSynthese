@@ -25,17 +25,17 @@ const CustomerWallet = () => {
     return await res.json()
   }
 
-  const putToSell = async (nft) => {
-    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}`)
+  const putToSell = async (nft, state) => {
+    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}`)
     const data = await res.json()
 
-    if(data.id !== undefined && data.id !== null){
+    if (data.id !== undefined && data.id !== null) {
       setCustomerNftsList(
         customerNftsList.map(
-          (nft1) => nft1.id == nft.id ? { ...nft1, toSell: data.toSell} : nft1
+          (nft1) => nft1.id == nft.id ? { ...nft1, toSell: data.toSell } : nft1
         )
       )
-  
+
       puToSellSuccess()
     } else {
       puToSellFail()
@@ -47,7 +47,7 @@ const CustomerWallet = () => {
       toast: true,
       position: 'top',
       icon: 'success',
-      title: 'NFT mise en vente',
+      title: 'Status de vente du NFT \n mise a jour',
       showConfirmButton: false,
       timer: 2000
     })
@@ -55,7 +55,7 @@ const CustomerWallet = () => {
 
   const puToSellFail = () => {
     Swal.fire({
-      title: "Une erreur est survenue \n de la mise en vente du NFT",
+      title: "Une erreur est survenue \n lors de la mise a jour du status",
       icon: 'error',
       position: 'top',
       toast: true,
@@ -126,7 +126,7 @@ const CustomerWallet = () => {
       <div class="page-content page-container" id="page-content">
         <div class="padding">
           <div class="row d-flex justify-content-center">
-            <div class="col-xl-6 col-md-5">
+            <div class="col-xl-7 col-md-5">
               <div class="card user-card-full">
                 <div class="row m-l-0 m-r-0">
                   <div class="col-sm bg-c-lite-green user-profile border-radius">
@@ -146,9 +146,11 @@ const CustomerWallet = () => {
                   </div>
                 </div>
               </div>
-              <div className="card-deck">
+              <div className="container mt-lg-5">
+                <div className="row row-cols-1 row-cols-md-3">
                 {customerNftsList
                   .map((nft) => (
+                    <div className="col mb-4">
                     <div key={nft.id} class="card shadow" style={{ width: '18rem' }}>
                       <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} class="card-img-top" alt="..." />
                       <div class="card-body">
@@ -156,14 +158,19 @@ const CustomerWallet = () => {
                         <p class="card-text">Ce Nft vous appartient</p>
                       </div>
                       <div class="card-body">
-                        {nft.toSell == false ? 
-                        <button class="btn btn-primary card-link" onClick={e => { putToSell(nft) }}>Mettre en vente</button> :
-                        <button class="btn btn-success card-link" disabled>Deja en vente</button>
+                        {nft.toSell == false ?
+                          <button class="btn btn-primary card-link" onClick={e => { putToSell(nft, true) }}>Mettre en vente</button> :
+                          <button class="btn btn-success card-link" disabled>Deja en vente</button>
                         }
-                        <a href="#" class="card-link">Retirer</a>
+                        {nft.toSell == true ?
+                          <button class="btn btn-danger card-link" onClick={e => { putToSell(nft, false) }}>Retirer</button> :
+                          <button class="btn btn-success card-link" disabled>Retirer</button>
+                        }
                       </div>
                     </div>
+                    </div>
                   ))}
+                </div>
               </div>
             </div>
           </div>

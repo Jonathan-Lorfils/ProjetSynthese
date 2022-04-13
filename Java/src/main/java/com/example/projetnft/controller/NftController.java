@@ -62,9 +62,9 @@ public class NftController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("setNftToSell/{idNft}")
-    public ResponseEntity<Nft> setNftToSell(@PathVariable Integer idNft){
-        return nftService.setNftToSell(idNft)
+    @GetMapping("setNftToSell/{idNft}/{state}")
+    public ResponseEntity<Nft> setNftToSell(@PathVariable Integer idNft, @PathVariable boolean state){
+        return nftService.setNftToSell(idNft, state)
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Nft()));
     }

@@ -123,9 +123,9 @@ public class NftControllerTest {
 
     @Test
     public void setNftToSellTest() throws Exception {
-        when(nftService.setNftToSell(0)).thenReturn(Optional.of(nft));
+        when(nftService.setNftToSell(0, true)).thenReturn(Optional.of(nft));
 
-        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}", 0)
+        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}/{state}", 0, true)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 

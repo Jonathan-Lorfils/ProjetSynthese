@@ -7,7 +7,7 @@ const AddFunds = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     let history = useNavigate();
 
-    const addfunds = async (fundToAdd) => { 
+    const addfunds = async (fundToAdd) => {
         const res = await fetch(`http://localhost:2022/customer/addfunds/${fundToAdd}/${userInfo.phoneNumber}`)
         return await res.json()
     }
@@ -18,7 +18,6 @@ const AddFunds = () => {
     }
 
     function sucess(data) {
-        // save dans le navigateur
         console.log(data)
         sessionStorage.setItem('user', JSON.stringify(data))
         alert("Ajout reussi")
@@ -33,6 +32,7 @@ const AddFunds = () => {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div className="card">
+
                                 <div className="card-body p-5">
                                     <h4 className="text-uppercase text-center mb-2">Ajouter des fonds</h4>
                                     <form onSubmit={handleSubmit((data) => {
@@ -44,13 +44,18 @@ const AddFunds = () => {
                                             <input disabled value="Lorem5ipsum2dolor8sit9amet1consectetur3adipisicing" type="text" id="walletAddress" className="form-control form-control-xs" />
                                         </div>
                                         <p className="text-center"><u onClick={() => navigator.clipboard.writeText('Lorem5ipsum2dolor8sit9amet1consectetur3adipisicing')}>Copier</u></p>
-                                        <p className="text-center"><u>Montant actuel : {userInfo.solde} (ETH)</u></p> 
+                                        <p className="text-center"><u>Montant actuel : {userInfo.solde} (ETH)</u></p>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="walletAddress">Montant (ETH)</label>
                                             <input type="number" step={0.001} min="0.001" id="walletAddress" className="form-control form-control-xs" {...register("fundToAdd", { required: true })} />
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button type="submit" className="btn btn-danger btn-block btn-md">Ajouter</button>
+                                        </div>
+                                        <div className="mt-4 d-flex justify-content-center">
+                                        <button className="btn btn-primary" onClick={e => { e.preventDefault(); history("/wallet"); }}>
+                                                <i className="fas fa-angle-double-left"></i> Retour
+                                            </button>
                                         </div>
                                     </form>
                                 </div>

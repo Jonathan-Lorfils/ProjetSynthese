@@ -39,16 +39,21 @@ const WithdrawFunds = () => {
                     <br />
                     <h5 className="text-center">Assurer vous que votre adresse peut recevoir de l'Ethereum(ETH)</h5>
                     <div className="form-outline mb-4">
-                    <label className="form-label" for="walletAddress">Adresse du portefeuille (ETH)</label>
+                      <label className="form-label" for="walletAddress">Adresse du portefeuille (ETH)</label>
                       <input disabled value={userInfo.walletAddress} type="text" id="walletAddress" className="form-control form-control-xs" />
                     </div>
-                    <p className="text-center"><u>Montant disponible au retrait : {userInfo.solde} (ETH)</u></p> 
+                    <p className="text-center"><u>Montant disponible au retrait : {userInfo.solde} (ETH)</u></p>
                     <div className="form-outline mb-4">
                       <label className="form-label" for="walletAddress">Montant (ETH)</label>
                       <input type="number" step={0.001} min="0.003" id="walletAddress" className="form-control form-control-xs" {...register("fundToRemove", { required: true, max: userInfo.solde })} />
                     </div>
                     <div className="d-flex justify-content-center">
-                      <button type="submit" className="btn btn-danger btn-block btn-md">Retirer</button>
+                      <button type="submit" className="btn btn-danger btn-block">Retirer</button>
+                    </div>
+                    <div className="mt-4 d-flex justify-content-center">
+                      <button className="btn btn-primary" onClick={e => { e.preventDefault(); history("/wallet"); }}>
+                        <i className="fas fa-angle-double-left"></i> Retour
+                      </button>
                     </div>
                   </form>
                 </div>

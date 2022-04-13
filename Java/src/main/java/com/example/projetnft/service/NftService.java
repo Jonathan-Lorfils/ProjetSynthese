@@ -91,10 +91,10 @@ public class NftService {
         }
     }
 
-    public Optional<Nft> setNftToSell(Integer nftId) {
+    public Optional<Nft> setNftToSell(Integer nftId, boolean state) {
         try {
             Nft nft = nftRepository.findById(nftId).get();
-            nft.setToSell(true);
+            nft.setToSell(state);
             nftRepository.save(nft);
             return Optional.of(nft);
         } catch (Exception exception) {

@@ -109,7 +109,7 @@ public class NftServiceTest {
     @Test
     public void testSetNftToSell(){
         when(nftRepository.findById(0)).thenReturn(Optional.of(nft));
-        Optional<Nft> actualNft = nftService.setNftToSell(0);
+        Optional<Nft> actualNft = nftService.setNftToSell(0, true);
         assertThat(actualNft.get().isToSell()).isEqualTo(true);
     }
 
