@@ -3,6 +3,7 @@ import CustomerNavbar from './CustomerNavbar'
 import _ from 'lodash'
 import bsCustomFileInput from 'bs-custom-file-input'
 import axios from "axios"
+import Swal from 'sweetalert2'
 
 const UploadNFT = () => {
 
@@ -26,13 +27,35 @@ const UploadNFT = () => {
           },
         })
         .then((response) => {
-          alert("Upload reussi")
+          uploadSuccess()
         })
         .catch((error) => {
-          alert("Upload echoue")
+          uploadFail()
         })
     }
-    console.log(uploadFile)
+  }
+
+  const uploadSuccess = () => {
+    Swal.fire({
+      toast: true,
+      position: 'top',
+      icon: 'success',
+      title: 'Téléversement réussi',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
+
+  const uploadFail = () => {
+    Swal.fire({
+      title: "Une erreur est survenue \n lors du téléversement",
+      icon: 'error',
+      position: 'top',
+      toast: true,
+      timer: 2000,
+      showConfirmButton: false,
+      width: '400px',
+    })
   }
 
     return (

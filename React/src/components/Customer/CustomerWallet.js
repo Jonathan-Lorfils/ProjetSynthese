@@ -5,12 +5,14 @@ import logo from '.././../LazyLion.jpg'
 import { Link } from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 
 const CustomerWallet = () => {
 
   const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
   const [sellerCertificationState, setSellerCertificationState] = useState(userInfo.sellerCertification)
   const [customerNftsList, setCustomerNftsList] = useState([])
+  let history = useNavigate();
 
   useEffect(() => {
     const getCustomersNftsList = async () => {
@@ -23,46 +25,6 @@ const CustomerWallet = () => {
   const fetchCustomersNftsList = async (idOwner) => {
     const res = await fetch(`http://localhost:2022/nft/getAllNftByOwner/${idOwner}`)
     return await res.json()
-  }
-
-  const putToSell = async (nft, state) => {
-    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}`)
-    const data = await res.json()
-
-    if (data.id !== undefined && data.id !== null) {
-      setCustomerNftsList(
-        customerNftsList.map(
-          (nft1) => nft1.id == nft.id ? { ...nft1, toSell: data.toSell } : nft1
-        )
-      )
-
-      puToSellSuccess()
-    } else {
-      puToSellFail()
-    }
-  }
-
-  const puToSellSuccess = () => {
-    Swal.fire({
-      toast: true,
-      position: 'top',
-      icon: 'success',
-      title: 'Status de vente du NFT \n mise a jour',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
-
-  const puToSellFail = () => {
-    Swal.fire({
-      title: "Une erreur est survenue \n lors de la mise a jour du status",
-      icon: 'error',
-      position: 'top',
-      toast: true,
-      timer: 2000,
-      showConfirmButton: false,
-      width: '400px',
-    })
   }
 
   const sellerCertificationValid = () => {
@@ -120,6 +82,11 @@ const CustomerWallet = () => {
     return blob;
   }
 
+  const goToCustomerSellingNft = (nft) => {
+    sessionStorage.setItem('nftToSell',JSON.stringify(nft))
+    history("/CustomerSellingNft")
+  }
+
   return (
     <div>
       <CustomerNavbar />
@@ -159,11 +126,11 @@ const CustomerWallet = () => {
                       </div>
                       <div class="card-body">
                         {nft.toSell == false ?
-                          <button class="btn btn-primary card-link" onClick={e => { putToSell(nft, true) }}>Mettre en vente</button> :
+                          <button class="btn btn-primary card-link" onClick={e => { goToCustomerSellingNft(nft)  }}>Mettre en vente</button> :
                           <button class="btn btn-success card-link" disabled>Deja en vente</button>
                         }
                         {nft.toSell == true ?
-                          <button class="btn btn-danger card-link" onClick={e => { putToSell(nft, false) }}>Retirer</button> :
+                          <button class="btn btn-danger card-link" >Retirer</button> :
                           <button class="btn btn-success card-link" disabled>Retirer</button>
                         }
                       </div>

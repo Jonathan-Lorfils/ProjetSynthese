@@ -1,5 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
+
 
 const CustomerNavbar = () => {
 
@@ -8,7 +10,19 @@ const CustomerNavbar = () => {
     const disconnect = () => {
         sessionStorage.clear()
         history("/")
+        disconnectSuccess()
     }
+
+    const disconnectSuccess = () => {
+        Swal.fire({
+          toast: true,
+          position: 'top',
+          icon: 'success',
+          title: 'Déconnexion réussi',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
 
     return (
         <div>
