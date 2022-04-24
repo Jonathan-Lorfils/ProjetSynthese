@@ -50,7 +50,7 @@ public class NftControllerTest {
                 .toSell(true)
                 .data("test".getBytes(StandardCharsets.UTF_8))
                 .name("test")
-                .price(0.0)
+                .price(0.1)
                 .owner(null)
                 .build();
     }
@@ -123,15 +123,16 @@ public class NftControllerTest {
 
     @Test
     public void setNftToSellTest() throws Exception {
-        when(nftService.setNftToSell(0, true)).thenReturn(Optional.of(nft));
+        when(nftService.setNftToSell(0, true, 0.1)).thenReturn(Optional.of(nft));
 
-        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}/{state}", 0, true)
+        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}/{state}/{price}", 0, true, 0.1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         var actualNft = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Nft.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualNft.isToSell()).isEqualTo(true);
+        assertThat(actualNft.getPrice()).isEqualTo(0.1);
     }
 
 

@@ -11,12 +11,13 @@ const CustomerSellingNft = () => {
     let history = useNavigate();
 
     function onSubmit(data) {
-
+        putToSell(nft, true, data.price)
+            .then((data) => data !== data.id ? sucess() : puToSellFail())
     }
 
-    const putToSell = async (nft, state) => {
-        const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}`)
-        const data = await res.json()
+    const putToSell = async (nft, state, price) => {
+        const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}/${price}`)
+        return await res.json()
     }
 
     const puToSellSuccess = () => {
@@ -42,11 +43,29 @@ const CustomerSellingNft = () => {
         })
     }
 
-    function sucess(data) {
-        console.log(data)
-        sessionStorage.setItem('user', JSON.stringify(data))
-        alert("Ajout reussi")
+    function sucess() {
+        puToSellSuccess()
         history("/wallet");
+    }
+
+    const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, { type: contentType });
+        return blob;
     }
 
     return (
@@ -62,6 +81,9 @@ const CustomerSellingNft = () => {
                                     <form onSubmit={handleSubmit((data) => {
                                         onSubmit(data);
                                     })}>
+                                        <div className="col-sm my-3">
+                                            <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} alt="" width="420" height="400" />
+                                        </div>
                                         <br />
                                         <h5 className="text-center">Entrer le prix de vente souhaiter (ETH)</h5>
                                         <div className="form-outline mb-4">
@@ -70,13 +92,13 @@ const CustomerSellingNft = () => {
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="walletAddress">Prix (ETH)</label>
-                                            <input type="number" step={0.001} min="0.001" id="walletAddress" className="form-control form-control-xs" {...register("fundToAdd", { required: true })} />
+                                            <input type="number" step={0.001} min="0.001" id="walletAddress" className="form-control form-control-xs" {...register("price", { required: true })} />
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button type="submit" className="btn btn-danger btn-block btn-md">Vendre</button>
                                         </div>
                                         <div className="mt-4 d-flex justify-content-center">
-                                            <button className="btn btn-primary" onClick={e => { e.preventDefault(); history("/wallet"); }}>
+                                            <button className="btn btn-primary" onClick={e => { history("/wallet"); }}>
                                                 <i className="fas fa-angle-double-left"></i> Retour
                                             </button>
                                         </div>

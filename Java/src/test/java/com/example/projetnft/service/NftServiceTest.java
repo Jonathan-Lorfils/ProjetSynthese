@@ -46,7 +46,7 @@ public class NftServiceTest {
                 .toSell(false)
                 .data("test".getBytes(StandardCharsets.UTF_8))
                 .name("test")
-                .price(0.0)
+                .price(0.1)
                 .owner(null)
                 .build();
 
@@ -109,8 +109,9 @@ public class NftServiceTest {
     @Test
     public void testSetNftToSell(){
         when(nftRepository.findById(0)).thenReturn(Optional.of(nft));
-        Optional<Nft> actualNft = nftService.setNftToSell(0, true);
+        Optional<Nft> actualNft = nftService.setNftToSell(0, true, 0.1);
         assertThat(actualNft.get().isToSell()).isEqualTo(true);
+        assertThat(actualNft.get().getPrice()).isEqualTo(0.1);
     }
 
     private List<Nft> getListOfNfts(){
