@@ -3,6 +3,7 @@ import './ModalCss.css'
 import Swal from 'sweetalert2'
 
 
+
 const SellerCertificationModal = () => {
 
     const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))

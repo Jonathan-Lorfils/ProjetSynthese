@@ -125,6 +125,31 @@ const CustomerWallet = () => {
     })
   }
 
+  const showPutNftToSellButton = (nft) => {
+    return (
+      <div>
+        <button className="btn btn-primary card-link" onClick={e => { goToCustomerSellingNft(nft) }}>Mettre en vente</button>
+      <button className="btn btn-danger card-link" disabled>Retirer</button>
+      </div>
+      
+    )
+  } 
+
+  const showRemoveNftFromSellButton = (nft) => {
+    return (
+      <div>
+        <button className="btn btn-success card-link" disabled>Déjà en vente</button>
+        <button className="btn btn-danger card-link" onClick={e => { withdrawFromSale(nft) }}>Retirer</button>
+      </div>
+    )
+  }
+
+  const hideSellButton = () => {
+    return (
+      <h6>Pas de certification vendeur</h6>
+    )
+  }
+
   return (
     <div>
       <CustomerNavbar />
@@ -163,13 +188,12 @@ const CustomerWallet = () => {
                             <p className="card-text">Ce Nft vous appartient</p>
                           </div>
                           <div className="card-body">
-                            {nft.toSell == false ?
-                              <button className="btn btn-primary card-link" onClick={e => { goToCustomerSellingNft(nft) }}>Mettre en vente</button> :
-                              <button className="btn btn-success card-link" disabled>Déjà en vente</button>
-                            }
-                            {nft.toSell == true ?
-                              <button className="btn btn-danger card-link" onClick={e => { withdrawFromSale(nft) }}>Retirer</button> :
-                              <button className="btn btn-danger card-link" disabled>Retirer</button>
+                            {userInfo.sellerCertification == "Valide"  ? 
+                            nft.toSell == true ?
+                              showRemoveNftFromSellButton(nft) :
+                              showPutNftToSellButton(nft)
+                            :
+                             hideSellButton()
                             }
                           </div>
                         </div>
