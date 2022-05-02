@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './RegisterStyle.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 const Register = () => {
@@ -21,18 +22,41 @@ const Register = () => {
         return await result.json()
     }
 
+    const puToSellSuccess = () => {
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            icon: 'success',
+            title: 'Inscription reussi',
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }
+    
+    const puToSellFail = () => {
+        Swal.fire({
+            title: "Échec de l'inscription",
+            icon: 'error',
+            position: 'top',
+            toast: true,
+            timer: 2000,
+            showConfirmButton: false,
+            width: '400px',
+        })
+    }
 
     function onSubmit(data) {
         if (data.username.includes("admin")) {
             alert("Votre nom d'utilisateur ne peut pas contenir admin")
             return
-        }
+        } 
         registerUser(data)
-            .then((data1) => data1.email !== undefined ? registration() : alert("echec de l'inscription"))
+            .then((data1) => data1.email !== undefined ? registration() : puToSellFail())
+            .catch(() => puToSellFail())
     }
 
     function registration() {
-        alert("Inscription reussi")
+        puToSellSuccess()
         history("/");
     }
 

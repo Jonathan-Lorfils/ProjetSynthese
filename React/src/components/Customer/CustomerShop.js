@@ -55,7 +55,7 @@ const CustomerShop = () => {
                     <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
                     <div className="card-body">
                       <h6>{nft.name}</h6>
-                      <h5 className="card-title">Prix: {nft.price}</h5>
+                      <h5 className="card-title">Prix: {nft.price} ETH</h5>
                     </div>
                     <div className="card-body">
                       <button className="btn btn-primary btn-sm mr-3">Ajouter au panier</button>

@@ -1,6 +1,8 @@
 package com.example.projetnft.service;
 
+import com.example.projetnft.model.Cart;
 import com.example.projetnft.model.Customer;
+import com.example.projetnft.repository.CartRepository;
 import com.example.projetnft.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,19 @@ public class CustomerService {
 
     public CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository customerRepository){
+    public CartRepository cartRepository;
+
+    public CustomerService(CustomerRepository customerRepository, CartRepository cartRepository){
         this.customerRepository = customerRepository;
+        this.cartRepository = cartRepository;
     }
 
     public Optional<Customer> registerUser(Customer customer){
         try{
             if(!customerRepository.existsByPhoneNumberOrEmail(customer.getPhoneNumber(), customer.getEmail())){
+                Cart newCart = new Cart();
+                customer.setCart(newCart);
+                cartRepository.save(newCart);
                 return Optional.of(customerRepository.save(customer));
             }
             return Optional.empty();

@@ -30,7 +30,7 @@ const CustomerWallet = () => {
   const sellerCertificationValid = () => {
     return (
       <div>
-        <p>Vendeur certifié <i class="fa-solid fa-circle-check"></i></p>
+        <p>Vendeur certifié <i className="fa-solid fa-circle-check"></i></p>
       </div>
     )
   }
@@ -38,7 +38,7 @@ const CustomerWallet = () => {
   const sellerCertificationWaiting = () => {
     return (
       <div>
-        <p>En attente <i class="fa-solid fa-circle-check"></i></p>
+        <p>En attente <i className="fa-solid fa-circle-check"></i></p>
       </div>
     )
   }
@@ -46,7 +46,7 @@ const CustomerWallet = () => {
   const sellerCertificationInvalid = () => {
     return (
       <div>
-        <p>Pas de certification de vendeur <i class="fa-solid fa-circle-xmark"></i></p>
+        <p>Pas de certification de vendeur <i className="fa-solid fa-circle-xmark"></i></p>
         <SellerCertificationModal />
       </div>
     )
@@ -90,10 +90,10 @@ const CustomerWallet = () => {
   const withdrawFromSale = async (nft) => {
     const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${false}/${0}`)
     const data = await res.json()
-    if (data.id == nft.id){
+    if (data.id == nft.id) {
       setCustomerNftsList(
         customerNftsList.map(
-          (nft1) => nft1.id === nft.id ?  nft1 = data : nft1
+          (nft1) => nft1.id === nft.id ? nft1 = data : nft1
         )
       )
       puToSellSuccess()
@@ -104,41 +104,41 @@ const CustomerWallet = () => {
 
   const puToSellSuccess = () => {
     Swal.fire({
-        toast: true,
-        position: 'top',
-        icon: 'success',
-        title: 'Votre Nft a été retiré de la vente',
-        showConfirmButton: false,
-        timer: 2000
+      toast: true,
+      position: 'top',
+      icon: 'success',
+      title: 'Votre Nft a été retiré de la vente',
+      showConfirmButton: false,
+      timer: 2000
     })
-}
+  }
 
-const puToSellFail = () => {
+  const puToSellFail = () => {
     Swal.fire({
-        title: "Une erreur est survenue \n lors de la mise a jour du status",
-        icon: 'error',
-        position: 'top',
-        toast: true,
-        timer: 2000,
-        showConfirmButton: false,
-        width: '400px',
+      title: "Une erreur est survenue \n lors de la mise a jour du status",
+      icon: 'error',
+      position: 'top',
+      toast: true,
+      timer: 2000,
+      showConfirmButton: false,
+      width: '400px',
     })
-}
+  }
 
   return (
     <div>
       <CustomerNavbar />
-      <div class="page-content page-container" id="page-content">
-        <div class="padding">
-          <div class="row d-flex justify-content-center">
-            <div class="col-xl-7 col-md-5">
-              <div class="card user-card-full">
-                <div class="row m-l-0 m-r-0">
-                  <div class="col-sm bg-c-lite-green user-profile border-radius">
-                    <div class="card-block text-center text-white">
-                      <div class="m-b-25"> <img src={logo} className="img-radius" alt="User-Profile-Image" /> </div>
-                      <div class="m-b-25">  </div>
-                      <h3 class="f-w-600">{userInfo.firstName} {userInfo.lastName} </h3>
+      <div className="page-content page-container" id="page-content">
+        <div className="padding">
+          <div className="row d-flex justify-content-center">
+            <div className="col-xl-7 col-md-5">
+              <div className="card user-card-full">
+                <div className="row m-l-0 m-r-0">
+                  <div className="col-sm bg-c-lite-green user-profile border-radius">
+                    <div className="card-block text-center text-white">
+                      <div className="m-b-25"> <img src={logo} className="img-radius" alt="User-Profile-Image" /> </div>
+                      <div className="m-b-25">  </div>
+                      <h3 className="f-w-600">{userInfo.firstName} {userInfo.lastName} </h3>
                       {checkSellerCertification()}
                       <h6>Solde disponible : {userInfo.solde} ETH</h6>
                       <Link to={"/withdrawfunds"}>
@@ -156,20 +156,20 @@ const puToSellFail = () => {
                   {customerNftsList
                     .map((nft) => (
                       <div className="col mb-4">
-                        <div key={nft.id} class="card shadow" style={{ width: '18rem' }}>
-                          <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} class="card-img-top" alt="..." />
-                          <div class="card-body">
-                            <h5 class="card-title">{nft.name}</h5>
-                            <p class="card-text">Ce Nft vous appartient</p>
+                        <div key={nft.id} className="card shadow" style={{ width: '18rem' }}>
+                          <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
+                          <div className="card-body">
+                            <h5 className="card-title">{nft.name}</h5>
+                            <p className="card-text">Ce Nft vous appartient</p>
                           </div>
-                          <div class="card-body">
+                          <div className="card-body">
                             {nft.toSell == false ?
-                              <button class="btn btn-primary card-link" onClick={e => { goToCustomerSellingNft(nft) }}>Mettre en vente</button> :
-                              <button class="btn btn-success card-link" disabled>Deja en vente</button>
+                              <button className="btn btn-primary card-link" onClick={e => { goToCustomerSellingNft(nft) }}>Mettre en vente</button> :
+                              <button className="btn btn-success card-link" disabled>Déjà en vente</button>
                             }
                             {nft.toSell == true ?
-                              <button class="btn btn-danger card-link" onClick={e => { withdrawFromSale(nft) }}>Retirer</button> :
-                              <button class="btn btn-success card-link" disabled>Retirer</button>
+                              <button className="btn btn-danger card-link" onClick={e => { withdrawFromSale(nft) }}>Retirer</button> :
+                              <button className="btn btn-danger card-link" disabled>Retirer</button>
                             }
                           </div>
                         </div>

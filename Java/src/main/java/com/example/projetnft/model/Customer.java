@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 @Data
@@ -23,8 +24,11 @@ public class Customer extends User implements Serializable {
     private Double solde = 0.0;
     private String sellerCertification = "Invalide"; // Invalide/ En attente/ Valide
 
+    @OneToOne
+    private Cart cart;
+
     @Builder(builderMethodName = "customerBuilder")
-    public Customer(Integer id, String password, String username, String firstName, String lastName, String phone, String email, String walletAddress, double solde, String sellerCertification) {
+    public Customer(Integer id, String password, String username, String firstName, String lastName, String phone, String email, String walletAddress, double solde, String sellerCertification, Cart cart) {
         super.setId(id);
         super.setUsername(username);
         super.setPassword(password);
@@ -35,5 +39,6 @@ public class Customer extends User implements Serializable {
         this.walletAddress = walletAddress;
         this.solde = solde;
         this.sellerCertification = sellerCertification;
+        this.cart = cart;
     }
 }

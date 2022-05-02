@@ -1,6 +1,9 @@
 package com.example.projetnft.service;
 
+import com.example.projetnft.model.Cart;
 import com.example.projetnft.model.Customer;
+import com.example.projetnft.model.Nft;
+import com.example.projetnft.repository.CartRepository;
 import com.example.projetnft.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +25,26 @@ public class CustomerServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
+    @Mock
+    private CartRepository cartRepository;
+
     @InjectMocks
     private CustomerService customerService;
 
     private Customer customer;
     private Customer customerRegistred;
+    private Cart cart;
 
     @BeforeEach
     void setup(){
+        List<Nft> nftList = new ArrayList<>();
+
+        cart = Cart.cartBuilder()
+                .id(1)
+                .items(nftList)
+                .totalprice(0)
+                .build();
+
         customer = Customer.customerBuilder()
                 .id(1)
                 .email("test@gmail.com")
@@ -50,6 +65,7 @@ public class CustomerServiceTest {
                 .phone("5141234321")
                 .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
+                .cart(cart)
                 .build();
     }
 
@@ -58,6 +74,7 @@ public class CustomerServiceTest {
         when(customerRepository.save(customer)).thenReturn(customerRegistred);
         Optional<Customer> actualUser = customerService.registerUser(customer);
         assertThat(actualUser.get()).isEqualTo(customerRegistred);
+
     }
 
     @Test

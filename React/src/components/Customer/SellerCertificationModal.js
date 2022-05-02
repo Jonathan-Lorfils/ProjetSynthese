@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './ModalCss.css'
+import Swal from 'sweetalert2'
 
 
 const SellerCertificationModal = () => {
@@ -14,14 +15,36 @@ const SellerCertificationModal = () => {
 
     function sendRequest(data) {
         requestSellerCertification()
-            .then((data) => data.sellerCertification === "En attente" ? sucess(data) : alert("echec de la requete"))
+            .then((data) => data.sellerCertification === "En attente" ? sucess(data) : puToSellFail())
     }
 
     function sucess(data) {
-        // save dans le navigateur
         setUserInfo(data)
         sessionStorage.setItem('user', JSON.stringify(data))
-        alert("requete envoye")
+        puToSellSuccess()
+    }
+
+    const puToSellSuccess = () => {
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            icon: 'success',
+            title: 'Requete envoye',
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }
+    
+    const puToSellFail = () => {
+        Swal.fire({
+            title: "Echec de la requete",
+            icon: 'error',
+            position: 'top',
+            toast: true,
+            timer: 2000,
+            showConfirmButton: false,
+            width: '400px',
+        })
     }
 
     return (
