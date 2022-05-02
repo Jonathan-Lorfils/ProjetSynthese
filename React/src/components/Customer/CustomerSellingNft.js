@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import { Notification } from '../Notifications';
 
 const CustomerSellingNft = () => {
 
@@ -12,7 +12,7 @@ const CustomerSellingNft = () => {
 
     function onSubmit(data) {
         putToSell(nft, true, data.price)
-            .then((data) => data !== data.id ? sucess() : puToSellFail())
+            .then((data) => data !== data.id ? sucess() : Notification.failNotification("Une erreur est survenue \n lors de la mise a jour du status"))
     }
 
     const putToSell = async (nft, state, price) => {
@@ -20,31 +20,8 @@ const CustomerSellingNft = () => {
         return await res.json()
     }
 
-    const puToSellSuccess = () => {
-        Swal.fire({
-            toast: true,
-            position: 'top',
-            icon: 'success',
-            title: 'Status de vente du NFT \n mise a jour',
-            showConfirmButton: false,
-            timer: 2000
-        })
-    }
-
-    const puToSellFail = () => {
-        Swal.fire({
-            title: "Une erreur est survenue \n lors de la mise a jour du status",
-            icon: 'error',
-            position: 'top',
-            toast: true,
-            timer: 2000,
-            showConfirmButton: false,
-            width: '400px',
-        })
-    }
-
     function sucess() {
-        puToSellSuccess()
+        Notification.successNotification("Status de vente du NFT \n mise a jour")
         history("/wallet");
     }
 

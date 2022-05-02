@@ -4,8 +4,8 @@ import './CustomerWalletStyle.css'
 import logo from '.././../LazyLion.jpg'
 import { Link } from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
-import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
+import { Notification } from '../Notifications';
 
 const CustomerWallet = () => {
 
@@ -96,33 +96,10 @@ const CustomerWallet = () => {
           (nft1) => nft1.id === nft.id ? nft1 = data : nft1
         )
       )
-      puToSellSuccess()
+      Notification.successNotification("Votre Nft a été retiré de la vente")
       return
     }
-    puToSellFail()
-  }
-
-  const puToSellSuccess = () => {
-    Swal.fire({
-      toast: true,
-      position: 'top',
-      icon: 'success',
-      title: 'Votre Nft a été retiré de la vente',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
-
-  const puToSellFail = () => {
-    Swal.fire({
-      title: "Une erreur est survenue \n lors de la mise a jour du status",
-      icon: 'error',
-      position: 'top',
-      toast: true,
-      timer: 2000,
-      showConfirmButton: false,
-      width: '400px',
-    })
+    Notification.failNotification("Une erreur est survenue \n lors de la mise a jour du status")
   }
 
   const showPutNftToSellButton = (nft) => {
