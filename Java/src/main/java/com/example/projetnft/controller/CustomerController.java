@@ -58,4 +58,11 @@ public class CustomerController {
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
+
+    @GetMapping("/getCustomerInfoById/{idCustomer}")
+    public ResponseEntity<Customer> getCustomerInfoById(@PathVariable Integer idCustomer) {
+        return customerService.getCustomerInfoById(idCustomer)
+                .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
+    }
 }

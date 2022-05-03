@@ -7,6 +7,7 @@ const CustomerShop = () => {
 
   const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
   const [nftsToSellList, setNftsToSellList] = useState([])
+  const [itemsFromCart, setItemsFromCart] = useState([])
 
   useEffect(() => {
     const getNftsToSellList = async () => {
@@ -14,11 +15,43 @@ const CustomerShop = () => {
       setNftsToSellList(nftsToSellListFromServer)
     }
     getNftsToSellList()
+
+    const getItemsFromCartAtLaunch = async () => {
+      const itemsFromCartFromServer = await getItemsFromCartWS(userInfo.cart.id)
+      setItemsFromCart(itemsFromCartFromServer)
+    }
+    getItemsFromCartAtLaunch()
   }, [])
+
+  console.log(itemsFromCart)
 
   const fetchCustomersNftsList = async () => {
     const res = await fetch(`http://localhost:2022/nft/getAllCertifiedNftsToSell`)
     return await res.json()
+  }
+
+  const addItemToCartWS = async (customerCartId, nftToAddId) => {
+    const res = await fetch(`http://localhost:2022/cart/addItemToCart/${customerCartId}/${nftToAddId}`)
+    return await res.json()
+  }
+
+  const addItemToCart = async (customerCartId, nftToAddId) => {
+    const data = addItemToCartWS(customerCartId, nftToAddId)
+    console.log(data)
+  }
+
+  const getItemsFromCartWS = async (customerCartId) => {
+    const res = await fetch(`http://localhost:2022/cart/getItems/${customerCartId}`)
+    return await res.json()
+  }
+
+  const getItemsFromCart = async (customerCartId) => {
+    getItemsFromCartWS(customerCartId)
+      .then((data) => console.log(data))
+  }
+
+  const verifyIfItemIsInCartAlready = (idNft) => {
+
   }
 
   const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
@@ -42,7 +75,7 @@ const CustomerShop = () => {
   }
 
   return (
-    <div className="gradient-custom-2"> 
+    <div className="gradient-custom-2">
       <CustomerNavbar />
       <h1 className="text-center text-light">Boutique</h1>
       {nftsToSellList.length == 0 ? <h2 className=" mt-5 text-center text-light">Aucun NFT en vente pour le moment revenez plus tard</h2> :
@@ -58,7 +91,9 @@ const CustomerShop = () => {
                       <h5 className="card-title">Prix: {nft.price} ETH</h5>
                     </div>
                     <div className="card-body">
-                      <button className="btn btn-primary btn-sm mr-3">Ajouter au panier</button>
+                      {itemsFromCart.includes(nft) ?  
+                      <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>  :
+                      <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button>}
                       <button className="btn btn-danger btn-sm">En savoir plus</button>
                     </div>
                   </div>

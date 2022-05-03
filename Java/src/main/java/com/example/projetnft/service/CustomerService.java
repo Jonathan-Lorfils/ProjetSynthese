@@ -79,4 +79,12 @@ public class CustomerService {
             return Optional.empty();
         }
     }
+
+    public Optional<Customer> getCustomerInfoById(Integer idCustomer){
+        try {
+            return Optional.of(customerRepository.findById(idCustomer).get());
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
 }

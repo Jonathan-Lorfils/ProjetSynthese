@@ -6,6 +6,7 @@ import com.example.projetnft.repository.CartRepository;
 import com.example.projetnft.repository.NftRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +40,15 @@ public class CartService {
             customerCart.getItems().remove(nftToRemove);
             cartRepository.save(customerCart);
             return Optional.of(customerCart);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<List<Nft>> getItems(Integer customerCartId){
+        try {
+            Cart customerCart = cartRepository.findById(customerCartId).get();
+            return Optional.of(customerCart.getItems());
         } catch (Exception exception) {
             return Optional.empty();
         }

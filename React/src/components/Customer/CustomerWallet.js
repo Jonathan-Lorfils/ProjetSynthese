@@ -22,8 +22,22 @@ const CustomerWallet = () => {
     getCustomersNftsList()
   }, [])
 
+  useEffect(() => {
+    const getCustomersInfo = async () => {
+      const customerInfoFromServer = await fetchCustomerInfo(userInfo.id)
+      sessionStorage.setItem('user',JSON.stringify(customerInfoFromServer))
+      setUserInfo(customerInfoFromServer)
+    }
+    getCustomersInfo()
+  }, [userInfo.sellerCertification])
+
   const fetchCustomersNftsList = async (idOwner) => {
     const res = await fetch(`http://localhost:2022/nft/getAllNftByOwner/${idOwner}`)
+    return await res.json()
+  }
+
+  const fetchCustomerInfo = async (idCustomer) => {
+    const res = await fetch(`http://localhost:2022/customer/getCustomerInfoById/${idCustomer}`)
     return await res.json()
   }
 
