@@ -21,9 +21,9 @@ const CustomerShop = () => {
       setItemsFromCart(itemsFromCartFromServer)
     }
     getItemsFromCartAtLaunch()
-  }, [])
 
-  console.log(itemsFromCart)
+    console.log(itemsFromCart)
+  }, [])
 
   const fetchCustomersNftsList = async () => {
     const res = await fetch(`http://localhost:2022/nft/getAllCertifiedNftsToSell`)
@@ -37,7 +37,8 @@ const CustomerShop = () => {
 
   const addItemToCart = async (customerCartId, nftToAddId) => {
     const data = addItemToCartWS(customerCartId, nftToAddId)
-    console.log(data)
+
+    setItemsFromCart(getItemsFromCartWS(customerCartId))
   }
 
   const getItemsFromCartWS = async (customerCartId) => {
@@ -46,12 +47,7 @@ const CustomerShop = () => {
   }
 
   const getItemsFromCart = async (customerCartId) => {
-    getItemsFromCartWS(customerCartId)
-      .then((data) => console.log(data))
-  }
-
-  const verifyIfItemIsInCartAlready = (idNft) => {
-
+    return getItemsFromCartWS(customerCartId)
   }
 
   const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
@@ -91,9 +87,9 @@ const CustomerShop = () => {
                       <h5 className="card-title">Prix: {nft.price} ETH</h5>
                     </div>
                     <div className="card-body">
-                      {itemsFromCart.includes(nft) ?  
-                      <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>  :
-                      <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button>}
+                      {itemsFromCart.some( nft1 => nft1['id'] === nft.id) ?
+                        <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button> :
+                        <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>}
                       <button className="btn btn-danger btn-sm">En savoir plus</button>
                     </div>
                   </div>
