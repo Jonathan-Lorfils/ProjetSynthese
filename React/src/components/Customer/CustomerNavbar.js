@@ -27,14 +27,17 @@ const CustomerNavbar = () => {
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light mx-1"><i className="fas fa-home fa-lg"></i></button>
                         </li>
-                        <li className="nav-item mx-1"> 
-                                <button className="nav-link btn btn-md btn-light" onClick={e => { history("/wallet") }} >Portefeuille</button>
+                        <li className="nav-item mx-1">
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/wallet") }} >Portefeuille</button>
                         </li>
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/uploadNFT") }} >Upload NFT</button>
                         </li>
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/CustomerShop") }} >Boutique</button>
+                        </li>
+                        <li className="nav-item mx-1">
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/Cart") }} >Panier</button>
                         </li>
                     </ul>
                     <button className="btn btn-danger btn-md my-2 mx-2" onClick={e => { disconnect() }}>Déconnexion</button>

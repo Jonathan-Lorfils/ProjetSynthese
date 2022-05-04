@@ -71,16 +71,25 @@ public class CartServiceTest {
     public void testAddItemToCart(){
         when(cartRepository.findById(1)).thenReturn(Optional.of(cartEmpty));
         when(nftRepository.findById(1)).thenReturn(Optional.of(nft));
-        Optional<Cart> actualCart = cartService.addItemToCart(1,1);
-        assertThat(actualCart.get().getItems().get(0)).isEqualTo(nft);
+        Boolean actualCart = cartService.addItemToCart(1,1);
+        assertThat(actualCart).isEqualTo(true);
+        assertThat(cartEmpty.getTotalprice()).isEqualTo(5.1);
     }
 
     @Test
     public void testRemoveItemFromCart(){
         when(cartRepository.findById(2)).thenReturn(Optional.of(cart));
         when(nftRepository.findById(2)).thenReturn(Optional.of(nft));
-        Optional<Cart> actualCart = cartService.removeItemFromCart(2,2);
-        assertThat(actualCart.get().getItems().isEmpty()).isEqualTo(true);
+        Boolean actualCart = cartService.removeItemFromCart(2,2);
+        assertThat(actualCart).isEqualTo(true);
+        assertThat(cart.getTotalprice()).isEqualTo(4.9);
+    }
+
+    @Test
+    public void testGetTotalPrice() {
+        when(cartRepository.findById(1)).thenReturn(Optional.ofNullable(cart));
+        double actualTotalPrice = cartService.getTotalPrice(1);
+        assertThat(actualTotalPrice).isEqualTo(5);
     }
 
 }

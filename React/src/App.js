@@ -10,6 +10,7 @@ import CustomerWallet from './components/Customer/CustomerWallet';
 import AdminCertifiedNft from './components/Admin/AdminCertifiedNft';
 import CustomerShop from './components/Customer/CustomerShop';
 import CustomerSellingNft from './components/Customer/CustomerSellingNft';
+import CustomerCart from './components/Customer/CustomerCart';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/adminNftCertification" element={<AdminCertifiedNft/>} />
         <Route path="/CustomerShop" element={<CustomerShop/>} />
         <Route path="/CustomerSellingNft" element={<CustomerSellingNft/>}></Route>
+        <Route path="/Cart" element={<CustomerCart/>}></Route>
       </Routes>
     </BrowserRouter>
   );

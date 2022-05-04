@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
 import DisplayNftModals from '../DisplayNftModal'
 import './CustomerShopCss.css'
+import { Notification } from "../Notifications.js"
 
 const CustomerShop = () => {
 
@@ -21,8 +22,6 @@ const CustomerShop = () => {
       setItemsFromCart(itemsFromCartFromServer)
     }
     getItemsFromCartAtLaunch()
-
-    console.log(itemsFromCart)
   }, [])
 
   const fetchCustomersNftsList = async () => {
@@ -36,9 +35,12 @@ const CustomerShop = () => {
   }
 
   const addItemToCart = async (customerCartId, nftToAddId) => {
-    const data = addItemToCartWS(customerCartId, nftToAddId)
+    addItemToCartWS(customerCartId, nftToAddId)
+      .then((data) => data === true ? Notification.successNotification("Ajout au panier reussi") : Notification.failNotification("Erreur lors de l'ajout"))
 
-    setItemsFromCart(getItemsFromCartWS(customerCartId))
+    const newCart = await getItemsFromCartWS(customerCartId)
+
+    setItemsFromCart(newCart)
   }
 
   const getItemsFromCartWS = async (customerCartId) => {
@@ -87,9 +89,11 @@ const CustomerShop = () => {
                       <h5 className="card-title">Prix: {nft.price} ETH</h5>
                     </div>
                     <div className="card-body">
-                      {itemsFromCart.some( nft1 => nft1['id'] === nft.id) ?
-                        <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button> :
-                        <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>}
+                      {nft.owner.id !== userInfo.id ?
+                        itemsFromCart.some(nft1 => nft1['id'] === nft.id) ?
+                          <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button> :
+                          <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>
+                        : <h6>Ce NFT vous appartient</h6>}
                       <button className="btn btn-danger btn-sm">En savoir plus</button>
                     </div>
                   </div>

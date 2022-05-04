@@ -21,27 +21,47 @@ public class CartService {
         this.nftRepository = nftRepository;
     }
 
-    public Optional<Cart> addItemToCart(Integer customerCartId, Integer nftToAddId){
+    public Boolean addItemToCart(Integer customerCartId, Integer nftToAddId){
         try {
             Cart customerCart = cartRepository.findById(customerCartId).get();
             Nft nftToAdd = nftRepository.findById(nftToAddId).get();
             customerCart.getItems().add(nftToAdd);
-            cartRepository.save(customerCart);
-            return Optional.of(customerCart);
+            cartRepository.save(updateTotalPrice(nftToAdd,customerCart,"+"));
+            return true;
         } catch (Exception exception) {
-            return Optional.empty();
+            return false;
         }
     }
 
-    public Optional<Cart> removeItemFromCart(Integer customerCartId, Integer nftToRemoveId){
+    public Boolean removeItemFromCart(Integer customerCartId, Integer nftToRemoveId){
         try {
             Cart customerCart = cartRepository.findById(customerCartId).get();
             Nft nftToRemove = nftRepository.findById(nftToRemoveId).get();
             customerCart.getItems().remove(nftToRemove);
-            cartRepository.save(customerCart);
-            return Optional.of(customerCart);
+            cartRepository.save(updateTotalPrice(nftToRemove,customerCart,"-"));
+            return true;
         } catch (Exception exception) {
-            return Optional.empty();
+            return false;
+        }
+    }
+
+    public Cart updateTotalPrice(Nft nft, Cart cart, String operation){
+        double currentTotalPrice = cart.getTotalprice();
+        if (operation.equals("+")){
+            cart.setTotalprice(currentTotalPrice + nft.getPrice());
+            return cart;
+        } else {
+            cart.setTotalprice(currentTotalPrice - nft.getPrice());
+            return cart;
+        }
+    }
+
+    public double getTotalPrice(Integer customerCartId) {
+        try{
+            Cart customerCart = cartRepository.findById(customerCartId).get();
+            return customerCart.getTotalprice();
+        } catch (Exception exception){
+            return -1;
         }
     }
 
