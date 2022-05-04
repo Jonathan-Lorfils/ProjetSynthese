@@ -81,4 +81,17 @@ public class CartControllerTest {
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualCart).isEqualTo(true);
     }
+
+    @Test
+    public void getTotalPriceTest() throws Exception {
+        when(cartService.getTotalPrice(1)).thenReturn(5.0);
+
+        MvcResult result = mockMvc.perform(get("/cart/getTotalPrice/{customerCartId}", 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualTotalPrice = new ObjectMapper().readValue(result.getResponse().getContentAsString(), double.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualTotalPrice).isEqualTo(5.0);
+    }
 }

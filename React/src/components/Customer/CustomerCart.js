@@ -6,6 +6,7 @@ const CustomerCart = () => {
 
     const [itemsFromCart, setItemsFromCart] = useState([])
     const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
+    const [cartTotalPrice, setCartTotalPrice] = useState()
 
     useEffect(() => {
         const getItemsFromCartAtLaunch = async () => {
@@ -13,7 +14,13 @@ const CustomerCart = () => {
             setItemsFromCart(itemsFromCartFromServer)
         }
         getItemsFromCartAtLaunch()
-    }, [itemsFromCart, ])
+
+        const updatedTotalPrice = async () => {
+            const updatedTotalPriceFromServer = await getTotalPrice(userInfo.cart.id)
+            setCartTotalPrice(updatedTotalPriceFromServer)
+        }
+        updatedTotalPrice()
+    }, [itemsFromCart,])
 
     const getItemsFromCartWS = async (customerCartId) => {
         const res = await fetch(`http://localhost:2022/cart/getItems/${customerCartId}`)
@@ -52,34 +59,64 @@ const CustomerCart = () => {
         setItemsFromCart(await getItemsFromCartWS(customerCartId))
     }
 
+    const getTotalPrice = async (customerCartId) => {
+        const res = await fetch(`http://localhost:2022/cart/getTotalPrice/${customerCartId}`)
+        return await res.json()
+    }
+
     return (
         <div className="gradient-form gradient-custom-2">
             <CustomerNavbar />
             <div className="container justify-content-center align-items-center h-75">
-                <div className=" jumbotron-fluid bg-light rounded shadow">
-                    <h2>Votre Panier</h2>
-                    {itemsFromCart
-                        .map((nftProp) => (
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-sm my-3">
-                                        <img src={URL.createObjectURL(b64toBlob(nftProp.data, 'image/png'))} alt="" width="120" height="120" />
-                                    </div>
-                                    <button className=" btn btn-light" onClick={e => { removeItemFromCart(userInfo.cart.id, nftProp.id) }}><i class="fa-solid fa-trash"></i></button>
-                                    <div className="card-body p-md-5 mx-md-4">
-                                        <div className="text-center">
-                                            <h4 className="mt-1 mb-5 pb-1">{nftProp.name}</h4>
-                                            <h5>{nftProp.price} ETH</h5>
+
+                {itemsFromCart.length == 0 ? <h2 className=" mt-5 text-center text-light">Panier vide</h2> :
+
+                    <div className=" jumbotron-fluid bg-light rounded shadow">
+                        <h1 className='text-center'>Votre Panier</h1>
+                        {itemsFromCart
+                            .map((nftProp) => (
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-sm my-3">
+                                            <img src={URL.createObjectURL(b64toBlob(nftProp.data, 'image/png'))} alt="" width="120" height="120" />
+                                        </div>
+                                        <button className=" btn btn-light" onClick={e => { removeItemFromCart(userInfo.cart.id, nftProp.id) }}><i class="fa-solid fa-trash"></i></button>
+                                        <div className="card-body p-md-5 mx-md-4">
+                                            <div className="text-center">
+                                                <h4 className="mt-1 mb-5 pb-1">{nftProp.name}</h4>
+                                                <h5>{nftProp.price} ETH</h5>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr />
                                 </div>
-                                <hr />
+                            ))}
+                        <div className="container">
+                            <div className="row">
+                                <div className='col-sm'>
+                                    <h3 className="text-left">Solde disponible: {userInfo.solde} ETH</h3>
+                                </div>
+                                <div className='col-sm'>
+                                    <h3 className="text-right">Prix total: {cartTotalPrice} ETH</h3>
+                                </div>
                             </div>
-                        ))}
-                        <hr />
-                        
-                        <p>p</p>
-                </div>
+                            <div className="row">
+                                <div className='col-sm'>
+                                    <button className="btn btn-danger">Retourner a la boutique</button>
+                                </div>
+                                {userInfo.solde < cartTotalPrice ?
+                                    <div className='col-sm'>
+                                        <button className="btn btn-primary float-right">Deposer des fonds</button>
+                                        <button className="btn btn-primary float-right" disabled>Solde insuffisant</button>
+                                    </div> :
+                                    <div className='col-sm'>
+                                        <button className="btn btn-primary float-right">Acheter</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )
