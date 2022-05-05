@@ -39,4 +39,9 @@ public class CartController {
     public double getTotalPrice(@PathVariable Integer customerCartId){
         return cartService.getTotalPrice(customerCartId);
     }
+
+    @GetMapping("/validateCart/{idNewOwner}/{customerCartId}")
+    public Boolean validateCart(@PathVariable Integer idNewOwner, @PathVariable Integer customerCartId){
+        return cartService.validateCart(idNewOwner, customerCartId);
+    }
 }

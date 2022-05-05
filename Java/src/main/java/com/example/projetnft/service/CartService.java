@@ -1,9 +1,13 @@
 package com.example.projetnft.service;
 
 import com.example.projetnft.model.Cart;
+import com.example.projetnft.model.Customer;
 import com.example.projetnft.model.Nft;
+import com.example.projetnft.model.Orders;
 import com.example.projetnft.repository.CartRepository;
+import com.example.projetnft.repository.CustomerRepository;
 import com.example.projetnft.repository.NftRepository;
+import com.example.projetnft.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +20,15 @@ public class CartService {
 
     public NftRepository nftRepository;
 
-    public CartService(CartRepository cartRepository, NftRepository nftRepository){
+    public CustomerRepository customerRepository;
+
+    public OrderRepository orderRepository;
+
+    public CartService(CartRepository cartRepository, NftRepository nftRepository, CustomerRepository customerRepository, OrderRepository orderRepository){
         this.cartRepository = cartRepository;
         this.nftRepository = nftRepository;
+        this.customerRepository = customerRepository;
+        this.orderRepository = orderRepository;
     }
 
     public Boolean addItemToCart(Integer customerCartId, Integer nftToAddId){
@@ -71,6 +81,69 @@ public class CartService {
             return Optional.of(customerCart.getItems());
         } catch (Exception exception) {
             return Optional.empty();
+        }
+    }
+
+    public Boolean validateCart(Integer idNewOwner, Integer customerCartId) {
+        try {
+            Cart cart = cartRepository.findById(customerCartId).get();
+            Customer newOwner = customerRepository.findById(idNewOwner).get();
+            if (reassignCartItems(newOwner, cart)) {
+                return true;
+            }
+            return false;
+        }catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public Boolean reassignCartItems(Customer newOwner, Cart cart) {
+        try {
+            List<Nft> itemsInCart = cart.getItems();
+            itemsInCart.forEach(nft -> reassignNft(nft, newOwner));
+            if(createOrder(cart.getTotalprice(), newOwner.getId())){
+                resetCart(cart);
+                return true;
+            }
+            return false;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public Boolean createOrder(double price, Integer customerId) {
+        try {
+            Orders newOrder = new Orders();
+            newOrder.setCustomerId(customerId);
+            newOrder.setPrice(price);
+            orderRepository.save(newOrder);
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public Boolean resetCart(Cart customerCart) {
+        try{
+            customerCart.setTotalprice(0);
+            customerCart.getItems().clear();
+            cartRepository.save(customerCart);
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+
+    }
+
+    private Boolean reassignNft(Nft nft, Customer newOwner){
+        try {
+            nft.setPrice(0);
+            nft.setToSell(false);
+            nft.setOwner(newOwner);
+            nftRepository.save(nft);
+            return true;
+        } catch (Exception exception){
+            return false;
         }
     }
 }

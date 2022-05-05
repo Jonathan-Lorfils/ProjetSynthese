@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Notification } from '../Notifications'
 
 const Login = () => {
 
@@ -24,11 +25,11 @@ const Login = () => {
   function onSubmit(data) {
     if(data.username.includes("admin")){
       customerAdmin(data.username, data.password)
-        .then((data) => data.username != undefined ? signInAdmin(data) : alert("Erreur de login"))
+        .then((data) => data.username != undefined ? signInAdmin(data) : Notification.failNotification("Erreur de login"))
       return 
     }
     customerLogin(data.username,data.password)
-      .then((data) => data.username != undefined ? signInCustomer(data) : alert("Erreur de login"))
+      .then((data) => data.username != undefined ? signInCustomer(data) : Notification.failNotification("Erreur de login"))
   }
 
   function signInCustomer (data){

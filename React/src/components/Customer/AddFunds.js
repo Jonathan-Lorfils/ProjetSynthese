@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Notification } from '../Notifications'
 
 const AddFunds = () => {
     const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
@@ -14,13 +15,13 @@ const AddFunds = () => {
 
     function onSubmit(data) {
         addfunds(data.fundToAdd)
-            .then((data) => data !== data.email ? sucess(data) : alert("echec de l'ajout"))
+            .then((data) => data !== data.email ? sucess(data) : Notification.failNotification("echec de l'ajout"))
     }
 
     function sucess(data) {
         console.log(data)
         sessionStorage.setItem('user', JSON.stringify(data))
-        alert("Ajout reussi")
+        Notification.successNotification("Ajout reussi")
         history("/wallet");
     }
 

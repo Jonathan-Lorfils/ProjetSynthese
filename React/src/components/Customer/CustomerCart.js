@@ -20,7 +20,7 @@ const CustomerCart = () => {
             setCartTotalPrice(updatedTotalPriceFromServer)
         }
         updatedTotalPrice()
-    }, [itemsFromCart,])
+    }, [])
 
     const getItemsFromCartWS = async (customerCartId) => {
         const res = await fetch(`http://localhost:2022/cart/getItems/${customerCartId}`)
@@ -62,6 +62,16 @@ const CustomerCart = () => {
     const getTotalPrice = async (customerCartId) => {
         const res = await fetch(`http://localhost:2022/cart/getTotalPrice/${customerCartId}`)
         return await res.json()
+    }
+
+    const validateCartWS = async (idNewOwner, customerCartId) => {
+        const res = await fetch(`http://localhost:2022/cart/validateCart/${idNewOwner}/${customerCartId}`)
+        return await res.json()
+    }
+
+    const createOrder = async (idNewOwner, customerCartId) => {
+        validateCartWS(idNewOwner, customerCartId)
+            .then((data) => data === true ? Notification.successNotification("Commande creer"): Notification.failNotification("Erreur dans la commande"))
     }
 
     return (
@@ -110,7 +120,7 @@ const CustomerCart = () => {
                                         <button className="btn btn-primary float-right" disabled>Solde insuffisant</button>
                                     </div> :
                                     <div className='col-sm'>
-                                        <button className="btn btn-primary float-right">Acheter</button>
+                                        <button className="btn btn-primary float-right" onClick={e => { createOrder(userInfo.id,userInfo.cart.id) }}>Acheter</button>
                                     </div>
                                 }
                             </div>
