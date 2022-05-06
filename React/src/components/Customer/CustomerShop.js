@@ -54,7 +54,7 @@ const CustomerShop = () => {
     <div className="gradient-form gradient-custom-2">
       <CustomerNavbar />
       <h1 className="text-center text-light">Boutique</h1>
-      {nftsToSellList.length == 0 ? <h2 className=" mt-5 text-center text-light">Aucun NFT n'est en vente pour le moment, revenez plus tard</h2> :
+      {nftsToSellList.length == 0 ? <h2 className=" mt-5 text-center text-light h-75">Aucun NFT n'est en vente pour le moment, revenez plus tard</h2> :
         <div className="container mt-lg-5 h-75">
           <div className="row row-cols-1 row-cols-md-3">
             {nftsToSellList
