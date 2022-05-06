@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import SellerCertificationModal from './SellerCertificationModal'
 import { useNavigate } from 'react-router-dom';
 import { Notification } from '../Notifications';
+import CustomerFooter from './CustomerFooter'
 
 const CustomerWallet = () => {
 
@@ -146,7 +147,7 @@ const CustomerWallet = () => {
       <CustomerNavbar />
       <div className="page-content page-container" id="page-content">
         <div className="padding">
-          <div className="row d-flex justify-content-center">
+          <div className="row d-flex justify-content-center" >
             <div className="col-xl-7 col-md-5">
               <div className="card user-card-full">
                 <div className="row m-l-0 m-r-0">
@@ -196,6 +197,7 @@ const CustomerWallet = () => {
           </div>
         </div>
       </div>
+      <CustomerFooter/>
     </div>
   )
 }

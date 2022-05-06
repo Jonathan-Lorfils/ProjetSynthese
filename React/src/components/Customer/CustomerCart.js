@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
 import { Notification } from "../Notifications.js"
 import { useNavigate } from 'react-router-dom';
+import CustomerFooter from './CustomerFooter'
 
 const CustomerCart = () => {
 
@@ -84,9 +85,9 @@ const CustomerCart = () => {
     return (
         <div className="gradient-form gradient-custom-2">
             <CustomerNavbar />
-            <div className="container justify-content-center align-items-center h-75">
+            <div className="container justify-content-center align-items-center h-100">
 
-                {itemsFromCart.length == 0 ? <h2 className=" mt-5 text-center text-light">Panier vide</h2> :
+                {itemsFromCart.length == 0 ? <h1 className=" mt-5 text-center text-light">Panier vide</h1> :
 
                     <div className=" jumbotron-fluid bg-light rounded shadow">
                         <h1 className='text-center'>Votre Panier</h1>
@@ -122,8 +123,8 @@ const CustomerCart = () => {
                                     <button className="btn btn-danger">Retourner a la boutique</button>
                                 </div>
                                 {userInfo.solde < cartTotalPrice ?
-                                    <div className='col-sm'>
-                                        <button className="btn btn-primary float-right">Deposer des fonds</button>
+                                    <div className='col-sm mb-3'>
+                                        <button className="btn btn-primary float-right ml-2" onClick={e => { history("/addfunds") }}>Deposer des fonds</button>
                                         <button className="btn btn-primary float-right" disabled>Solde insuffisant</button>
                                     </div> :
                                     <div className='col-sm'>
@@ -135,6 +136,7 @@ const CustomerCart = () => {
                     </div>
                 }
             </div>
+            <CustomerFooter/>
         </div>
     )
 }

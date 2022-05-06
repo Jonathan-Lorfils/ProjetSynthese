@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
+import CustomerFooter from './CustomerFooter'
 
 const CustomerOrders = () => {
 
@@ -27,29 +28,33 @@ const CustomerOrders = () => {
                 <CustomerNavbar />
                 <div className="container justify-content-center align-items-center h-75">
 
-                    <table class="table table-light">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Etat</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {customerOrders
-                                .map((order) => (
-                                    <tr key={order.id}>
-                                        <td data-title="orderNumber">{order.id}</td>
-                                        <td data-title="status">{order.status}</td>
-                                        <td data-title="price">{order.price}</td>
-                                        <td data-title="price">{order.date}</td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
+                    {customerOrders.length === 0 ?  <h2 className=" mt-5 text-center text-light"> Vous n'avez aucune commande pour le moment</h2>  :
+
+                        <table class="table table-light">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Etat</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {customerOrders
+                                    .map((order) => (
+                                        <tr key={order.id}>
+                                            <td data-title="orderNumber">{order.id}</td>
+                                            <td data-title="status">{order.status}</td>
+                                            <td data-title="price">{order.price}</td>
+                                            <td data-title="price">{order.date}</td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
+            <CustomerFooter />
         </div>
     )
 }

@@ -130,12 +130,6 @@ public class CartService {
         return java.time.LocalDate.now();
     }
 
-    public Integer generateOrderNumber(){
-        int min = 1000;
-        int max = 9999;
-        return (int) Math.random()*(max-min+1)+min;
-    }
-
     public Boolean resetCart(Cart customerCart) {
         try{
             customerCart.setTotalprice(0);

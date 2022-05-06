@@ -3,6 +3,7 @@ import CustomerNavbar from './CustomerNavbar'
 import DisplayNftModals from '../DisplayNftModal'
 import './CustomerShopCss.css'
 import { Notification } from "../Notifications.js"
+import CustomerFooter from './CustomerFooter'
 
 const CustomerShop = () => {
 
@@ -73,11 +74,11 @@ const CustomerShop = () => {
   }
 
   return (
-    <div className="gradient-custom-2">
+    <div className="gradient-form gradient-custom-2">
       <CustomerNavbar />
       <h1 className="text-center text-light">Boutique</h1>
-      {nftsToSellList.length == 0 ? <h2 className=" mt-5 text-center text-light">Aucun NFT en vente pour le moment revenez plus tard</h2> :
-        <div className="container mt-lg-5">
+      {nftsToSellList.length == 0 ? <h2 className=" mt-5 text-center text-light">Aucun NFT n'est en vente pour le moment, revenez plus tard</h2> :
+        <div className="container mt-lg-5 h-75">
           <div className="row row-cols-1 row-cols-md-3">
             {nftsToSellList
               .map((nft) => (
@@ -102,6 +103,7 @@ const CustomerShop = () => {
           </div>
         </div>
       }
+      <CustomerFooter/>
     </div>
   )
 }

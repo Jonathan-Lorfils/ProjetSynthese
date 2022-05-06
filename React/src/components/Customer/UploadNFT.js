@@ -4,6 +4,7 @@ import _ from 'lodash'
 import bsCustomFileInput from 'bs-custom-file-input'
 import axios from "axios"
 import Swal from 'sweetalert2'
+import CustomerFooter from './CustomerFooter'
 
 const UploadNFT = () => {
 
@@ -61,7 +62,7 @@ const UploadNFT = () => {
     return (
       <div className="gradient-form gradient-custom-2">
         <CustomerNavbar />
-        <div className="d-flex justify-content-center align-items-center h-75">
+        <div className="d-flex justify-content-center align-items-center h-100">
           <div className="jumbotron jumbotron-fluid bg-light rounded shadow">
             <form className="container-fluid" onSubmit={submitForm}>
               <h1 className="text-center text-secondary">Téléverser un NFT</h1>
@@ -81,6 +82,7 @@ const UploadNFT = () => {
             </form>
           </div>
         </div>
+        <CustomerFooter/>
       </div>
     )
   }

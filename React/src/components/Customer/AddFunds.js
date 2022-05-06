@@ -19,7 +19,6 @@ const AddFunds = () => {
     }
 
     function sucess(data) {
-        console.log(data)
         sessionStorage.setItem('user', JSON.stringify(data))
         Notification.successNotification("Ajout reussi")
         history("/wallet");
