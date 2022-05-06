@@ -11,6 +11,7 @@ import AdminCertifiedNft from './components/Admin/AdminCertifiedNft';
 import CustomerShop from './components/Customer/CustomerShop';
 import CustomerSellingNft from './components/Customer/CustomerSellingNft';
 import CustomerCart from './components/Customer/CustomerCart';
+import CustomerOrders from './components/Customer/CustomerOrders';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/CustomerShop" element={<CustomerShop/>} />
         <Route path="/CustomerSellingNft" element={<CustomerSellingNft/>}></Route>
         <Route path="/Cart" element={<CustomerCart/>}></Route>
+        <Route path="/Orders" element={<CustomerOrders/>}></Route>
       </Routes>
     </BrowserRouter>
   );

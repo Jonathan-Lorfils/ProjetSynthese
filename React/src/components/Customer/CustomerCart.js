@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
 import { Notification } from "../Notifications.js"
+import { useNavigate } from 'react-router-dom';
 
 const CustomerCart = () => {
 
     const [itemsFromCart, setItemsFromCart] = useState([])
     const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
     const [cartTotalPrice, setCartTotalPrice] = useState()
+    let history = useNavigate();
 
     useEffect(() => {
         const getItemsFromCartAtLaunch = async () => {
@@ -20,7 +22,7 @@ const CustomerCart = () => {
             setCartTotalPrice(updatedTotalPriceFromServer)
         }
         updatedTotalPrice()
-    }, [])
+    }, [itemsFromCart,])
 
     const getItemsFromCartWS = async (customerCartId) => {
         const res = await fetch(`http://localhost:2022/cart/getItems/${customerCartId}`)
@@ -71,8 +73,13 @@ const CustomerCart = () => {
 
     const createOrder = async (idNewOwner, customerCartId) => {
         validateCartWS(idNewOwner, customerCartId)
-            .then((data) => data === true ? Notification.successNotification("Commande creer"): Notification.failNotification("Erreur dans la commande"))
+            .then((data) => data === true ? orderSuccess() : Notification.failNotification("Erreur dans la commande"))
     }
+
+    const orderSuccess = () => {
+        Notification.successNotification("Commande creer")
+        history("/wallet")
+    } 
 
     return (
         <div className="gradient-form gradient-custom-2">

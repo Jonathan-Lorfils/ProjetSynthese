@@ -39,6 +39,9 @@ const CustomerNavbar = () => {
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/Cart") }} >Panier</button>
                         </li>
+                        <li className="nav-item mx-1">
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/Orders") }} >Commandes</button>
+                        </li>
                     </ul>
                     <button className="btn btn-danger btn-md my-2 mx-2" onClick={e => { disconnect() }}>Déconnexion</button>
                 </div>

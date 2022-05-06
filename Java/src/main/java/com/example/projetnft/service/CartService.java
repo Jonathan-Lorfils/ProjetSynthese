@@ -10,6 +10,7 @@ import com.example.projetnft.repository.NftRepository;
 import com.example.projetnft.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +102,7 @@ public class CartService {
         try {
             List<Nft> itemsInCart = cart.getItems();
             itemsInCart.forEach(nft -> reassignNft(nft, newOwner));
-            if(createOrder(cart.getTotalprice(), newOwner.getId())){
+            if(createOrder(cart.getTotalprice(), newOwner)){
                 resetCart(cart);
                 return true;
             }
@@ -111,16 +112,28 @@ public class CartService {
         }
     }
 
-    public Boolean createOrder(double price, Integer customerId) {
+    public Boolean createOrder(double price, Customer customer) {
         try {
             Orders newOrder = new Orders();
-            newOrder.setCustomerId(customerId);
+            newOrder.setCustomer(customer);
             newOrder.setPrice(price);
+            newOrder.setStatus("Completed");
+            newOrder.setDate(getLocalDate());
             orderRepository.save(newOrder);
             return true;
         } catch (Exception exception) {
             return false;
         }
+    }
+
+    public LocalDate getLocalDate(){
+        return java.time.LocalDate.now();
+    }
+
+    public Integer generateOrderNumber(){
+        int min = 1000;
+        int max = 9999;
+        return (int) Math.random()*(max-min+1)+min;
     }
 
     public Boolean resetCart(Cart customerCart) {

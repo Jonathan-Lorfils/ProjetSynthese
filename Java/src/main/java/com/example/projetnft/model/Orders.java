@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,17 +16,19 @@ public class Orders implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    private Integer orderNumber;
-
     private double price;
 
-    private Integer customerId;
+    private String status;
+
+    private LocalDate date;
+
+    @ManyToOne
+    private Customer customer;
 
     @Builder(builderMethodName = "orderBuilder")
-    public Orders(Integer id, Integer orderNumber, Integer customerId, double price) {
+    public Orders(Integer id, Customer customer, double price) {
         this.id = id;
-        this.orderNumber = orderNumber;
-        this.customerId = customerId;
+        this.customer = customer;
         this.price = price;
     }
 }

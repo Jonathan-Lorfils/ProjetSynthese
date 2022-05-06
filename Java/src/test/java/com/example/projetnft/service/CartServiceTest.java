@@ -129,7 +129,7 @@ public class CartServiceTest {
 
     @Test
     public void testCreateOrder(){
-        Boolean actualOrder = cartService.createOrder(cart.getTotalprice(), customer.getId());
+        Boolean actualOrder = cartService.createOrder(cart.getTotalprice(), customer);
         assertThat(actualOrder).isEqualTo(true);
     }
 
