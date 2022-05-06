@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './RegisterStyle.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import Notification from "../Notifications";
 
 
 const Register = () => {
@@ -22,41 +22,18 @@ const Register = () => {
         return await result.json()
     }
 
-    const puToSellSuccess = () => {
-        Swal.fire({
-            toast: true,
-            position: 'top',
-            icon: 'success',
-            title: 'Inscription reussi',
-            showConfirmButton: false,
-            timer: 2000
-        })
-    }
-    
-    const puToSellFail = () => {
-        Swal.fire({
-            title: "Échec de l'inscription",
-            icon: 'error',
-            position: 'top',
-            toast: true,
-            timer: 2000,
-            showConfirmButton: false,
-            width: '400px',
-        })
-    }
-
     function onSubmit(data) {
         if (data.username.includes("admin")) {
             alert("Votre nom d'utilisateur ne peut pas contenir admin")
             return
         } 
         registerUser(data)
-            .then((data1) => data1.email !== undefined ? registration() : puToSellFail())
-            .catch(() => puToSellFail())
+            .then((data1) => data1.email !== undefined ? registration() : Notification.failNotification("Échec de l'inscription"))
+            .catch(() => Notification.failNotification("Échec de l'inscription"))
     }
 
     function registration() {
-        puToSellSuccess()
+        Notification.successNotification('Inscription reussi')
         history("/");
     }
 
@@ -68,10 +45,10 @@ const Register = () => {
                         <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div className="card">
                                 <div className="card-body p-5">
-                                    <h4 className="text-uppercase text-center mb-2">Creer un compte</h4>
+                                    <h4 className="text-uppercase text-center mb-2">Créer un compte</h4>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="form-outline mb-4">
-                                            <label className="form-label" for="firstName">Prenom</label>
+                                            <label className="form-label" for="firstName">Prénom</label>
                                             <input type="text" id="firstName" className="form-control form-control-xs"  {...register("firstName", { required: true, max: 46 })} />
 
                                         </div>
@@ -80,7 +57,7 @@ const Register = () => {
                                             <input type="text" id="lastName" className="form-control form-control-xs" {...register("lastName", { required: true, max: 46 })} />
                                         </div>
                                         <div className="form-outline mb-4">
-                                            <label className="form-label" for="phoneNumber">Telephone</label>
+                                            <label className="form-label" for="phoneNumber">Téléphone</label>
                                             <input type="text" id="phoneNumber" className="form-control form-control-xs"  {...register("phoneNumber", { required: true, minLength: 10, maxLength: 10 })} />
                                         </div>
                                         <div className="form-outline mb-4">
@@ -102,7 +79,7 @@ const Register = () => {
                                         <div className="d-flex justify-content-center">
                                             <button type="submit" className="btn btn-danger btn-block btn-md">S'inscrire</button>
                                         </div>
-                                        <p className="text-center text-muted mt-4 mb-2">Vous avez deja un compte ? <a href="/" className="fw-bold text-body"><u>Connectez-vous</u></a></p>
+                                        <p className="text-center text-muted mt-4 mb-2">Vous avez déjà un compte ? <a href="/" className="fw-bold text-body"><u>Connectez-vous</u></a></p>
                                     </form>
                                 </div>
                             </div>

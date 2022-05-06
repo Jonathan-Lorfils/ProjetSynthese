@@ -158,7 +158,7 @@ const CustomerWallet = () => {
                           <img src={URL.createObjectURL(DisplayImage.b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
                           <div className="card-body">
                             <h5 className="card-title">{nft.name}</h5>
-                            <p className="card-text">Ce Nft vous appartient</p>
+                            <p className="card-text">Ce NFT vous appartient</p>
                           </div>
                           <div className="card-body">
                             {userInfo.sellerCertification == "Valide"  ? 

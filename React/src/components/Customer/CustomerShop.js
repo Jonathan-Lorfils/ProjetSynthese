@@ -69,7 +69,7 @@ const CustomerShop = () => {
                     <div className="card-body">
                       {nft.owner.id !== userInfo.id ?
                         itemsFromCart.some(nft1 => nft1['id'] === nft.id) ?
-                          <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button> :
+                          <button className="btn btn-primary btn-sm mr-3" disabled >Nft déjà dans le panier</button> :
                           <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>
                         : <h6>Ce NFT vous appartient</h6>}
                       <div className='btn'>

@@ -25,7 +25,7 @@ const CustomerNavbar = () => {
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/wallet") }} >Portefeuille</button>
                         </li>
                         <li className="nav-item mx-1">
-                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/uploadNFT") }} >Televerser NFT</button>
+                            <button className="nav-link btn btn-md btn-light" onClick={e => { history("/uploadNFT") }} >Téléverser NFT</button>
                         </li>
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/CustomerShop") }} >Boutique</button>
