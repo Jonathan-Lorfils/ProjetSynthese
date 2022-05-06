@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AdminDisplayNftModal from './../DisplayNftModal';
+import AdminDisplayNftModal from './AdminDisplayNftModal';
 import AdminNavbar from './AdminNavbar';
 
 const AdminCertifiedNft = () => {
@@ -36,10 +36,6 @@ const AdminCertifiedNft = () => {
     const fetchCustomersList = async () => {
         const res = await fetch(`http://localhost:2022/nft/getAllNftsWaitingForCertification`)
         return await res.json()
-    }
-
-    const viewCustomerProfile = () => {
-
     }
 
     return (
@@ -79,9 +75,9 @@ const AdminCertifiedNft = () => {
                                                     </h5>
                                                 </td>
                                                 <td className="responsiveWidth">
-                                                    <AdminDisplayNftModal nftProp={nft} />
-                                                </td>
-                                                <td>
+                                                    <div className='btn'>
+                                                        <AdminDisplayNftModal nftProp={nft} />
+                                                    </div>
                                                     <button className="btn btn-success mx-2" onClick={e => { e.preventDefault(); certifiedNft(nft) }}>
                                                         <span className="hideButtonText">Valider </span>
                                                         <span className="hideButtonIcon"><i className="fas fa-check"></i></span>
@@ -97,7 +93,7 @@ const AdminCertifiedNft = () => {
                             </table>
                         </div>
                     </div>
-                    : <h3 className="text-center mx-1">Aucun en attente de certification</h3>}
+                    : <h3 className="text-center mx-1">Aucun NFT en attente de certification</h3>}
             </div>
         </div>
     )

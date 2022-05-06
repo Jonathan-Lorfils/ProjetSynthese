@@ -8,10 +8,6 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   let history = useNavigate();
 
-  useEffect(() => {
-
-  }, [])
-
   const customerLogin = async (username, password) => { 
     const res = await fetch(`http://localhost:2022/customer/${username}/${password}`)
     return await res.json()

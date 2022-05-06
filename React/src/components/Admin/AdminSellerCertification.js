@@ -30,12 +30,6 @@ const AdminSellerCertification = () => {
     )
   }
 
-  const viewCustomerProfile = () => { // should
-
-  }
-
-
-
   return (
     <div>
       <div className="grad">

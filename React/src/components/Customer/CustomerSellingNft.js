@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Notification } from '../Notifications';
+import { DisplayImage } from '../DisplayImage';
 
 const CustomerSellingNft = () => {
 
-    const [userInfo, setUserInfo] = useState(JSON.parse(sessionStorage.user))
     const [nft, setNft] = useState(JSON.parse(sessionStorage.nftToSell))
     const { register, handleSubmit, formState: { errors } } = useForm()
     let history = useNavigate();
@@ -25,26 +25,6 @@ const CustomerSellingNft = () => {
         history("/wallet");
     }
 
-    const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
-
     return (
         <section className="vh-100 bg-image ">
             <div className="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -59,7 +39,7 @@ const CustomerSellingNft = () => {
                                         onSubmit(data);
                                     })}>
                                         <div className="col-sm my-3">
-                                            <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} alt="" width="420" height="400" />
+                                            <img src={URL.createObjectURL(DisplayImage.b64toBlob(nft.data, 'image/png'))} alt="" width="420" height="400" />
                                         </div>
                                         <br />
                                         <h5 className="text-center">Entrer le prix de vente souhaiter (ETH)</h5>

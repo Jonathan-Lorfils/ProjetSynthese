@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Notification } from '../Notifications'
 
 const WithdrawFunds = () => {
 
@@ -15,12 +16,12 @@ const WithdrawFunds = () => {
 
   function onSubmit(data) {
     addfunds(data.fundToRemove)
-      .then((data) => data !== data.email ? sucess(data) : alert("echec de l'ajout"))
+      .then((data) => data !== data.email ? sucess(data) : Notification.failNotification("echec de l'ajout"))
   }
 
   function sucess(data) {
     sessionStorage.setItem('user', JSON.stringify(data))
-    alert("retrait reussi")
+    Notification.successNotification("retrait reussi")
     history("/wallet");
   }
 
@@ -64,8 +65,6 @@ const WithdrawFunds = () => {
       </div>
     </section>
   )
-
-
 }
 
 export default WithdrawFunds

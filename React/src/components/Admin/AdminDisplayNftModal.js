@@ -1,34 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { DisplayImage } from '../DisplayImage'
 
-const DisplayNftModal = ({ nftProp }) => {
+const AdminDisplayNftModal = ({ nftProp }) => {
 
     useEffect(() => {
         
     }, [nftProp])
-
-    const viewCustomerProfile = () => {
-
-    }
-
-    const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
 
     return (
         <div>
@@ -48,7 +25,7 @@ const DisplayNftModal = ({ nftProp }) => {
                         <div className="container">
                             <div className="row">
                                 <div className="col-sm my-3">
-                                    <img src={URL.createObjectURL(b64toBlob(nftProp.data, 'image/png'))} alt="" width="300" height="400" />
+                                    <img src={URL.createObjectURL(DisplayImage.b64toBlob(nftProp.data, 'image/png'))} alt="" width="300" height="400" />
                                 </div>
                                 <div className="card-body p-md-5 mx-md-4">
                                     <div className="text-center">
@@ -65,4 +42,4 @@ const DisplayNftModal = ({ nftProp }) => {
     )
 }
 
-export default DisplayNftModal
+export default AdminDisplayNftModal

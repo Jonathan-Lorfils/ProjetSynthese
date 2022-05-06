@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import CustomerNavbar from './CustomerNavbar'
-import DisplayNftModals from '../DisplayNftModal'
+import CustomerDisplayNftModal from './CustomerDisplayNftModal'
 import './CustomerShopCss.css'
 import { Notification } from "../Notifications.js"
 import CustomerFooter from './CustomerFooter'
+import { DisplayImage } from '../DisplayImage'
 
 const CustomerShop = () => {
 
@@ -49,30 +50,6 @@ const CustomerShop = () => {
     return await res.json()
   }
 
-  const getItemsFromCart = async (customerCartId) => {
-    return getItemsFromCartWS(customerCartId)
-  }
-
-  const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-    const byteCharacters = atob(b64Data);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-
-    const blob = new Blob(byteArrays, { type: contentType });
-    return blob;
-  }
-
   return (
     <div className="gradient-form gradient-custom-2">
       <CustomerNavbar />
@@ -84,7 +61,7 @@ const CustomerShop = () => {
               .map((nft) => (
                 <div className="col mb-4">
                   <div key={nft.id} className="card card shadow mr-4" style={{ width: '18rem', height: '30rem' }}>
-                    <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
+                    <img src={URL.createObjectURL(DisplayImage.b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
                     <div className="card-body">
                       <h6>{nft.name}</h6>
                       <h5 className="card-title">Prix: {nft.price} ETH</h5>
@@ -95,7 +72,10 @@ const CustomerShop = () => {
                           <button className="btn btn-primary btn-sm mr-3" disabled >Nft deja dans le panier</button> :
                           <button className="btn btn-primary btn-sm mr-3" onClick={e => { addItemToCart(userInfo.cart.id, nft.id) }}>Ajouter au panier</button>
                         : <h6>Ce NFT vous appartient</h6>}
-                      <button className="btn btn-danger btn-sm">En savoir plus</button>
+                      <div className='btn'>
+                        <CustomerDisplayNftModal nftProp={nft} />
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -103,7 +83,7 @@ const CustomerShop = () => {
           </div>
         </div>
       }
-      <CustomerFooter/>
+      <CustomerFooter />
     </div>
   )
 }

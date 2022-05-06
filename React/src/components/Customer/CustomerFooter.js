@@ -1,9 +1,6 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 
 const CustomerFooter = () => {
-
-    let history = useNavigate();
 
     return (
         <div>
@@ -14,23 +11,23 @@ const CustomerFooter = () => {
                     <div class="row pt-5 mb-3 text-center d-flex justify-content-center">
 
                         <div class="col-md-2 mb-3">
-                            <h6 class="title font-bold"><a href="/wallet">Portefeuille</a></h6>
+                            <h6 class="title font-bold"><a href="/wallet"><i class="fa-solid fa-wallet"></i></a></h6>
                         </div>
 
                         <div class="col-md-2 mb-3">
-                            <h6 class="title font-bold"><a href="/uploadNFT">Televerser NFT</a></h6>
+                            <h6 class="title font-bold"><a href="/uploadNFT"><i class="fa-solid fa-upload"></i></a></h6>
                         </div>
 
                         <div class="col-md-2 mb-3">
-                            <h6 class="title font-bold"><a href="/CustomerShop">Boutique</a></h6>
+                            <h6 class="title font-bold"><a href="/CustomerShop"><i class="fa-solid fa-shop"></i></a></h6>
                         </div>
 
                         <div class="col-md-2 mb-3">
-                            <h6 class="title font-bold"><a href="/Cart">Panier</a></h6>
+                            <h6 class="title font-bold"><a href="/Cart"><i class="fa-solid fa-cart-shopping"></i></a></h6>
                         </div>
 
                         <div class="col-md-2 mb-3">
-                            <h6 class="title font-bold"><a href="/Orders">Commandes</a></h6>
+                            <h6 class="title font-bold"><a href="/Orders"><i class="fa-solid fa-list"></i></a></h6>
                         </div>
                     </div>
 

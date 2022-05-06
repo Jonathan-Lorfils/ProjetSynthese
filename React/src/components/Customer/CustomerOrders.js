@@ -20,8 +20,6 @@ const CustomerOrders = () => {
         return await res.json()
     }
 
-    console.log(customerOrders)
-
     return (
         <div>
             <div className="gradient-form gradient-custom-2">

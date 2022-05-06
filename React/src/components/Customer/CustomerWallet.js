@@ -7,6 +7,7 @@ import SellerCertificationModal from './SellerCertificationModal'
 import { useNavigate } from 'react-router-dom';
 import { Notification } from '../Notifications';
 import CustomerFooter from './CustomerFooter'
+import { DisplayImage } from '../DisplayImage'
 
 const CustomerWallet = () => {
 
@@ -75,26 +76,6 @@ const CustomerWallet = () => {
     } else {
       return sellerCertificationInvalid()
     }
-  }
-
-  const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-    const byteCharacters = atob(b64Data);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-
-    const blob = new Blob(byteArrays, { type: contentType });
-    return blob;
   }
 
   const goToCustomerSellingNft = (nft) => {
@@ -174,7 +155,7 @@ const CustomerWallet = () => {
                     .map((nft) => (
                       <div className="col mb-4">
                         <div key={nft.id} className="card shadow" style={{ width: '18rem' }}>
-                          <img src={URL.createObjectURL(b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
+                          <img src={URL.createObjectURL(DisplayImage.b64toBlob(nft.data, 'image/png'))} className="card-img-top" alt="..." />
                           <div className="card-body">
                             <h5 className="card-title">{nft.name}</h5>
                             <p className="card-text">Ce Nft vous appartient</p>

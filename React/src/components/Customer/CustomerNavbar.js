@@ -2,9 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Notification } from '../Notifications';
 
-
-
-
 const CustomerNavbar = () => {
 
     let history = useNavigate();
@@ -24,9 +21,6 @@ const CustomerNavbar = () => {
                 </button>
                 <div className="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                     <ul className="navbar-nav">
-                        <li className="nav-item mx-1">
-                            <button className="nav-link btn btn-md btn-light mx-1"><i className="fas fa-home fa-lg"></i></button>
-                        </li>
                         <li className="nav-item mx-1">
                             <button className="nav-link btn btn-md btn-light" onClick={e => { history("/wallet") }} >Portefeuille</button>
                         </li>

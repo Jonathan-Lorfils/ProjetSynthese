@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import {Notification} from '../Notifications'
 
 const AdminNavbar = () => {
 
@@ -9,19 +10,8 @@ const AdminNavbar = () => {
     const disconnect = () => {
         sessionStorage.clear()
         history("/")
-        disconnectSuccess()
+        Notification.successNotification("Déconnexion réussi")
     }
-
-    const disconnectSuccess = () => {
-        Swal.fire({
-          toast: true,
-          position: 'top',
-          icon: 'success',
-          title: 'Déconnexion réussi',
-          showConfirmButton: false,
-          timer: 2000
-        })
-      }
 
     return (
         <div>
