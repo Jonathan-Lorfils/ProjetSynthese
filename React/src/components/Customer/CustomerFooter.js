@@ -64,7 +64,7 @@ const CustomerFooter = () => {
 
                 <div class="footer-copyright">
                     <div class="container-fluid d-flex justify-content-center">
-                       <p> © 2016 Copyright: <a href="/"> SafeNFT.com </a></p> 
+                       <p> © 2022 Copyright: <a href="/"> SafeNFT.com </a></p> 
                     </div>
                 </div>
             </footer>

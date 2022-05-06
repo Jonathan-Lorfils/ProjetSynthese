@@ -105,10 +105,10 @@ const CustomerCart = () => {
                                 </div>
                                 {userInfo.solde < cartTotalPrice ?
                                     <div className='col-sm mb-3'>
-                                        <button className="btn btn-primary float-right ml-2" onClick={e => { history("/addfunds") }}>Deposer des fonds</button>
+                                        <button className="btn btn-primary float-right ml-2" onClick={e => { history("/addfunds") }}>Déposer des fonds</button>
                                         <button className="btn btn-primary float-right" disabled>Solde insuffisant</button>
                                     </div> :
-                                    <div className='col-sm'>
+                                    <div className='col-sm mb-3'>
                                         <button className="btn btn-primary float-right" onClick={e => { createOrder(userInfo.id,userInfo.cart.id) }}>Acheter</button>
                                     </div>
                                 }

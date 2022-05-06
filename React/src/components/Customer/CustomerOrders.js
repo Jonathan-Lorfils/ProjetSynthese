@@ -43,7 +43,7 @@ const CustomerOrders = () => {
                                         <tr key={order.id}>
                                             <td data-title="orderNumber">{order.id}</td>
                                             <td data-title="status">{order.status}</td>
-                                            <td data-title="price">{order.price}</td>
+                                            <td data-title="price">{order.price} ETH</td>
                                             <td data-title="price">{order.date}</td>
                                         </tr>
                                     ))}

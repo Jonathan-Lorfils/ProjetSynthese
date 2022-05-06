@@ -40,9 +40,7 @@ const CustomerShop = () => {
     addItemToCartWS(customerCartId, nftToAddId)
       .then((data) => data === true ? Notification.successNotification("Ajout au panier reussi") : Notification.failNotification("Erreur lors de l'ajout"))
 
-    const newCart = await getItemsFromCartWS(customerCartId)
-
-    setItemsFromCart(newCart)
+    setItemsFromCart(await getItemsFromCartWS(customerCartId))
   }
 
   const getItemsFromCartWS = async (customerCartId) => {
@@ -75,7 +73,6 @@ const CustomerShop = () => {
                       <div className='btn'>
                         <CustomerDisplayNftModal nftProp={nft} />
                       </div>
-
                     </div>
                   </div>
                 </div>
