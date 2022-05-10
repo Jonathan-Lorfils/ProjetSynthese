@@ -15,15 +15,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(CartController.class)
 public class CartControllerTest {
@@ -34,57 +33,76 @@ public class CartControllerTest {
     @MockBean
     private CartService cartService;
 
-    private Cart emptyCart;
-
     private Cart cart;
+
+    private List<Nft> items;
+
+    private Nft nft;
 
     @BeforeEach
     void setup(){
-        List<Nft> nftListEmpty = new ArrayList<>();
-        List<Nft> nftList = new ArrayList<>();
 
-        emptyCart = Cart.cartBuilder()
-                .id(1)
-                .items(nftListEmpty)
-                .totalprice(5)
+        nft = Nft.nftBuilder()
+                .certified(true)
+                .toSell(true)
+                .data("test".getBytes(StandardCharsets.UTF_8))
+                .name("test")
+                .price(1)
+                .owner(null)
                 .build();
 
+        items = new ArrayList<>();
+        items.add(nft);
+
         cart = Cart.cartBuilder()
-                .id(2)
-                .items(nftList)
-                .totalprice(5)
+                .id(1)
+                .totalprice(1)
+                .items(items)
                 .build();
     }
 
     @Test
     public void addItemTest() throws Exception {
-        when(cartService.addItemToCart(1, 1)).thenReturn(true);
+        when(cartService.addItemToCart(1,1)).thenReturn(true);
 
-        MvcResult result = mockMvc.perform(put("/cart/addItemToCart/{customerCartId}/{nftToAddId}", 1, 1)
+        MvcResult result = mockMvc.perform(put("/cart/addItemToCart/{customerCartId}/{nftToAddId}", 1 , 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        var actualCart = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualCart).isEqualTo(true);
+        assertThat(actualCustomer).isEqualTo(true);
     }
 
     @Test
     public void removeItemTest() throws Exception {
-        when(cartService.removeItemFromCart(1, 1)).thenReturn(true);
+        when(cartService.removeItemFromCart(1,1)).thenReturn(true);
 
-        MvcResult result = mockMvc.perform(put("/cart/removeItemFromCart/{customerCartId}/{nftToAddId}", 1, 1)
+        MvcResult result = mockMvc.perform(put("/cart/removeItemFromCart/{customerCartId}/{nftToAddId}", 1 , 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        var actualCart = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualCart).isEqualTo(true);
+        assertThat(actualCustomer).isEqualTo(true);
     }
 
     @Test
-    public void getTotalPriceTest() throws Exception {
-        when(cartService.getTotalPrice(1)).thenReturn(5.0);
+    public void getItemsFromCart() throws Exception {
+        when(cartService.getItems(1)).thenReturn(Optional.of(items));
+
+        MvcResult result = mockMvc.perform(get("/cart/getItems/{customerCartId}", 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualList = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualList.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void getTotalPrice() throws Exception {
+        when(cartService.getTotalPrice(1)).thenReturn(1.0);
 
         MvcResult result = mockMvc.perform(get("/cart/getTotalPrice/{customerCartId}", 1)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -92,19 +110,19 @@ public class CartControllerTest {
 
         var actualTotalPrice = new ObjectMapper().readValue(result.getResponse().getContentAsString(), double.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualTotalPrice).isEqualTo(5.0);
+        assertThat(actualTotalPrice).isEqualTo(1);
     }
 
     @Test
-    public void validateCartTest() throws Exception {
+    public void validateCart() throws Exception {
         when(cartService.validateCart(1,1)).thenReturn(true);
 
-        MvcResult result = mockMvc.perform(put("/cart/validateCart/{idNewOwner}/{customerCartId}", 1, 1)
+        MvcResult result = mockMvc.perform(put("/cart/validateCart/{idNewOwner}/{customerCartId}", 1 , 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        var actualTotalPrice = new ObjectMapper().readValue(result.getResponse().getContentAsString(), boolean.class);
+        var actualCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualTotalPrice).isEqualTo(true);
+        assertThat(actualCustomer).isEqualTo(true);
     }
 }
