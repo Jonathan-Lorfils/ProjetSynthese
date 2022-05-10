@@ -67,9 +67,7 @@ const CustomerCart = () => {
         <div className="gradient-form gradient-custom-2">
             <CustomerNavbar />
             <div className="container justify-content-center align-items-center h-100">
-
                 {itemsFromCart.length == 0 ? <h1 className=" mt-5 text-center text-light">Panier vide</h1> :
-
                     <div className=" jumbotron-fluid bg-light rounded shadow">
                         <h1 className='text-center'>Votre Panier</h1>
                         {itemsFromCart

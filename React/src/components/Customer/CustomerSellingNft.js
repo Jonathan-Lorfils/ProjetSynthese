@@ -32,7 +32,6 @@ const CustomerSellingNft = () => {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div className="card">
-
                                 <div className="card-body p-5">
                                     <h4 className="text-uppercase text-center mb-2">Mise en vente</h4>
                                     <form onSubmit={handleSubmit((data) => {

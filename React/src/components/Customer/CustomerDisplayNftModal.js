@@ -3,10 +3,6 @@ import { DisplayImage } from '../DisplayImage'
 
 const CustomerDisplayNftModal = ({ nftProp }) => {
 
-    useEffect(() => {
-        
-    }, [nftProp])
-
     return (
         <div>
             <button type="button" className="btn btn-danger btn-sm" data-toggle="modal" data-target={"#nft" + nftProp.id}>

@@ -13,7 +13,6 @@ import CustomerSellingNft from './components/Customer/CustomerSellingNft';
 import CustomerCart from './components/Customer/CustomerCart';
 import CustomerOrders from './components/Customer/CustomerOrders';
 
-
 function App() {
   return (
     <BrowserRouter>

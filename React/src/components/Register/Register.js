@@ -50,7 +50,6 @@ const Register = () => {
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="firstName">Prénom</label>
                                             <input type="text" id="firstName" className="form-control form-control-xs"  {...register("firstName", { required: true, max: 46 })} />
-
                                         </div>
                                         <div className="form-outline mb-4">
                                             <label className="form-label" for="lastName">Nom de famille</label>

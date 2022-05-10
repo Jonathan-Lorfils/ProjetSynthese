@@ -25,9 +25,7 @@ const CustomerOrders = () => {
             <div className="gradient-form gradient-custom-2">
                 <CustomerNavbar />
                 <div className="container justify-content-center align-items-center h-75">
-
                     {customerOrders.length === 0 ?  <h2 className=" mt-5 text-center text-light"> Vous n'avez aucune commande pour le moment</h2>  :
-
                         <table class="table table-light">
                             <thead class="thead-dark">
                                 <tr>

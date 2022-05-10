@@ -14,7 +14,6 @@ const UploadNFT = () => {
 
   const submitForm = (event) => {
     event.preventDefault()
-
     if (typeof (uploadFile) !== 'undefined' && !_.isEmpty(uploadFileName)) {
       var fileSignature = uploadFileName + ":" + userInfo.id
       var fileSignatureJSON = JSON.stringify(fileSignature)
