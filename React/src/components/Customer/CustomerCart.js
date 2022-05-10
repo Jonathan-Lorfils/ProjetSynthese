@@ -49,7 +49,10 @@ const CustomerCart = () => {
     }
 
     const validateCartWS = async (idNewOwner, customerCartId) => {
-        const res = await fetch(`http://localhost:2022/cart/validateCart/${idNewOwner}/${customerCartId}`)
+        const res = await fetch(`http://localhost:2022/cart/validateCart/${idNewOwner}/${customerCartId}`,
+        {
+          method:'PUT'
+        })
         return await res.json()
     }
 

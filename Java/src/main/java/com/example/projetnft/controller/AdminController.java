@@ -1,7 +1,6 @@
 package com.example.projetnft.controller;
 
 import com.example.projetnft.model.Admin;
-import com.example.projetnft.model.Customer;
 import com.example.projetnft.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

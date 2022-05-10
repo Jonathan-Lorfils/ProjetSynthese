@@ -32,7 +32,11 @@ const CustomerShop = () => {
   }
 
   const addItemToCartWS = async (customerCartId, nftToAddId) => {
-    const res = await fetch(`http://localhost:2022/cart/addItemToCart/${customerCartId}/${nftToAddId}`)
+    const res = await fetch(`http://localhost:2022/cart/addItemToCart/${customerCartId}/${nftToAddId}`,
+      {
+        method:'PUT'
+      }
+    )
     return await res.json()
   }
 

@@ -84,7 +84,10 @@ const CustomerWallet = () => {
   }
 
   const withdrawFromSale = async (nft) => {
-    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${false}/${0}`)
+    const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${false}/${0}`,
+    {
+      method:'PUT'
+    })
     const data = await res.json()
     if (data.id == nft.id) {
       setCustomerNftsList(

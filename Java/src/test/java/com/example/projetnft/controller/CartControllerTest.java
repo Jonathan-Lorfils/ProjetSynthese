@@ -22,7 +22,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
 @WebMvcTest(CartController.class)
@@ -60,7 +60,7 @@ public class CartControllerTest {
     public void addItemTest() throws Exception {
         when(cartService.addItemToCart(1, 1)).thenReturn(true);
 
-        MvcResult result = mockMvc.perform(get("/cart/addItemToCart/{customerCartId}/{nftToAddId}", 1, 1)
+        MvcResult result = mockMvc.perform(put("/cart/addItemToCart/{customerCartId}/{nftToAddId}", 1, 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
@@ -73,7 +73,7 @@ public class CartControllerTest {
     public void removeItemTest() throws Exception {
         when(cartService.removeItemFromCart(1, 1)).thenReturn(true);
 
-        MvcResult result = mockMvc.perform(get("/cart/removeItemFromCart/{customerCartId}/{nftToAddId}", 1, 1)
+        MvcResult result = mockMvc.perform(put("/cart/removeItemFromCart/{customerCartId}/{nftToAddId}", 1, 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
@@ -93,5 +93,18 @@ public class CartControllerTest {
         var actualTotalPrice = new ObjectMapper().readValue(result.getResponse().getContentAsString(), double.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualTotalPrice).isEqualTo(5.0);
+    }
+
+    @Test
+    public void validateCartTest() throws Exception {
+        when(cartService.validateCart(1,1)).thenReturn(true);
+
+        MvcResult result = mockMvc.perform(put("/cart/validateCart/{idNewOwner}/{customerCartId}", 1, 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualTotalPrice = new ObjectMapper().readValue(result.getResponse().getContentAsString(), boolean.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualTotalPrice).isEqualTo(true);
     }
 }

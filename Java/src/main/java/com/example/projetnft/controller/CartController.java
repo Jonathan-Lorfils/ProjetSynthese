@@ -1,6 +1,5 @@
 package com.example.projetnft.controller;
 
-import com.example.projetnft.model.Cart;
 import com.example.projetnft.model.Nft;
 import com.example.projetnft.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,12 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-    @GetMapping("/addItemToCart/{customerCartId}/{nftToAddId}")
+    @PutMapping("/addItemToCart/{customerCartId}/{nftToAddId}")
     public Boolean addItem(@PathVariable Integer customerCartId, @PathVariable Integer nftToAddId){ // ajouter verification voir si l'item n'est pas deja dans le panier
         return cartService.addItemToCart(customerCartId, nftToAddId);
     }
 
-    @GetMapping("/removeItemFromCart/{customerCartId}/{nftToAddId}")
+    @PutMapping("/removeItemFromCart/{customerCartId}/{nftToAddId}")
     public Boolean removeItemFromCart(@PathVariable Integer customerCartId, @PathVariable Integer nftToAddId){
         return cartService.removeItemFromCart(customerCartId, nftToAddId);
     }
@@ -40,7 +39,7 @@ public class CartController {
         return cartService.getTotalPrice(customerCartId);
     }
 
-    @GetMapping("/validateCart/{idNewOwner}/{customerCartId}")
+    @PutMapping("/validateCart/{idNewOwner}/{customerCartId}")
     public Boolean validateCart(@PathVariable Integer idNewOwner, @PathVariable Integer customerCartId){
         return cartService.validateCart(idNewOwner, customerCartId);
     }
