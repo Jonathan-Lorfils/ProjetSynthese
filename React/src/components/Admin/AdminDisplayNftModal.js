@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { DisplayImage } from '../DisplayImage'
 
 const AdminDisplayNftModal = ({ nftProp }) => {
-
-    useEffect(() => {
-        
-    }, [nftProp])
 
     return (
         <div>
             <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#nft" + nftProp.id}>
                 <span className="hideButtonText">Consulter <i className="fa-solid fa-book-open"></i> </span>
             </button>
-
             <div className="modal fade" id={"nft" + nftProp.id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                     <div className="modal-content">

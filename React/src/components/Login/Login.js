@@ -8,33 +8,33 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   let history = useNavigate();
 
-  const customerLogin = async (username, password) => { 
+  const customerLogin = async (username, password) => {
     const res = await fetch(`http://localhost:2022/customer/${username}/${password}`)
     return await res.json()
   }
 
-  const customerAdmin = async (username, password) => { 
+  const customerAdmin = async (username, password) => {
     const res = await fetch(`http://localhost:2022/admin/${username}/${password}`)
     return await res.json()
   }
 
   function onSubmit(data) {
-    if(data.username.includes("admin")){
+    if (data.username.includes("admin")) {
       customerAdmin(data.username, data.password)
         .then((data) => data.username != undefined ? signInAdmin(data) : Notification.failNotification("Erreur de login"))
-      return 
+      return
     }
-    customerLogin(data.username,data.password)
+    customerLogin(data.username, data.password)
       .then((data) => data.username != undefined ? signInCustomer(data) : Notification.failNotification("Erreur de login"))
   }
 
-  function signInCustomer (data){
-    sessionStorage.setItem('user',JSON.stringify(data))
+  function signInCustomer(data) {
+    sessionStorage.setItem('user', JSON.stringify(data))
     history("/wallet")
   }
 
-  function signInAdmin (data){
-    sessionStorage.setItem('admin',JSON.stringify(data))
+  function signInAdmin(data) {
+    sessionStorage.setItem('admin', JSON.stringify(data))
     history("/adminSellerCertification")
   }
 
@@ -59,7 +59,7 @@ const Login = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <p>Se connecter</p>
                       <div className="form-group mb-4">
-                        <input className="form-control" type="text" placeholder="Nom d'utilisateur" {...register("username", { required: true})} />
+                        <input className="form-control" type="text" placeholder="Nom d'utilisateur" {...register("username", { required: true })} />
                       </div>
                       <div className="form-group mb-4">
                         <input className="form-control" type="password" placeholder="Mot de passe" {...register("password", { required: true, maxLength: 128 })} />

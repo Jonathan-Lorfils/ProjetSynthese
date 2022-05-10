@@ -61,7 +61,7 @@ const CustomerCart = () => {
     const orderSuccess = () => {
         Notification.successNotification("Commande creer")
         history("/wallet")
-    } 
+    }
 
     return (
         <div className="gradient-form gradient-custom-2">
@@ -107,7 +107,7 @@ const CustomerCart = () => {
                                         <button className="btn btn-primary float-right" disabled>Solde insuffisant</button>
                                     </div> :
                                     <div className='col-sm mb-3'>
-                                        <button className="btn btn-primary float-right" onClick={e => { createOrder(userInfo.id,userInfo.cart.id) }}>Acheter</button>
+                                        <button className="btn btn-primary float-right" onClick={e => { createOrder(userInfo.id, userInfo.cart.id) }}>Acheter</button>
                                     </div>
                                 }
                             </div>
@@ -115,7 +115,7 @@ const CustomerCart = () => {
                     </div>
                 }
             </div>
-            <CustomerFooter/>
+            <CustomerFooter />
         </div>
     )
 }

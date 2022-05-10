@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './ModalCss.css'
 import { Notification } from '../Notifications';
 
@@ -29,7 +29,6 @@ const SellerCertificationModal = () => {
             <button type="button" class="btn btn-light btn-sm mb-3" data-toggle="modal" data-target="#exampleModal">
                 Faire une demande
             </button>
-
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -44,7 +43,7 @@ const SellerCertificationModal = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                            <button type="button"  disabled={userInfo.sellerCertification == "En attente"} onClick={() => { sendRequest() }} class="btn btn-primary">Confirmer</button>
+                            <button type="button" disabled={userInfo.sellerCertification == "En attente"} onClick={() => { sendRequest() }} class="btn btn-primary">Confirmer</button>
                         </div>
                     </div>
                 </div>

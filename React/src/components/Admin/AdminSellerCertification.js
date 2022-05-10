@@ -62,7 +62,7 @@ const AdminSellerCertification = () => {
                         </td>
                         <td className="responsiveWidth">
                           <div className='btn'>
-                            <AdminProfileModal customerProp={customer}/>
+                            <AdminProfileModal customerProp={customer} />
                           </div>
                           <button className="btn btn-success mx-2" onClick={e => { e.preventDefault(); setSellerCertification(customer, "Valide") }}>
                             <span className="hideButtonText">Accepter </span>

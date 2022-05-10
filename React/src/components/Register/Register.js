@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Notification from "../Notifications";
 
-
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -26,7 +25,7 @@ const Register = () => {
         if (data.username.includes("admin")) {
             alert("Votre nom d'utilisateur ne peut pas contenir admin")
             return
-        } 
+        }
         registerUser(data)
             .then((data1) => data1.email !== undefined ? registration() : Notification.failNotification("Échec de l'inscription"))
             .catch(() => Notification.failNotification("Échec de l'inscription"))
