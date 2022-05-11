@@ -17,7 +17,7 @@ public class CartController {
     CartService cartService;
 
     @PutMapping("/addItemToCart/{customerCartId}/{nftToAddId}")
-    public Boolean addItem(@PathVariable Integer customerCartId, @PathVariable Integer nftToAddId){ // ajouter verification voir si l'item n'est pas deja dans le panier
+    public Boolean addItem(@PathVariable Integer customerCartId, @PathVariable Integer nftToAddId){
         return cartService.addItemToCart(customerCartId, nftToAddId);
     }
 

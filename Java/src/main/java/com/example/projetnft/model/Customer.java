@@ -21,7 +21,7 @@ public class Customer extends User implements Serializable {
     private String email;
     private String walletAddress;
     private Double solde = 0.0;
-    private String sellerCertification = "Invalide"; // Invalide/ En attente/ Valide
+    private String sellerCertification = "Invalide";
     @OneToOne
     private Cart cart;
 

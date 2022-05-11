@@ -53,7 +53,7 @@ public class CustomerService {
         }
     }
 
-    public Optional<Customer> withdrawFunds(Double fundToRemove, String phoneNumber){ // verification solde negatif cote front end
+    public Optional<Customer> withdrawFunds(Double fundToRemove, String phoneNumber){
         try {
             Customer customer = customerRepository.findByPhoneNumber(phoneNumber);
             customer.setSolde(customer.getSolde() - fundToRemove);
