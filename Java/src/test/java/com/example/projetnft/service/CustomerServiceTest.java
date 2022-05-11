@@ -11,11 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -111,6 +109,13 @@ public class CustomerServiceTest {
         when(customerRepository.findByPhoneNumber(customer.getPhoneNumber())).thenReturn(customer);
         Optional<Customer> actualCustomer = customerService.setCustomerSellerCertification(customer.getPhoneNumber(), "Valide");
         assertThat(actualCustomer.get().getSellerCertification()).isEqualTo(customer.getSellerCertification());
+    }
+
+    @Test
+    public void testGetCustomerInfoById(){
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+        Optional<Customer> actualCustomer = customerService.getCustomerInfoById(1);
+        assertThat(actualCustomer.get()).isEqualTo(customer);
     }
 
     private List<Customer> getListOfCustomers(){

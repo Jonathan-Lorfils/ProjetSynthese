@@ -35,7 +35,6 @@ public class CartControllerTest {
 
     @BeforeEach
     void setup(){
-
         nft = Nft.nftBuilder()
                 .certified(true)
                 .toSell(true)
@@ -47,7 +46,6 @@ public class CartControllerTest {
 
         items = new ArrayList<>();
         items.add(nft);
-
     }
 
     @Test

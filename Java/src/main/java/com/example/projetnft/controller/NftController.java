@@ -20,14 +20,14 @@ public class NftController {
 
     @ResponseBody
     @PostMapping(value = "/uploadNft", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Boolean> ReceiveNft(@RequestParam(name="uploadFile") MultipartFile uploadFile) {
+    public ResponseEntity<Boolean> uploadNft(@RequestParam(name="uploadFile") MultipartFile uploadFile) {
         return nftService.createNft(uploadFile)
                 .map(document1 -> ResponseEntity.status(HttpStatus.OK).body(true))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(false));
     }
 
     @GetMapping("/getAllNftsWaitingForCertification")
-    public ResponseEntity<List<Nft>> getAllCustomersWaitingForCertification(){
+    public ResponseEntity<List<Nft>> getAllNftsWaitingForCertification(){
         return nftService.getAllNftsWaitingForCertification()
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());

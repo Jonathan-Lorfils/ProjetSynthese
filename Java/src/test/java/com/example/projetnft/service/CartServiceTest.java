@@ -14,12 +14,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -49,11 +47,8 @@ public class CartServiceTest {
 
     private Customer customer;
 
-    private Orders order;
-
     @BeforeEach
     void setup(){
-
         List<Nft> nftListEmpty = new ArrayList<>();
         List<Nft> nftList = new ArrayList<>();
 
@@ -88,8 +83,6 @@ public class CartServiceTest {
                 .solde(32.0)
                 .walletAddress("ajbdgoge2o8gojn309")
                 .build();
-
-
     }
 
     @Test

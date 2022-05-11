@@ -55,7 +55,7 @@ public class NftControllerTest {
     }
 
     @Test
-    public void receiveDocumentTest() throws Exception {
+    public void uploadNftTest() throws Exception {
         multipartFile = new MockMultipartFile("uploadFile", "test:0", null, "test".getBytes(StandardCharsets.UTF_8));
         when(nftService.createNft(multipartFile)).thenReturn(Optional.of(nft));
 
@@ -92,6 +92,19 @@ public class NftControllerTest {
         var actualNft = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Nft.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualNft.isCertified()).isEqualTo(true);
+    }
+
+    @Test
+    public void deleteNftByIdTest() throws Exception {
+        when(nftService.deleteNftById(0)).thenReturn(Optional.of(true));
+
+        MvcResult result = mockMvc.perform(put("/nft/deleteNftById/{idNft}", 0)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actualResponse = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Boolean.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualResponse).isEqualTo(true);
     }
 
     @Test

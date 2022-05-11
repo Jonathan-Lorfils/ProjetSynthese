@@ -139,6 +139,19 @@ public class CustomerControllerTest {
         assertThat(actuals.size()).isEqualTo(3);
     }
 
+    @Test
+    public void getCustomerInfoByIdTest() throws Exception {
+        when(customerService.getCustomerInfoById(1)).thenReturn(Optional.of(customer));
+
+        MvcResult result = mockMvc.perform(get("/customer/getCustomerInfoById/{idCustomer}", 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        var actuals = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actuals).isEqualTo(customer);
+    }
+
     private List<Customer> getListOfCustomers(){
         List<Customer> customerList = new ArrayList<>();
         customerList.add(Customer.customerBuilder()
