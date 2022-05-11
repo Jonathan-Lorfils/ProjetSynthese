@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
 import java.nio.charset.StandardCharsets;
@@ -86,7 +87,7 @@ public class NftControllerTest {
     public void certifiedNftTest() throws Exception {
         when(nftService.certifiedNft(0)).thenReturn(Optional.of(nft));
 
-        MvcResult result = mockMvc.perform(get("/nft/certifiedNft/{idNft}", 0)
+        MvcResult result = mockMvc.perform(put("/nft/certifiedNft/{idNft}", 0)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
@@ -125,14 +126,13 @@ public class NftControllerTest {
     public void setNftToSellTest() throws Exception {
         when(nftService.setNftToSell(0, true, 0.1)).thenReturn(Optional.of(nft));
 
-        MvcResult result = mockMvc.perform(get("/nft/setNftToSell/{idNft}/{state}/{price}", 0, true, 0.1)
+        MvcResult result = mockMvc.perform(put("/nft/setNftToSell/{idNft}/{state}/{price}", 0, true, 0.1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         var actualNft = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Nft.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualNft.isToSell()).isEqualTo(true);
-        assertThat(actualNft.getPrice()).isEqualTo(0.1);
+        assertThat(actualNft).isEqualTo(nft);
     }
 
 

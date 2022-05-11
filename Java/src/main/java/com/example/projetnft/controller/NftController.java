@@ -34,14 +34,14 @@ public class NftController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("certifiedNft/{idNft}")
+    @PutMapping("certifiedNft/{idNft}")
     public ResponseEntity<Nft> certifiedNft(@PathVariable Integer idNft){
         return nftService.certifiedNft(idNft)
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Nft()));
     }
 
-    @GetMapping("deleteNftById/{idNft}")
+    @PutMapping("deleteNftById/{idNft}")
     public ResponseEntity<Boolean> deleteNftById(@PathVariable Integer idNft){
         return nftService.deleteNftById(idNft)
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(true))
@@ -62,7 +62,7 @@ public class NftController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("setNftToSell/{idNft}/{state}/{price}")
+    @PutMapping("setNftToSell/{idNft}/{state}/{price}")
     public ResponseEntity<Nft> setNftToSell(@PathVariable Integer idNft, @PathVariable boolean state, @PathVariable double price){
         return nftService.setNftToSell(idNft, state, price)
                 .map(nft1 -> ResponseEntity.status(HttpStatus.OK).body(nft1))

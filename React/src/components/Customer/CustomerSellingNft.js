@@ -16,7 +16,10 @@ const CustomerSellingNft = () => {
     }
 
     const putToSell = async (nft, state, price) => {
-        const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}/${price}`)
+        const res = await fetch(`http://localhost:2022/nft/setNftToSell/${nft.id}/${state}/${price}`,
+        {
+          method:'PUT'
+        })
         return await res.json()
     }
 

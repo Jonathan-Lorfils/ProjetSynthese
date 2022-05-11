@@ -20,7 +20,10 @@ const AdminSellerCertification = () => {
   }
 
   const setSellerCertification = async (customer, state) => {
-    const res = await fetch(`http://localhost:2022/customer/setCustomerSellerCertification/${customer.phoneNumber}/${state}`)
+    const res = await fetch(`http://localhost:2022/customer/setCustomerSellerCertification/${customer.phoneNumber}/${state}`,
+    {
+      method:'PUT'
+    })
     const data = await res.json()
 
     setCustomersList(

@@ -15,7 +15,10 @@ const AdminCertifiedNft = () => {
     }, [])
 
     const certifiedNft = async (nft) => {
-        const res = await fetch(`http://localhost:2022/nft/certifiedNft/${nft.id}`)
+        const res = await fetch(`http://localhost:2022/nft/certifiedNft/${nft.id}`,
+        {
+          method:'PUT'
+        })
         const data = await res.json()
 
         setNftsList(
@@ -25,8 +28,11 @@ const AdminCertifiedNft = () => {
         )
     }
 
-    const deleteNft = async (nft) => { // update le tableau
-        const res = await fetch(`http://localhost:2022/nft/deleteNftById/${nft.id}`)
+    const deleteNft = async (nft) => {
+        const res = await fetch(`http://localhost:2022/nft/deleteNftById/${nft.id}`,
+        {
+          method:'PUT'
+        })
         const data = await res.json()
 
         const newNftsList = nftsList.filter((nft1) => nft1 !== nft)
