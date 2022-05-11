@@ -5,7 +5,6 @@ import com.example.projetnft.model.Orders;
 import com.example.projetnft.repository.CustomerRepository;
 import com.example.projetnft.repository.OrderRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,5 @@ public class OrderService {
         } catch (Exception exception) {
             return Optional.empty();
         }
-
-
     }
 }

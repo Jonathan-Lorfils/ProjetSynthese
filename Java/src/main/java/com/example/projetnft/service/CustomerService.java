@@ -5,7 +5,6 @@ import com.example.projetnft.model.Customer;
 import com.example.projetnft.repository.CartRepository;
 import com.example.projetnft.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
