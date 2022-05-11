@@ -3,7 +3,6 @@ package com.example.projetnft.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,20 +14,13 @@ public class Nft implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
-
     @Lob
     private byte[] data;
-
     private boolean certified = false;
-
-    private boolean toSell = false; // yes = disponible a la vente / no = pas de vente
-
+    private boolean toSell = false;
     private double price;
-
     private String name;
-
     private String metaData;
-
     @OneToOne
     private Customer owner;
 

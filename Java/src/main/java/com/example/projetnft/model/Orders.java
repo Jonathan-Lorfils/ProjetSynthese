@@ -1,8 +1,6 @@
 package com.example.projetnft.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,13 +13,9 @@ public class Orders implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
-
     private double price;
-
     private String status;
-
     private LocalDate date;
-
     @ManyToOne
     private Customer customer;
 

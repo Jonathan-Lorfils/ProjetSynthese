@@ -3,7 +3,6 @@ package com.example.projetnft.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -23,7 +22,6 @@ public class Customer extends User implements Serializable {
     private String walletAddress;
     private Double solde = 0.0;
     private String sellerCertification = "Invalide"; // Invalide/ En attente/ Valide
-
     @OneToOne
     private Cart cart;
 
