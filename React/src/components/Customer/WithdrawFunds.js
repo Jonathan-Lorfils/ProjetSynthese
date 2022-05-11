@@ -9,13 +9,16 @@ const WithdrawFunds = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   let history = useNavigate();
 
-  const addfunds = async (fundToRemove) => {
-    const res = await fetch(`http://localhost:2022/customer/withdrawfunds/${fundToRemove}/${userInfo.phoneNumber}`)
+  const withdrawfunds = async (fundToRemove) => {
+    const res = await fetch(`http://localhost:2022/customer/withdrawfunds/${fundToRemove}/${userInfo.phoneNumber}`,
+    {
+      method:'PUT'
+    })
     return await res.json()
   }
 
   function onSubmit(data) {
-    addfunds(data.fundToRemove)
+    withdrawfunds(data.fundToRemove)
       .then((data) => data !== data.email ? sucess(data) : Notification.failNotification("echec de l'ajout"))
   }
 

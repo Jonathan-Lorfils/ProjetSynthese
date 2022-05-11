@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -31,14 +30,14 @@ public class CustomerController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
 
-    @GetMapping("addfunds/{fundToAdd}/{phoneNumber}")
+    @PutMapping("addfunds/{fundToAdd}/{phoneNumber}")
     public ResponseEntity<Customer> addfunds(@PathVariable Double fundToAdd, @PathVariable String phoneNumber){
         return customerService.addFunds(fundToAdd, phoneNumber)
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).body(new Customer()));
     }
 
-    @GetMapping("withdrawfunds/{fundToRemove}/{phoneNumber}")
+    @PutMapping("withdrawfunds/{fundToRemove}/{phoneNumber}")
     public ResponseEntity<Customer> withdrawFunds(@PathVariable Double fundToRemove, @PathVariable String phoneNumber){
         return customerService.withdrawFunds(fundToRemove, phoneNumber)
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))
@@ -52,7 +51,7 @@ public class CustomerController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("setCustomerSellerCertification/{phoneNumber}/{state}")
+    @PutMapping("setCustomerSellerCertification/{phoneNumber}/{state}")
     public ResponseEntity<Customer> setCustomerSellerCertification(@PathVariable String phoneNumber, @PathVariable String state){
         return customerService.setCustomerSellerCertification(phoneNumber, state)
                 .map(customer1 -> ResponseEntity.status(HttpStatus.OK).body(customer1))

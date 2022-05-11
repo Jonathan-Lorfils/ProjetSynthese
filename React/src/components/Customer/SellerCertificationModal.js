@@ -9,7 +9,10 @@ const SellerCertificationModal = () => {
     const waitingState = "En attente";
 
     const requestSellerCertification = async () => {
-        const res = await fetch(`http://localhost:2022/customer/setCustomerSellerCertification/${userInfo.phoneNumber}/${waitingState}`)
+        const res = await fetch(`http://localhost:2022/customer/setCustomerSellerCertification/${userInfo.phoneNumber}/${waitingState}`,
+        {
+          method:'PUT'
+        })
         return await res.json()
     }
 

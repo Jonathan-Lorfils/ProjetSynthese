@@ -9,7 +9,10 @@ const AddFunds = () => {
     let history = useNavigate();
 
     const addfunds = async (fundToAdd) => {
-        const res = await fetch(`http://localhost:2022/customer/addfunds/${fundToAdd}/${userInfo.phoneNumber}`)
+        const res = await fetch(`http://localhost:2022/customer/addfunds/${fundToAdd}/${userInfo.phoneNumber}`,
+        {
+          method:'PUT'
+        })
         return await res.json()
     }
 

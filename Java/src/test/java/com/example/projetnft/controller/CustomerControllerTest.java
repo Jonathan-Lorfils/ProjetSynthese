@@ -19,8 +19,7 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
@@ -94,7 +93,7 @@ public class CustomerControllerTest {
     public void addFundTest() throws Exception {
         when(customerService.addFunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
 
-        MvcResult result = mockMvc.perform(get("/customer/addfunds/{fundToAdd}/{phoneNumber}", 1.0, customer.getPhoneNumber())
+        MvcResult result = mockMvc.perform(put("/customer/addfunds/{fundToAdd}/{phoneNumber}", 1.0, customer.getPhoneNumber())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
@@ -107,7 +106,7 @@ public class CustomerControllerTest {
     public void withdrawFundsTest() throws Exception {
         when(customerService.withdrawFunds(1.0, customer.getPhoneNumber())).thenReturn(Optional.of(newSoldeCustomer));
 
-        MvcResult result = mockMvc.perform(get("/customer/withdrawfunds/{fundToRemove}/{phoneNumber}", 1.0, customer.getPhoneNumber())
+        MvcResult result = mockMvc.perform(put("/customer/withdrawfunds/{fundToRemove}/{phoneNumber}", 1.0, customer.getPhoneNumber())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
@@ -120,7 +119,7 @@ public class CustomerControllerTest {
     public void setCustomerSellerCertificationTest() throws Exception {
         when(customerService.setCustomerSellerCertification(customer.getPhoneNumber(), "En attente")).thenReturn(Optional.of(newSoldeCustomer));
 
-        MvcResult result = mockMvc.perform(get("/customer/requestSellerCertification/{phoneNumber}/{state}", customer.getPhoneNumber(), "En attente")
+        MvcResult result = mockMvc.perform(put("/customer/setCustomerSellerCertification/{phoneNumber}/{state}", customer.getPhoneNumber(), "En attente")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
