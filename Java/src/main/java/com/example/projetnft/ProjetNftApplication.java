@@ -9,5 +9,4 @@ public class ProjetNftApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProjetNftApplication.class, args);
     }
-
 }
